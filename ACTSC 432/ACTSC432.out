@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Statistical Concepts}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Mixture Distribution Functions}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Conditional Expectation}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Mean Square Error \(MSE\)}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Bayesian Estimation}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Credibility Theory}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Limited Fluctuation Credibility}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Partial Credibility}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Greatest Accuracy Credibility}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Die And Spinner Model}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{Credibility Premium}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.6}{B\374hlmann-Straub Credibility Premium}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.7}{Exact Credibility}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Empirical Bayes Parameter Estimations For Credibility}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Structure parameters}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Non-Parametric Estimation For The B\374hlmann Model}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Estimate For The B\374hlmann-Straub Model}{section.3}% 17
+\BOOKMARK [1][-]{section.4}{Semiparametric Estimation For B\374hlmann-Straub Model}{}% 18
+\BOOKMARK [2][-]{subsection.4.1}{Poisson Parametric Model}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.2}{Semiparametric Estimation for The B\374hlmann-Straub Model}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.3}{Binomial Parametric Model}{section.4}% 21

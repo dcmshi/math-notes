@@ -1,0 +1,374 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+%
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE University of Waterloo}\\[1.5cm] % Name of your university/college
+\textsc{\Large STAT 431}\\[0.5cm] % Major heading such as course name
+\textsc{\large Generalized Linear Models}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Course Notes}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professor:} \\
+Dr. Cecilia \textsc{Cotton} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\tableofcontents % Include a table of contents
+
+\newpage
+
+
+\section*{Lecture 1}
+\section{Review}
+Recall from STAT 331: Applied Linear Models
+
+THERE'S A REGRESSION PICTURE HERE
+
+We want to ask the question, what is the nature of association between age and blood pressure for example.  where $y=$blood pressure and $x=$age.  In this case the response $y$ is a continuous variable and we are trying to fit the straight regression model:
+\[y=\beta_0+\beta_1x+\varepsilon_i\qquad \varepsilon_i\sim N(0,\sigma^2)\qquad y\sim N(\beta_0+\beta_1x,\sigma^2)\]
+
+\begin{enumerate}
+\item We estimate using least squares by minimizing the quantity:
+\[\sum e_i^2=\sum(y_i-\beta_0-\beta_1x_i)^2\]
+\item Then we try to make some inference about the $\beta$ parameters
+\begin{itemize}
+\item confidence intervals for $\beta_0$ and $\beta_1$
+\item hypothesis testing $H_0:\beta_1=0$
+\end{itemize}
+\item Also we can do model checking, to see if our model is appropriate given the assumptions based on the residuals
+\item We can also construct predictions for $\hat y_i$ given a new $x_i$.
+\item This can be extended to multiple linear regression:
+\[y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\ldots+\varepsilon_i\]
+\end{enumerate}
+
+Other topics of interest my include:
+\begin{itemize}
+\item Variance Stabilizing Transformations
+\item Matrix Notation $Y=X\beta$
+\item ANOVA Models (Analysis of Variance)
+\end{itemize}
+
+Here we will consider non-normal response data (i.e. non-continuous)
+
+\begin{enumerate}
+\item Binary Response (outcome $y=0\text{ or }1$) (i.e. dead/alive following treatment)
+\item Poisson Response ($y\in \mathbb{Z}^+$) (i..e. number of claims on an insurance policy)
+\item Other distributions that belong to the exponential family.
+\end{enumerate}
+
+\section{Likelihood Methods}
+Material covered is from Appendix A of the course notes and Appendix A of the textbook.
+
+\eg{
+There was a study of toxicity of a certain poison on beetles.  10 beetles were exposed to the poison and 6 of those exposed beetles survived.
+
+
+Let $y_i$ be the survival status of each beetle $i=1\ldots 10$.
+\[y_i=\begin{cases}
+1 & \text{beetle }i \text{ is alive}\\
+0 & \text{beetle }i \text{ is dead}\\
+\end{cases}\]
+
+Assume:
+\[P(y_i=0)=\theta\qquad y_i\sim \text{Bernoulli}(\theta)\qquad y_1,y_2,\ldots,y_n\text{ are independent and identically distributed}\] 
+then we have that:
+\[y=\sum_{i=1}^ny_i=\text{total number of surviving beetles}\qquad y\sim\text{Binomial}(n,\theta)\qquad \theta=\text{probability of surviving}\]
+
+We want to conduct inference on the parameter $\theta$.  Our three goals are:
+\begin{enumerate}
+\item Estimate $\theta$
+\item Carry out hypothesis test $H_0=0.50$
+\item Quantify how good our estimate is (confidence intervals)
+\end{enumerate}
+
+Define the following quantities:
+\begin{enumerate}
+\item Likelihood Function
+\[L(\theta;y)=c\cdot P(Y=y\mid\theta))\]
+\begin{itemize}
+\item Function is proportional by a constant factor $c$ to the likelihood probability of observing the data you actually obtained.
+\item Ranks all possible $\theta$  in terms of consistency with observed $y$.
+\item Want to find $\theta$ that makes the observable data the most likely (Maximum Likelihood).  So we find the $\theta$ that maximizes $L(\theta;y)$.  However it is usually easier to maximize $\ln(L(\theta;y))=l(\theta;y)$, since $\ln(\cdot)$ is a 1-1 function so maximum should be preserved.
+\end{itemize}
+\item Log Likelihood Function 
+\[\ln(L(\theta;y))=l(\theta;y)\]
+
+Take for example the log likelihood of the binomial distribution:
+\begin{align*}
+L(\theta;y)
+&=cP(Y=y;\theta)\\
+&=c{n\choose y} \theta^y(1-\theta)^{n-y} \qquad \text{let }c=\frac{1}{{n\choose y}}\\
+&=\theta^y(1-\theta)^{n-y}\\
+l(\theta;y)&=\ln(L(\theta;y))
+=\ln(\theta^y(1-\theta)^{n-y})
+=y\ln(\theta)+\frac{n-y}{\ln(1-\theta)}
+\end{align*}
+
+Maximizing $l(\theta;y)$ is our goal, so we differentiate with respect to $\theta$ and set the derivative equal to 0.
+
+\item Score Function
+\[S(\theta;y)=l'(\theta;y)=\frac{\partial}{\partial\theta}l(\theta;y)\]
+
+From the binomial example we can derive the score function and the appropiate estimate for $\theta$:
+\begin{align*}
+S(\theta;y)&=\frac{y}{\theta} -\frac{n-y}{1-\theta} \qquad \text{set }S(\hat\theta; y)=0\\
+0&=\frac{y}{\hat\theta} -\frac{n-y}{1-\hat\theta}\\
+0&=y(1-\hat\theta)-\hat\theta(n-y)\\
+0&= y-y\hat\theta-\hat\theta n+\hat\theta y\\
+0&=y-\hat\theta n\\
+\rightarrow \hat\theta=\frac{y}{n}
+\end{align*}
+
+Therefore the maximum likelihood estimator (MLE) is the observed proportion of those beetles that survived.
+
+Recall from calculs that we should check that this critical point is indeed a maximum with the second derivative test.
+
+\item Information Function:
+\[I(\theta;y)=l''(\theta;y)=-S'(\theta;y)\]
+
+The information function allows us to easily test the property of critical points from the log-likelihood function, if $I(\theta;y)>0\rightarrow \hat\theta$ is a maximum.  Consider the information function for the binomial:
+\begin{align*}
+I(\theta;y)&=-\frac{\partial}{\partial \theta}\left(\frac{y}{\theta}-\frac{n-y}{1-\theta}\right)
+=-\left(-\frac{y}{\theta^2}-\frac{n-y}{(1-\theta)^2}\right)
+=\frac{y}{\theta^2}+\frac{n-y}{(1-\theta)^2}
+\end{align*}
+
+Since $n\ge y$ we have that $I(\theta;y)>0$, therefore $\hat\theta$ is a maximum.
+\end{enumerate}
+}
+
+We can now estimate $\theta$ with $\hat\theta$:
+\[n=10\qquad y=6\qquad\rightarrow\qquad  \hat\theta=\frac{6}{10}=0.6\]
+
+\section{Newton Raphson}
+In this case, solving $S(\hat\theta;y)=0$ was quite easy, but this won't always be the case.  Here we consider an interative method, based on Taylor Series:
+\[f(x)=f(a)+\frac{f'(a)(x-a)}{1!}+\frac{f''(a)(x-a)^2}{2!}+\ldots\]
+
+We want to find $\hat\theta$ which is a root of $S(\theta;y)$, so we make an educated guess of $\hat\theta$, say some $\theta_0$ that we think is close, then we use the Taylor expansion of $S(\theta;y)$ about $\theta_0$.
+\[S(\theta)=S(\theta_0)+S'(\theta_0)(\theta-\theta_0)+\frac{S''(\theta_0)(\theta-\theta_0)^2}{2!}+\ldots\]
+
+We assume that $|\theta-\theta_0|$ is small, and we only use the first order term in the expansion:
+\begin{align*}
+S(\theta)\approx S(\theta_0) +S'(\theta_0)(\theta-\theta_0)
+\end{align*}
+
+\section*{Lecture 2}
+\section*{Lecture 3}
+\section*{Lecture 4}
+\section*{Lecture 5}
+\section*{Lecture 6}
+\section*{Lecture 7}
+\section*{Lecture 8}
+\section*{Lecture 9}
+\section*{Lecture 10}
+\section*{Lecture 11}
+\section*{Lecture 12}
+\section*{Lecture 13}
+\section*{Lecture 14}
+\section*{Lecture 15}
+\section*{Lecture 16}
+\section*{Lecture 17}
+\section*{Lecture 18}
+\section*{Lecture 19}
+\section*{Lecture 20}
+
+\end{document}

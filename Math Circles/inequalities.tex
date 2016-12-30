@@ -1,0 +1,505 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{P\left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{P \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+
+\title{Intermediate Math Circles}
+\author{Equations and Inequalities with Two Variables}
+\date{\today}
+
+\begin{document}
+  \maketitle 
+\paragraph{Warm-Up Problem:}\
+
+51 tigers and 1 sheep are on a magic island that only has grass.  Tigers can eat both sheep and grass, sheep can only eat grass.  The island is magic because if a tiger eats a sheep that tiger transforms in to a sheep.  Tigers enjoy eating sheep over grass, but they enjoy surviving over eating sheep.  In other words, the tigers are extremely smart and will only eat sheep if they can live afterwards.  
+
+How many tigers and how many sheep are left on the island after everything is resolved?
+
+Consider an island with $n$ tigers and 1 sheep now.  What is the equilibrium state for this new island?\\
+
+\paragraph{Solution:}\
+
+Consider smaller cases of the situation.  If there is 1 tiger and 1 sheep.  The tiger automatically eats the sheep, and becomes a sheep since he is garaunteed to survive.
+
+If there are 2 tigers and 1 sheep.  No tiger will eat the sheep now, otherwise they would transform and get eaten.
+
+Continuing this logic, the tigers will only want to eat the sheep if there are an odd number of tigers. After that no tiger will eat the sheep, otherwise they would reduce the situation to an odd number of tigers.
+
+Therefore out of the 51 tigers, the first tiger to eat the sheep will transform, and no tiger will want to eat the sheep now for fear of getting eaten.  There are 50 tigers remaining and 1 sheep on the island.
+
+We can generalize this further for $n$ tigers where $n\in\mathbb{Z}$, $n\geq 0$.
+\enum{
+\item For $n$ even.  The island will have $n$ tigers and 1 sheep.
+\item For $n$ odd.  The island will have $n-1$ tigers and 1 sheep.
+}
+\pagebreak
+
+\paragraph{Review:  }\
+
+
+
+We noticed some different behaviour when performing certain operation on inequalities versus manipulating a standard equation.  We proved these results last time, but we will summarize them below.  Assume that we have expressions $a$ and $b$ and some number $c$ we apply to both sides of the inequality.
+\enum{
+\item When adding or subtracting both sides of an inequality by any $a,b,c\in\R$, the sense of the inequality holds.
+\[\text{If } a<b \text{ then } a+c<b+c \text{ and } a-c<b-c.\]
+
+\item When multiplying or dividing both sides of an inequality by $c$, the sense of the inequality stays the same only for $c>0$ and flips for $c<0$.
+\[\text{If } a<b\text{ and } c>0 \text{ then } ac<bc \text{ and } \frac{a}{c}<\frac{b}{c}.\]
+\[\text{If } a<b\text{ and } c<0 \text{ then } ac>bc \text{ and } \frac{a}{c}>\frac{b}{c}.\]
+
+\item When squaring both sides of an inequality, the sense of the inequality holds provided $0<a<b$.
+\[\text{if } 0<a<b \text{ then } a^2<b^2.\]
+
+\item
+When taking the reciprocal of both sides of an inequality, the sense of the inequality flips provided $0<a<b$.
+\[\text{If } 0<a<b \text{ then } \frac{1}{a}>\frac{1}{b}.\]
+}
+
+Solving equations and inequalities is the same if we add or subtract the same quantity from both sides.  It is also the same if we multiply or divide both sides by positive numbers.   In all other cases, we need to take care in performing an operation on both sides of an inequality.\\
+
+\paragraph{Linear Equations With Two Variables}\
+
+To talk about inequalities involving two variables, we need to develop some tools for equations in two variables.  Linear equations in two variables can be represented geometrically as lines in the cartesian plane $\R^2$, and have form:
+\[y=mx+b\]
+Where $y,m,x,b\in\R$.
+\begin{itemize}
+\item $y$ is the vertical position.
+\item $m$ is the slope of the line.
+\item $x$ is the horizontal position.
+\item $b$ is the $y$ intercept.
+\end{itemize}
+
+\paragraph{Graphing Lines}\
+
+Given an equation of a line, we are particularly interested in it's geometric interpretation.  We will look at some examples to see what happens.
+
+\paragraph{Example 1:}\
+Sketch $y=9$ in $\R^2$.
+\vspace{30 mm}
+
+\paragraph{Example 2:}\
+Sketch $x=3$ in $\R^2$.
+\vspace{30 mm}
+
+\paragraph{Example 3:}\
+Sketch $y=2x+6$.
+\vspace{30 mm}
+
+\paragraph{Example 4:}\
+Two distinct points define a line.  Find the equation of the line that passes through $(-1,1)$ and $(5,31)$.  Sketch the line.
+\begin{align*}
+m&=\frac{\Delta y}{\Delta x}
+=\frac{y_1-y_2}{x_1-x_2}
+=\frac{1-31}{-1-5}
+=5
+\end{align*}
+
+Now we have the equation $y=5x+b$, to solve for the intercept we substitute a the co-ordinates of a point on the line.
+\begin{align*}
+y&=5x+b\\
+-1&=5\cdot 1+b\\
+-1&=5+b\\
+b&=-6
+\end{align*}
+
+Therefore the equation of the line is $y=5x-6$.
+
+\paragraph{Systems of Equations:}\
+
+Now we want to look at the interaction of multiple lines.  There are a couple of cases to remember:
+\enum{
+\item No intersections.  This occurs when both lines have the same slope and different intercepts.
+\item Infinite intersections.  If the two equations represent the same line.
+\item One intersection.  If the above cases do not apply.
+}
+
+\paragraph{Solving for Intersections:}\
+
+First check to see if the lines are parallel or the lines are multiples of each other.  This can usually be done by inspection and will save you time.  Otherwise we need to use the following methods:
+
+\enum{
+\item
+\textbf{Substitution:}
+
+This is best used when $x$ or $y$ are already isolated.
+
+\textbf{Example 5:}
+
+Find the point of intersection of the lines:
+\begin{align*}
+y&=-x+5\qquad (1)\\
+y&=3x-3\qquad (2)
+\end{align*}
+Substitute the value of $y$ in equation (1) in to equation (2).
+\begin{align*}
+-x+5&=3x-3\\
+5+3&=3x+x\\
+x=2
+\end{align*}
+
+Finally substitute the value of $x=2$ in to equation (1).
+\begin{align*}
+y&=-2+5\\
+y&=3
+\end{align*}
+Therefore out point of intersection is $(2,3)$.
+
+\item
+\textbf{Elimination:}
+
+Works better when lines are in standard form $Ax+By=C$.
+
+\textbf{Example 6:}
+
+Find the point of intersection of the lines:
+\begin{align*}
+6x-2y&=-20\qquad (1)\\
+4x+2y&=-10\qquad (2)
+\end{align*}
+
+We can eliminate $y$ if we add equation (1) and equation (2).
+\begin{align*}
+6x-2y+4x+2y&=-20-10\\
+10x&=-30\\
+x&=-3
+\end{align*}
+
+We can now substitute $x=-3$ in to equation (1) to solve for $y$.
+\begin{align*}
+6\cdot(-3)-2y&=-20\\
+-18-2y&=-20\\
+-2y&=-2\\
+y&=1
+\end{align*}
+
+Therefore our point of intersection becomes $(-3,1)$
+
+}
+
+\paragraph{Solving for Multiple Intersections:}\
+
+How about if we had more than two lines?  In order to solve for all intersections, we take all pairwise combinations of lines and solve using either substitution or elimination.
+
+\paragraph{Example 7:}\
+
+Solve for all intersections and graph the following system:
+\begin{align*}
+y&=-x\qquad (1)\\
+y&=x\qquad (2)\\
+x+2y&=12\qquad (3)
+\end{align*}
+
+First we will use elimination for equations (1) and (2), we can eliminate $x$ if we add the first two equations:
+\begin{align*}
+(1)+(2)\qquad y+y&=-x+x\\
+2y&=0\\
+y&=0
+\end{align*}
+
+We substitute $y=0$ back in to equation (1) to solve for the $x$ co-ordinate.
+
+\begin{align*}
+0&=-x\\
+x&=0
+\end{align*}
+Therefore we have a point of intersection of (0,0) for lines (1) and (2).
+
+Next we will solve for the intersection betwen (1) and (3).  We can substitute $y$ in to equation (3).
+
+\begin{align*}
+x+2\cdot (-x)&= 12\\
+-x&=12\\
+x&=-12
+\end{align*} 
+
+Substitute $x=-12$ back in to equation (1) to solve for the $y$ co-ordinate.
+
+\begin{align*}
+y&=-(-12)
+=12
+\end{align*}
+
+Therefore the point of intersection for lines (1) and (3) is $(-12,12)$.
+
+Next we will solve for the intersection between (2) and (3).  Substitute $y$ in to equation (3).
+
+\begin{align*}
+x+2\cdot(x)&=12\\
+3x&=12\\
+x&=4
+\end{align*}
+
+Substitute our value of $x$ back in to equation (2).
+\begin{align*}
+y&=4
+\end{align*}
+
+Therefore the point of intersection for lines (2) and (3) is $(4,4)$.
+
+\paragraph{Inequalities in Two Variables:}\
+
+Consider the line $x+y=3$.  This divides the $xy$-plane in to three regions:
+\enum{
+\item Points that satisfy the equation
+\item Points that satisfy the inequality $x+y<3$
+\item Points that satisfy the inequality $x+y>3$
+}
+
+\paragraph{Example 8:}\
+Graph the inequality $x+y\le 3$.
+\vspace{30 mm}
+
+
+\paragraph{System of Linear Inequalities}\
+
+Here we put it all together.  In problems involving a system of inequalities, the solution of the system is the
+set of points that satisfy \emph{all} the inequalities simultaneously.
+
+\paragraph{Example 9:}\
+Graph the solution to the following inequalities:
+\begin{align*}
+2x+1.5y&\le 90\\
+\frac{1}{2}x+\frac{1}{4}y&\le 20\\
+x&\ge 0\\
+y&\ge 0
+\end{align*}
+\vspace{30mm}
+
+This area containing the solution is called the \emph{feasible region}.  We will discuss this in further detail next time.
+
+
+\pagebreak
+
+\paragraph{Problem Set:}\
+
+\enum{
+
+
+
+\item The point $(a,2)$ is the point of intersection of the lines with equations $y=2x-4$ and $y=x+k$.  Determine the value of $k$.
+
+\item A triangle has vertices $A(0,3)$, $B(4,0)$, $C(k,5)$, where $0<k<4$.  If the area of the triangle $\triangle ABC$ is $8$, determine the value of $k$.
+
+\item The line $x+2y=12$ intersects the lines $y=-x$ and $y=x$ at points $A$ and $B$, respectively.  What is the length of $\overline{AB}$.
+
+\item Suppose that $x$ and $y$ are positive numbers with
+\begin{align*}
+xy &=\frac{1}{9}\\
+x(y + 1) &=\frac{7}{9}\\
+y(x + 1) &=\frac{5}{18}
+\end{align*}
+What is the value of $(x + 1)(y + 1)$?
+
+
+
+\item Graph the feasible region given the following inequalities:
+\begin{align*}
+x+y&\le 9\\
+x+2y&\le 15\\
+2x+y&\le 15\\
+x\ge 0\\
+y\ge 0
+\end{align*}
+
+\item Graph the feasible region given the following inequalities:
+\begin{align*}
+x+2y&\ge 6\\
+2x+y&\ge 5\\
+2x+3y&\ge 10\\
+x\ge 0\\
+y\ge 0
+\end{align*}
+
+\item
+The line $y = -\frac{3}{4}x + 9$ crosses the $x$-axis at $P$ and the
+$y$-axis at $Q$. Point $T(r, s)$ is on line segment $\overline{PQ}$. If the
+area of $\triangle POQ$ is three times the area of $\triangle TOP$, then
+what is the value of $r + s$?
+
+\item The correct formula for converting  Celsius temperature $C$ to a Fahrenheit tempeature $F$ is given by $F=\frac{9}{5}C+32$.
+
+Andrew does not like arithmetic.  So he approximates the Fahrenheit temperature by doubling $C$ and then by adding $30$ to get $f$.
+
+If $f<F$, then the error in the approximation is $F-f$; otherwise, the error in the approximation is $f-F$.  Determine the largest possible error in the approximation that Andrew would make when converting Celsius temperatures $C$ with $20\le C\le 35$.
+
+\item Gloria is trying to devise a strategy to earn the highest return on her investments.  She estimates that investing in real estate yields a $13\%$ annual return on the investment, and the stock market a $17\%$ return.  Eeshan does some calculations and advises Gloria to invest at least as much in real estate as in stocks.  If she has $\$20,000$ to invest, how should she invest it?
+
+\item $|x|$ is the \emph{absolute value} of $x$, which is the distance $x$ is from $0$.  We define it to be:
+\[|x|=\begin{cases}x & \text{ if }x\ge 0\\
+-x & \text{ if }x<0\end{cases}\]
+
+Graph the inequality $|x+y|+|x-y|\le 2$.  Hint: try and split it up in to cases.
+}
+\end{document}

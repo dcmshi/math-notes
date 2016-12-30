@@ -1,0 +1,2230 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+%
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE University of Waterloo}\\[1.5cm] % Name of your university/college
+\textsc{\Large STAT 433}\\[0.5cm] % Major heading such as course name
+\textsc{\large Stochastic Processes}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Course Notes}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professor:} \\
+Dr. Christopher \textsc{Small} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\tableofcontents % Include a table of contents
+
+\newpage
+
+
+\section*{Lecture 1}
+\section{Basic Notions of Probability Theory}
+\subsection{Probability and Expectation}
+Recall the \emph{probability space}: a triple $(\Omega, \mathcal{F}, P)$, where:
+\begin{itemize}
+\item $\Omega$ is the \emph{sample space}.
+\item $\mathcal{F}$ is the collection of \emph{events} $A \subset \Omega$ (a \emph{$\sigma$-algebra} or \emph{$\sigma$-field}).
+\item $P$ is the \emph{probability measure}.
+\end{itemize}
+We take the following as axioms:
+
+\enuma{
+\item $\Omega \in \mathcal{F}$.
+\item If $A \in \mathcal{F}$, then $A^c \in \mathcal{F}$.
+\item If $A_1, A_2, \ldots \in \mathcal{F}$ then $\displaystyle \bigcup_{i=1}^\infty A_i \in \mathcal{F}$.
+\item $\text{P}(\Omega) = 1$.
+\item $\text{P}(A) \geq 0$ for all $A \in \mathcal{F}$.
+\item $\displaystyle P \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty P(A_i)$ for any disjoint $A_1, A_2, \ldots \in \mathcal{F}$.
+}
+
+A simple consequence is that $\text{P}(\varnothing) = 0$, since indeed, using axiom (f) and the fact that $\varnothing \cup \varnothing \cup \ldots = \varnothing$,
+\[ \text{P}(\varnothing) = \text{P} \left( \bigcup_{i=1}^\infty \varnothing \right) = \sum_{i=1}^\infty P(\varnothing). \]
+
+We define $1_A : \Omega \to \R$ by
+\[ 1_A(w) = \begin{cases}
+1 & \text{if } w \in A \\
+0 & \text{if } w \notin A.
+\end{cases} \]
+Then
+\[ \ex{ \sum_{i=1}^n c_i 1_{A_i}} = \sum_{i=1}^n c_i \ex{1_{A_i}} = \sum_{i=1}^n c_i P(A_i). \]
+$\ex{X}$ can be defined for more general $X$ by taking limits (carefully). In general, however, it is \emph{not} true that
+\[ \lim_{n \to \infty} \ex{X_n} = \ex{\lim_{n \to \infty} X_n}. \tag{*} \]
+However, many manipulations rely on this interchange (*):
+\[ \frac{\partial}{\partial t} \text{E}\left( h(X,t) \right), \qquad \frac{\partial}{\partial t} \text{E}(e^{tX}) = \text{E} \left( \frac{\partial}{\partial t} e^{tX} \right), \qquad \text{E} \left( \sum^\infty \; \right) = \sum^\infty \text{E}( \; ), \qquad \ldots \]
+We introduce some theorems which give us certain cases when the manipulation (*) is in fact valid.
+
+\thm{Monotone Convergence Theorem
+
+Let $X_1, X_2, \ldots$ be a sequence of random variables such that $X_i \geq 0$ for all $i$, and $X_1 \leq X_2 \leq \ldots$. Then:
+\[ \lim_{n \to \infty} \text{E}(X_n) = \text{E} \left( \lim_{n \to \infty} X_n \right) \]
+where $\infty$ can appear anywhere in the above equation.
+}
+
+\prop{
+Let $Y_1, Y_2, \ldots \geq 0$. Then
+\[ \text{E} \left( \sum_{i=1}^\infty Y_i  \right) = \sum_{i=1}^\infty \text{E}(Y_i). \]
+}
+
+\prf{
+This is just an application of the MCT.
+\[ \text{E} \left( \sum_{i=1}^\infty Y_i \right) = \text{E} \left( \lim_{n \to \infty} \sum_{i=1}^n Y_i \right) \overset{\text{MCT}}{=} \lim_{n \to \infty} \text{E} \left( \sum_{i=1}^n Y_i \right) = \sum_{i=1}^\infty \text{E}(Y_i). \]
+}
+
+
+\section*{Lecture 2}
+
+\thm{Dominated Convergence Theorem
+
+If $(X_n)_{n \geq 1}$ is a sequence of random variables, and there is $Y \geq 0$ such that $\text{E}(Y) < \infty$, $|X_n| \leq Y$ for all $n$, and $\lim X_n$ exists. Then
+\[ \lim_{n \to \infty} \text{E}(X_n) = \text{E} \left( \lim_{n \to \infty} X_n \right) \]
+}
+
+\subsection{Conditional Probability}
+Read this section. It is mostly review. Omit the discussion of $\text{E}(Z \mid \mathcal{G})$. Basic concepts:
+\[ \text{P}(B \mid A) = \frac{\text{P}(A \cap B)}{\text{P}(A)}, \qquad \text{P}(A) > 0. \]
+We can define, for random variable $Z$ and event $A$,
+\[ \text{E}(Z \mid A) = \frac{\text{E}(Z 1_A)}{\text{P}(A)}, \qquad \text{P}(A) > 0. \]
+Also, if $X$ is another random variable, then $\text{E}(Z \mid X)$ is in fact another random variable, say $h(X)$, where $h(x) = \text{E}(Z \mid X=x)$. Properties:
+\begin{enumerate}
+\item $\text{E}(Z) = \text{E}[ \text{E}(Z \mid X) ]$.
+\item $\text{E}[ g(X) Z \mid X ] = g(X) \text{E}[Z \mid X]$.
+\end{enumerate}
+Assignment:
+\begin{enumerate}
+\item Section 1.9 on page 20. Do 1.9.1, 1.9.2, 1.9.3, 1.9.4, 1.9.5.
+\end{enumerate}
+
+\subsection{Independence}
+
+Read this section.
+
+\subsection{Distributions, Densities and Moments}
+
+Concepts include: $F(x) = \text{P}(X \leq x)$, distribution function. In the discrete case, $f(x_i) = P(X=x_i)$ is called the discrete density, probability function, or probability mass function. In the continuous case, we have $f(x) = \frac{d}{dx} F(x)$, known as the density function, probability density function, or p.d.f.
+
+New notation: we can represent all expectations using Riemann-Stieltjes notation:
+\[ \text{E}(X) = \int_{-\infty}^{+\infty} x \; dF(x). \]
+Here,
+\[ dF(x) = \begin{cases}
+f(x) \; dx & \text{in the continuous case} \\
+f(x_i) & \text{in the discrete case}
+\end{cases} \qquad \text{and} \qquad \int_{-\infty}^{+\infty} = \begin{cases} \displaystyle \int_{-\infty}^{+\infty} & \text{in the continuous case} \\
+\displaystyle \sum_{\text{range of $X$}} & \text{in discrete case.} \end{cases} \]
+The moment generating function is $\text{E}(e^{tX})$. One of the problems is that the expectation can be infinite (for \emph{any} non-zero value of $t$ in some cases). If the moment generating function doesn't exist, all the theorems concerning it stop working. Unfortunately, there are a lot of random variables for which it doesn't exist (due mostly to the fact that the exponential goes to infinity really fast).
+
+The \emph{characteristic function} (c.f.) tries to capture the properties of the exponential without going to infinity as quickly. It has the following form:
+\[ \psi(t) = \text{E} \left( e^{itX} \right) \]
+where $i=\sqrt{-1}$. By De Moivre's formula, the above can be rewritten as
+\[ \text{E}[ \cos(tX) + i \sin(tX) ] = \text{E}[ \cos(tX) ] + i E[ \sin(tX) ]. \]
+However, $|e^{i \theta}| = 1$. So
+\[ |\text{E}(e^{itX})| \leq \text{E} \left( |e^{itX}| \right) = \text{E}(1) = 1. \]
+Suppose $X,Y$ are independent with characteristic functions $\psi_X(t)$ and $\psi_Y(t)$ respectively. Then
+\[ \psi_{X+Y}(t) = \text{E}[e^{it(X+Y)}] = \text{E}[e^{itX} e^{itY}] = \text{E}(e^{itX}) \text{E}(e^{itY}) = \psi_X(t) \psi_Y(t). \]
+Note that if $f(t) + i g(t) = h(t)$ then $f'(t) + i g'(t) = h'(t)$. Let's try to find
+\[ \psi_X'(0) = \frac{d}{dt} \psi_X(t) \Bigg|_{t = 0}. \]
+Note that
+\[ \frac{d}{dt} \psi_X(t) = \frac{d}{dt} \text{E}( e^{itX} ) = \text{E} \left( \frac{d}{dt} e^{itX} \right) = \text{E}(iX e^{itX} ) \]
+where we have used the Dominated Convergence Theorem to pull the derivative into expectation. So
+\[ \psi_X'(0) = \text{E}(iX e^{itX} ) \Bigg|_{t=0} = \text{E}(iX e^{0} ) = \text{E}(iX) = i\text{E}(X) \implies \text{E}(X) = (-i) \psi_X'(0), \]
+recalling that $\frac{1}{i} = -i$. Note that some random variables may not have a first moment, although the characteristic function always exists. If this is true, then the problem with the above work lies in the step where we use the Dominated Convergence Theorem to pull the derivative in -- we would not be able to find a $Y$ to ``dominate'' the $X_n$, as in the statement of the theorem.
+
+\textbf{Problem 1.9.1}: Let $\Omega$ be an infinite set. A subset $S \subset \Omega$ is said to be cofinite when $S^c$ is finite. Demonstrate that
+\[ \mathcal{F} = \{ S \subset \Omega : S \text{ is finite or cofinite} \}. \]
+is \emph{not} a $\sigma$-algebra.
+
+If we define $\text{P}(S) = 0$ for $S$ finite, and $\text{P}(S) = 1$ for $S$ co-finite, then prove that $P$ is finitely additive but not countably additive.
+
+\textbf{Solution}: Recalling the axioms for a $\sigma$-algebra, we observe that (a) and (b) both hold true: $\Omega \in \mathcal{F}$ because it is cofinite ($\Omega^c = \varnothing$ which is finite), and clearly the complement of a finite set is cofinite (and vice versa due to symmetry).
+
+Consider $\Omega = \{1,2,3, \ldots\}$, the natural numbers. Let $A_1 = \{ 2 \}$, $A_2 = \{ 4 \}$, $A_3 = \{ 6 \}$, in general $A_n = \{ 2n \}$. Then $A_n$ is finite for all $n$, so $A_n \in \mathcal{F}$. However,
+\[ \bigcup_{n=1}^\infty A_n = \{ 2, 4, 6, 8, \ldots \} \]
+which is not finite and not co-finite. So 
+\[ \bigcup_{n=1}^\infty A_n \notin \mathcal{F}. \]
+We now solve the second part. Suppose $A_1, A_2, \ldots, A_n$ are disjoint elements of $\mathcal{F}$. We must show that
+\[ \text{P} \left( \bigcup_{i=1}^n A_j \right) = \sum_{j=1}^n \text{P}(A_j). \]
+\textbf{Case 1}: All $A_j$ are finite. Both sides are 0.
+
+\textbf{Case 2}: At least one, say, $A_j$, is cofinite. In fact, since $A_1, \ldots, A_n$ are disjoint, all of the others are finite (i.e. exactly one, namely $A_j$, is cofinite). Also,
+\[ \bigcup_{k=1}^n A_k \supset A_j \]
+which means that
+\[ \bigcup_{k=1}^n A_k \]
+is cofinite. So
+\[ \text{P} \left( \bigcup_{k=1}^n A_k \right) = 1, \]
+and
+\[ \sum_{k=1}^n \text{P}(A_k) = \text{P}(A_j) + \sum_{k \neq j} \text{P}(A_k) = 1 + \sum_{k\neq j}^n 0 = 1. \]
+Thus,
+\[ \text{P} \left( \bigcup_{k=1}^n A_k \right) = \sum_{k=1}^n \text{P}(A_k). \]
+Showing it is not countably additive will be discussed next lecture.
+
+\section*{Lecture 3}
+\begin{align*}
+\psi_X(t)&=\ex{e^{itX}}\\
+\ex{X}&=\left[(-i)\frac{d}{dt}\psi_X(t)\right]_{t=0}
+\end{align*}
+
+More generally we have the following proposition:
+\prop{
+If $\ex{X^n}$ is finite, then $\psi_X(t)$ is $n$ times differentiable with respect to $t$.  Also
+\begin{align*}
+\ex{X^n}&=(-i)^n\psi_X^{(n)}(0)\\
+\ex{X^n}&=\left[\frac{d^n}{dt^n}\psi_X(t)\right]_{t=0}
+\end{align*}
+}
+
+When $X$ is a continuous random variable with density $f(x)$, we can write:
+\[\hat{f}(t)=\ex{e^{itX}}=\int_{-\infty}^\infty e^{itx}f(x)dx\]
+
+Where $\hat{f}$ is called the Fourier transform we have the following:
+if $\hat{f}(t)=\int_{-\infty}^\infty e^{itx}f(x)dx$ then,
+\[f(x)=\frac{1}{2\pi}\int_{-\infty}^\infty e^{-itx}\hat{f}(t)dt\]
+which is the inverse Fourier transform.
+
+One of the applications for this is as follows:
+If we have $X_1,\ldots,X_n$ are identically and independently and contiuous random variables with common density $f(x)$ and Fourier transform $f(t)$.  Then $X_1+X_2+\ldots+X_n$ has density:
+\[f_{X_1+X_2+\ldots+X_n}(x)=\frac{1}{2\pi}\int_{-\infty}^\infty e^{-itx}(\hat{f}(t))^ndt\]
+
+We can list some other notable properties of the characteristic function:
+\enum{
+\item $|\psi(t)|\le 1$ for all $t$
+\prf{
+\begin{align*}
+\left|\ex{e^{itX}}\right|&\le \ex{\left|e^{itX}\right|}
+=\ex{\left|\cos(tX)+i\sin(tX)\right|}
+=\ex{\sqrt{\cos^2(tX)+\sin^2(tX)}}
+=\ex{\sqrt{1}}
+=1\\
+\rightarrow \left|\psi(t)\right|&\le 1
+\end{align*}
+}
+
+\item For this we defined a complex number $z=x+iy$, where $x,y\in\R$.  The complex conjugate of $z$ is then denoted as $z^\ast$, where $z^\ast=x-iy$.  We then have:
+\[\psi(-t)=(\psi(t))^\ast\]
+\prf{
+\begin{align*}
+\psi(-t)&=\ex{e^{-itX}}
+=\ex{\cos(-tX)+i\sin(-tX)}
+=\ex{\cos(tX)-i\sin(tX)}\\
+&=\ex{\cos(tX)}-i\ex{\sin(tX)}
+=(\ex{\cos(tX)}+i\ex{\sin(tX)})^\ast
+=(\ex{e^{itX}})^\ast
+=(\psi(t))^\ast
+\end{align*}
+}
+}
+
+When $X\ge 0$, with probability one, and $X$ is continuous then the density is zero off the set $\left[0,\infty\right]$.  We restrict attention to $f(x)$ defined on $\left[0,\infty\right)$.  In such cases the Laplace transform of $f(x)$ is:
+
+\[\ex{e^{-tX}}=\int e^{-tx}f(x)dx=M_X(-t)\]
+Which just so happens to be the moment generating function evaluated at $-t$.
+
+\subsection{Convolutions}
+If $X$ and $Y$ are independent random variables, and if $X$ has cumulative distribution function $F$ and $Y$ has cumulative distribution function $G$, then $Z=X+Y$ has a cumulative distribution function which we can write as $F\ast G$.
+\begin{align*}
+(F\ast G)(z)&=\text{P}(Z\le z)
+=\text{P}(X+Y\le z)
+=\int_{-\infty}^\infty\int_{-\infty}^\infty 1_{x+y\le z} dF(x)dG(y)\\
+&=\int_{-\infty}^\infty\left(\int_{-\infty}^\infty 1_{x\le z-y}dF(x)\right)dG(y)
+=\int_{-\infty}^\infty F(z-y)dG(y)\\
+\rightarrow (F\ast G)(z)&=\int_{-\infty}^\infty F(z-y)dG(y)
+\end{align*}
+
+If $X$ has density $f(x)$ in the continuous case, and $Y$ has density $g(y)$ then $dG(y)=g(y)dy$ and $Z=X+Y$ has probability distribution function:
+\[(f\ast g)(z)=\int_{-\infty}^\infty f(z-y)g(y)dy\]
+
+If $y>0$, then let $U=XY$ and $V=\frac{X}{Y}$.  The random variable $U$ has cumulative distirubition function:
+\[\int_0^\infty F\left(\frac{u}{y}\right)dG(y)\]
+
+If $X,Y$ are continuous, then $U$ has probability distribution function:
+\[\int_0^\infty\frac{1}{y}f\left(\frac{u}{y}\right)g(y)dy\]
+
+$V$ has cumulative distribution function:
+\[\int_0^\infty F(vy)dG(y)\]
+
+and when $X,Y$ are continuous, $V$ has density:
+\[\int_0^\infty yf(vy)g(y)dy\]
+
+\section*{Lecture 4}
+\subsection{Random Vectors}
+This is mostly a review of multivariate distributions.  Some new ideas:
+
+Let $X=
+\begin{pmatrix}
+X_1\\
+X_2\\
+\vdots\\
+X_n
+\end{pmatrix}$, then $X$ has characteristic function:
+\begin{align*}
+\psi(s)&=\ex{e^{is^TX}}\text{, where }
+s=\begin{pmatrix}
+s_1\\
+s_2\\
+\vdots\\
+s_n
+\end{pmatrix}\\
+\psi(s)&=\ex{e^{i\sum\limits_{j=1}^ns_jX_j}}
+\end{align*}
+
+Now that we have the idea of a random vector, we have the following result.  If $X$ has characteristic function $\psi_X(s)$ and $Y$ has characteristic function $\psi_Y(s)$, $s=\begin{pmatrix}
+s_1\\
+\vdots\\
+s_n
+\end{pmatrix}\in\R^n$, then:
+\[X\sim Y \iff \psi_X(s)=\psi_Y(s)\text{ }\forall s\in\R^n\]
+
+We are also interested in the moments of the respective components of the vector:
+\begin{align*}
+\ex{X_j}&=\left[(-i)\frac{\partial\ex{e^{is^TX}}}{\partial s_j}\right]_{s=0}
+=\left[(-i)\frac{\partial\psi(s)}{\partial s_j}\right]_{s=0}\\
+\ex{X_j^2}&=\left[-\frac{\partial^2\ex{e^{is^TX}}}{\partial s_j^2}\right]_{s=0}
+=\left[-\frac{\partial^2\psi(s)}{\partial s_j^2}\right]_{s=0}\\
+\ex{X_jX_k}&=\left[-\frac{\partial^2\psi(s)}{\partial s_j\partial s_k}\right]_{s=0}
+\end{align*}
+
+\section{Calculation of Expectations}
+\subsection{Indicator Random Variables and Symmetry}
+An event $A$'s indicator random variable has the following properties:
+\begin{align*}
+1_A(\omega)&=\begin{cases}
+1 & \omega\in A\\
+0 & \omega\not\in A
+\end{cases}\\
+\ex{1_A}&=\text{P}(A)\\
+\var{1_A}&=\text{P}(A)(1-P(A))
+=\text{P}(A)\text{P}(A^C)\\
+\cov{1_A,1_B}&=\text{P}(A\cap B)-\text{P}(A)\text{P}(B)\\
+S&=\sum\limits_{i=1}^n1_{A_j}\\
+\ex{S}&=\sum\limits_{i=1}^n\text{P}(A_i)\\
+\var{S}&=\ex{S}+2\sum\limits_{j<k}\text{P}(A_j\cap A_k)-(\ex{S})^2
+\end{align*}
+
+\begin{example}
+Let $\pi$ be a random permutation of the set $\left\{1,2,\ldots,n\right\}$
+\[\pi:\left\{1,2,\ldots,n\right\}\underbrace{\rightarrow}_{1-1\text{ and on onto}}\left\{1,2,\ldots,n\right\}\]
+
+Assuming that $j_!,\ldots,j_n$ are distinct we have:
+\[\text{P}(\pi(1)=j_1,\pi(2)=j_2,\ldots,\pi(n)=j_n)=\frac{1}{n!}\]
+
+Let $S$ be the number of fixed points of $\pi$.  Find $\ex{S}$ and $\var{S}$.
+
+Let $A_j=$ the event that $\pi(j)=j$.  Then $S=\sum\limits_{j=1}^n1_{A_j}$.
+\begin{align*}
+\ex{S}&=\sum\limits_{j=1}^n\text{P}(A_j)
+=\sum\limits_{j=1}^n\text{P}(\pi_j=j)
+=\sum\limits_{j=1}^n\text{P}(\pi(1)=1)
+=\sum\limits{j=1}^n\frac{1}{n}
+=n\cdot\frac{1}{n}
+=1\\
+\var{S}&=\ex{S}+2\sum\limits_{j<k}\text{P}(A_j\cap A_k)-(\ex{S})^2
+=1+2\sum\limits_{j<k}\text{P}(A_j\cap A_k)-(1)^2
+=2\sum\limits_{j<k}\text{P}(A_j\cap A_k)\\
+&=2\sum\limits_{j<k}\text{P}(\pi(j)=j\cap\pi(k)=k)
+=2\sum\limits_{j<k}\frac{1}{n(n-1)}=2{n\choose 2}\frac{1}{n(n-1)}
+=1
+\end{align*}
+\end{example}
+
+An infinite number of parallel lines drawn on the plane are evenly spaced at a distance of $1$ unit apart.  A needle of length $d$ units is tossed at random on the plane.  Let $X_d$ be the number of lines the needles crosses.  So $0\le X_d\le \lfloor d\rfloor+1$.  Find $\ex{X_d}$.
+
+\paragraph{Solution}
+Let $f(d)=\ex{X_d}$.
+
+Let's say I weld two needles of length $d_1$ and $d_2$, $d_1,d_2>0$ at their endpoints.  The number of lines crossed is the same if the needles were not together.  Therefore we would write:
+\begin{align*}
+X_{d_1+d_2}&=X_{d_1}+X_{d_2}\\
+\ex{X_{d_1+d_2}}&=\ex{X_{d_1}}+\ex{X_{d_2}}\\
+f(d_1+d_2)&=f(d_1)+f(d_2)
+\end{align*}
+
+Since $f(d)$ is an increasing function of $d$, and $f$ satisfies this linear equation, we have $f(d)=kd$, where $k$ is some constant $\forall d>0$.
+
+We need to find the constant, so set $d=1$.  Note that $X_1=0$ or $X_1=1$ with probability $1$.
+\[f(1)=\text{Probability that a needle of length 1 crosses a line}\]
+
+Suppose the smaller angle made by the needle with the respect to the lines is $\theta$.  So $0\le\theta\le\frac{\pi}{2}$.
+
+Now we condition on the value of $\theta$.  The probability the needle intersects a line given the value of $\theta$ is $\sin(\theta)$.
+
+\begin{align*}
+\text{P}(\text{needle intersects line}\mid\theta)&=\sin(\theta)\\
+\text{P}(\text{needle intersects line})&=\int_0^\frac{\pi}{2}\text{P}(\text{needle intersects line}\mid\theta)\frac{2d\theta}{\pi}
+=\frac{2}{\pi}\int_0^\frac{\pi}{2}\sin(\theta)d\theta
+=\frac{2}{\pi}\left[-\cos(\theta)\right]_0^\frac{\pi}{2}
+=\frac{2}{\pi}\\
+f(1)&=\frac{2}{\pi}\\
+f(d)&=\frac{2d}{\pi}\\
+\pi&=\frac{2d}{f(d)}
+\approx 2d
+\end{align*}
+
+So on average for a needle of length $d$ there are $2d$ intersections.
+
+\section*{Lecture 5}
+\subsection{Calculating Expectations by Conditioning}
+\[\ex{X}=\ex{\condex{X}{Y}}\]
+It is sometimes easier to indirectly calculate the expectation by the right side, if we have the appropiate random variable to condition on.
+
+\eg{
+Consider a sequence of random variables $X_0,X_1,X_2,\ldots$ as follows:
+\begin{align*}
+X_0&\equiv 1\rightarrow \text{P}(X_0=1)=1\\
+X_n\mid X_{n-1}&\sim \text{Uni}\left[0,X_{n-1}\right]\\
+f_{X_n\mid X_{n-1}}(x_n)&=\begin{cases}
+\frac{1}{x_{n-1}}& 0\le x_n\le x_{n-1}\\
+0 & \text{otherwise}
+\end{cases}
+\end{align*}
+\paragraph{Problem:} What is $\ex{X_n^k}$, the $k$th moment of $X_n$?
+\paragraph{Solution:}  We start by finding $\condex{X_n^k}{X_{n-1}}$.
+\begin{align*}
+\condex{X_n^k}{X_{n-1}}
+&=\int x^kf_{X_n\mid X_{n-1}}(x)dx
+=\int_0^{X_{n-1}}x^k\cdot\frac{1}{X_{n-1}}dx
+=\left[\frac{x^{k+1}}{(k+1)X_{n-1}}\right]_0^{X_{n-1}}
+=\frac{X_{n-1}^k}{k+1}\\
+\rightarrow \condex{X_n^k}{X_{n-1}}&=\frac{X_{n-1}^k}{k+1}\\
+\ex{X_n^k}&=\ex{\condex{X_n^k}{X_{n-1}}}
+=\frac{1}{k+1}\ex{X_{n-1}^k}
+\end{align*}
+
+We have the base case where $\ex{X_0^k}=1^k=1$.  If we recursively substitute we get the closed formula:
+\[\ex{X_n^k}=\brac{\frac{1}{k+1}}^n\]
+
+In particular:
+\begin{align*}
+\ex{X_n}&=\frac{1}{2^n}\\
+\var{X_n}&=\ex{X_n^2}-(\ex{X_n})^2
+=\frac{1}{3^n}-\frac{1}{2^{2n}}
+=\frac{1}{3^n}-\frac{1}{4^n}
+\end{align*}
+}
+
+A common theme here is that conditioning and recursion will result in a finite solution to the calculation.
+
+\eg{
+A couple desires a family of at least $s$ songs and $d$ daughters.  Assume that:
+\begin{align*}
+\text{P}(\text{son})&=p\\
+\text{P}(\text{daughter})&=1-p
+\end{align*}
+with births independent of each other.  Suppose that the couple quits after the objective is reached.  Let $N_{sd}$ be the number of children they have.  We would like to find $\ex{N_{sd}}$.
+
+We can solve this by conditioning and recursing.  Let us first identify the base cases:
+\begin{align*}
+N_{s0}&\sim\text{NB}(s,p)\\
+\ex{N_{s0}}&=\frac{s}{p}\\
+N_{0d}&\sim\text{NB}(d,1-p)\\
+\ex{N_{0d}}&=\frac{d}{1-p}
+\end{align*}
+
+When the couple has either all the sons or daughters they want.  Then the successive births follow a negative binomial distribution for the opposite gender.
+
+Let $I=\begin{cases}
+1 & \text{ if the first child is a daughter}\\
+0 & \text{ if the first child is a son}
+\end{cases}$
+\begin{align*}
+\ex{N_{sd}}&=p\ex{\condex{N_{sd}}{I}}+(1-p)\condex{N_{sd}}{I=1}
+=p(1+\ex{N_{s-1d}})+(1-p)(1+\ex{N_{sd-1}})\\
+&=1+p\ex{N_{s-1d}}+(1-p)\ex{N_{sd-1}}
+\end{align*}
+
+Now that we have the recursive relation we can compute any $\ex{N_{sd}}$, with the base case:
+\begin{align*}
+\ex{N_{11}}&=1+p\ex{N_{01}}+(1-p)\ex{N_{10}}
+=1+p\cdot\frac{1}{1-p}+(1-p\cdot\frac{1}{p})
+=1+\frac{p}{1-p}+\frac{1-p}{p}
+\end{align*}
+}
+
+\section*{Lecture 6}
+\subsection{Using Transformations}
+We can calculate $\ex{X^k}$ using:
+\[\ex{X^k}(-i)^k\psi^{(k)}(0)\text{ where }\psi(t)=\ex{e^{itX}}\]
+
+To calculate $\psi(t)$ we can use one of several methods:
+\enum{
+\item ``A bit of cheating''
+\[\psi(t)=M(it)\]
+Where $M$ is the moment generating function
+\item ``Bashing''
+
+Evaluate the expectation directly
+\item ``Getting tricky''
+
+Write out a differential equation
+}
+
+\eg{
+Here is an illustration of method $(3)$.  Suppose that $X\sim \text{N}(0,1)$ with probability distribution function $f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$.
+\begin{align*}
+\psi(t)&=\ex{e^{itX}}
+=\int_{-\infty}^\infty e^{itx}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}dx
+=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx-\frac{x^2}{2}}dx\\
+\text{So }\frac{d}{dt}\psi(t)&=\frac{1}{\sqrt{2\pi}}\frac{d}{dt}\int_{-\infty}^\infty e^{itx-\frac{x^2}{2}}dx
+=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty \frac{d}{dt}e^{itx-\frac{x^2}{2}}dx
+=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty ixe^{itx-\frac{x^2}{2}}dx\\
+&=\frac{i}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}\brac{xe^{-\frac{x^2}{2}}}dx
+=-\frac{i}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}\brac{\frac{d}{dx}e^{-\frac{x^2}{2}}}dx
+\end{align*}
+From here it's an integration by parts, we define:
+\begin{tabular}{cc}
+$u=e^{itx}$ & $du=ite^{itx}dx$\\
+$dv=\frac{d}{dx}e^{\frac{-x^2}{2}dx}$ & $v=e^{-\frac{x^2}{2}}$
+\end{tabular}
+\begin{align*}
+\frac{d}{dt}\psi(t)&=\brac{-\frac{i}{\sqrt{2\pi}}}\brac{\sqbrac{e^{itx}e^{-\frac{x^2}{2}}}_{-\infty}^\infty-\int_{-\infty}^\infty e^{-\frac{x^2}{2}}ite^{itx}dx}
+=\brac{-\frac{i}{\sqrt{2\pi}}}\brac{0-it\int_{-\infty}^\infty e^{-\frac{x^2}{2}}e^{itx}dx}\\
+&=\brac{-\frac{t}{\sqrt{2\pi}}}\brac{\int_{-\infty}^\infty e^{-\frac{x^2}{2}}e^{itx}dx}
+=-t\psi(t)\\
+\rightarrow \psi'(t)&=-t\psi(t)
+\end{align*}
+
+Therefore we have a differential equation with initial condition $\psi(0)=1$
+\begin{align*}
+\psi'(0)
+&=-(0)\psi(0)
+=0\\
+\rightarrow \ex{X}&=(-i)\psi'(0)
+=0\\
+\psi''(t)&=\frac{d}{dt}\psi'(t)
+=\frac{d}{dt}(-t\psi(t))
+=-\psi(t)+(-t\psi'(t))
+=-(\psi(t)+t\psi'(t))
+=-(\psi(t)+t(-t\psi(t)))\\
+&=-\psi(t)+t^2\psi(t)
+=(t^2-1)\psi(t)\\
+\psi''(0)&=(0^2-1)\psi(0)
+=(-1)(1)
+=-1\\
+\rightarrow\ex{X^2}&=(-i)^2\psi''(0)
+=-\psi''(0)
+=-(-1)
+=1\\
+\rightarrow \var{X}&=1
+\end{align*}
+
+It can be shown that the unique solution to $\psi'(t)=-t\psi(t)$ with initial condition $\psi(0)=1$ is:
+\[\psi(t)=e^{-\frac{t^2}{2}}\]
+
+If $Y=\mu+\sigma X$, where $X\sim\text{N}(0,1)$, then $Y\sim \text{N}(\mu,\sigma^2)$.
+\begin{align*}
+\psi_Y(t)&=\ex{e^{it(\mu+\sigma X)}}
+=\ex{e^{it\mu}e^{it\sigma X}}
+=e^{it\mu}\ex{e^{i(t\sigma)X}}
+=e^{it\mu}\psi(\sigma t)
+=e^{it\mu-\frac{\sigma^2t^2}{2}}
+\end{align*}
+}
+
+\eg{
+$X$ is a non-negative integer valued random variable, the $j$th factorial moment is:
+\[\ex{X(X-1)\ldots(X_j+1)}=G^{(j)}(1)\]
+Where $G(s)=\ex{s^X}$.
+So:
+\begin{align*}
+\ex{X}&=G'(1)\\
+\var{X}&=G''(1)+G'(1)-\brac{G'(1)}^2
+\end{align*}
+}
+
+\eg{
+Let $N$ be a non-negative integer valued random variable with random variables $X_1,X_2,\ldots$ being independentally and identically distributed and independent of $N$.
+
+Define $S_n=\sum\limits_{j=1}^NX_j$
+
+If $X_j$ has characteristic function $\psi_X(t)$ and $N$ has probability generating function $G(z)$, then $S_N$ has characteristic function:
+\[\psi_S(t)=G(\psi_X(t))\]
+So:
+\begin{align*}
+\psi_S'(t)&=G'(\psi_X(t))\psi_X'(t)\\
+\rightarrow \ex{S_N}
+&=\psi_S'(0)
+=G'(\psi_X(0))\psi_X'(0)
+=G'(1)\psi_X'(0)
+=\ex{N}\ex{X}\\
+\rightarrow \var{S_N}&=\ex{N}\var{X}+\var{N}(\ex{X})^2
+\end{align*}
+Additionally we can find the characteristic function of $S_N$:
+\begin{align*}
+\psi_{S_N}&=\ex{e^{itS_N}}
+=\ex{\condex{e^{itS_N}}{N}}
+=\sum\limits_{n=0}^\infty \text{P}(N=n)\condex{e^{itS_N}}{N=n}
+=\sum\limits_{n=0}^\infty \text{P}(N=n)\ex{e^{it\sum\limits_{i=1}^nX_i}}\\
+&=\sum\limits_{n=0}^\infty \text{P}(N=n)\prod\limits_{i=1}^n\ex{e^{itX_i}}
+=\sum\limits_{n=0}^\infty \text{P}(N=n)(\psi_X(t))^n
+=\ex{(\psi(t))^N}
+=G(\psi(t))
+\end{align*}
+}
+
+\subsection{Tail Probability Methods}
+Let $X$ be a non-negative random variable with distributon function $F(x)$.  Let $H(t)$ be an integrable function on every finite interval $t\in\sqbrac{0,X}$.
+\[\int_0^X|h(t)|dt<\infty\rightarrow h(t)\text{ finite}\]
+
+Let $H(X)=H(0)+\int_0^Xh(t)dt$, where $H(0)$ is the constant of integration and is arbitrary.
+
+\prop{
+Suppose:
+\[\int_0^\infty h(t)(1-F(t))dt<\infty\]
+Then:
+\[\ex{H(X)}=H(0)+\int_0^\infty h(t)(1-F(t))dt\]
+}
+
+A very good application of this is when $H(x)=x^n$ so that $h(x)=nx^{n-1}$ and $H(0)=0$.  Then we have:
+\begin{align*}
+\ex{X^n}&=\int_0^\infty nt^{n-1}(1-F(t))dt\\
+\ex{X}&=\int_0^\infty(1-F(t))dt
+\end{align*}
+
+This works for all such $X$, not just for the continuous case.
+
+\section*{Lecture 7}
+\prf{
+\begin{align*}
+H(X)&=H(0)+\int_0^Xh(t)dt\\
+\ex{H(X)}&=H(0)+\ex{\int_0^Xh(t)dt}
+=H(0)+\int_0^\infty\brac{\int_0^xh(t)dt}dF(x)
+\end{align*}
+Here we change the order of integration with:
+\begin{align*}
+0&\le x\le\infty\\
+0&\le t<x
+\end{align*}
+\begin{align*}
+\ex{H(X)}&=H(0)+\int_0^\infty\brac{\int_t^\infty dF(x)}h(t)dt
+=H(0)+\int_0^\infty\sqbrac{F(x)}_t^\infty h(t)dt\\
+&=H(0)+\int_0^\infty(1-F(t))h(t)dt
+\end{align*}
+}
+
+We have a special case where $X\in\Z$ and $X\ge 0$
+\[\ex{H(X)}=H(0)+\sum\limits_{k=0}^\infty(H(k+1)-H(k))(1-F(k))\]
+\prf{
+\begin{align*}
+\ex{H(X)}&=H(0)+\int_0^\infty h(t)(1-F(t))dt
+=H(0)+\sum\limits_{k=0}^\infty\int_k^{k+1}h(t)(1-F(t))dt\\
+&=H(0)+\sum\limits_{k=0}^\infty\int_k^{k+1}h(t)(1-F(k))dt
+=H(0)+\sum\limits_{k=0}^\infty(1-F(k))\int_k^{k+1}h(t)dt\\
+&=H(0)+\sum\limits_{k=0}^\infty (1-F(k))(H(k+1)-H(k))
+\end{align*}
+}
+
+The obvious special case is when $H(x)=x$
+\[\ex{X}=\sum\limits_{k=0}^\infty(1-F(k))\]
+
+\subsection{Moment of Reciprocals and Ratios}
+Suppose a random variable $X>0$ with probability one.
+\defn{
+The Laplace transform is:
+\[L(t)=\ex{e^{-tX}}\text{ }t\ge 0\]
+}
+
+With this tool we can calculate negative moments of random variables:
+\begin{align*}
+\int_0^\infty t^{n-1}L(t)dt&=\int_0^\infty t^{n-1}\ex{e^{-tX}}dt
+=\ex{\int_0^\infty t^{n-1}e^{-tX}dt}
+\end{align*}
+We now introduce a change of variables:
+\begin{align*}
+s&=tX\\
+ds&=Xdt\\
+\frac{ds}{X}&=dt
+\end{align*}
+\begin{align*}
+\int_0^\infty t^{n-1}L(t)dt
+&=\ex{\int_0^\infty\brac{\frac{s}{X}}^{n-1}e^{-s}\frac{ds}{X}}
+=\ex{X^{-n}\int_0^\infty s^{n-1}e^{-s}ds}
+=\ex{X^{-n}\Gamma(n)}
+=\Gamma(n)\ex{X^{-n}}\\
+\rightarrow\ex{X^{-n}}&=\frac{1}{\Gamma(n)}\int_0^\infty t^{n-1}L(t)dt
+\end{align*}
+
+When $n\in\Z$ we have the nice set of formulas:
+\begin{align*}
+\ex{X^{-n}}&=\frac{1}{(n-1)!}\int_0^\infty t^{n-1}L(t)dt\\
+\ex{X^{-1}}&=\int_0^\infty L(t)dt
+\end{align*}
+
+\eg{
+If $X$ has a Gamma distribution with parameters $(\underbrace{\beta}_{\clap{{\text{shape}}}},\overbrace{\lambda}^{\clap{{\text{intensity}}}})$.  Then $X^{-1}$ is said to have an inverse Gamma distribution  So for $\beta>1$ we have:
+\begin{align*}
+L_X(t)&=\brac{\frac{\lambda}{\lambda+t}}^\beta\\
+\ex{X^{-1}}&=\int_0^\infty L_X(t)dt
+=\int_0^\infty \brac{\frac{\lambda}{\lambda+t}}^\beta dt
+=\int_0^\infty\brac{1+\frac{t}{\lambda}}^{-\beta}dt
+\end{align*}
+
+Let:
+\begin{align*}
+s&=1+\frac{t}{\lambda}\\
+ds&=\frac{dt}{\lambda}
+\end{align*}
+
+\begin{align*}
+\ex{X^{-1}}&=\int_1^\infty s^{-\beta}\lambda ds
+=\lambda\int_1^\infty s^{-\beta}ds
+=\lambda\sqbrac{\frac{1}{-\beta+1}s^{-\beta+1}}_1^\infty
+=\frac{\lambda}{\beta-1}
+\end{align*}
+}
+
+To calculate $\ex{\frac{X^m}{Y^n}}$, where $Y>0$ we create a mixed generating function:
+\[M(s,t)=\ex{e^{isX-tY}}\]
+We end up with the formula:
+\[\ex{\frac{X^m}{Y^n}}=\frac{1}{i^m\Gamma(n)}\int_0^\infty t^{n-1}\sqbrac{\frac{\partial^m}{\partial s^m}M(s,t)}_{s=0}dt\]
+
+\section*{Lecture 8}
+\subsection{Reduction Of Degree}
+
+\enum{
+  \item 
+    \lem{
+    Stein's Lemma
+    
+    If $X\sim \text{N}(0,\sigma^2)$ and $g(x)$ is a differentiable function then:
+    \[\ex{g(X)(X-\mu)}=\sigma^2\ex{g'(X)}\]
+    }
+  \item
+    \lem{
+    Chen's Lemma
+    
+    If $Z\sim\text{Poi}(\lambda)$ then:
+    \[\ex{Zg(Z)}=\lambda\ex{g(Z+1)}\]
+    }
+  \item
+  
+    A formula for the Gamma distribution
+    
+    If $X\sim \text{Gam}(\alpha,\lambda)$ with probability distribution function $f(x)=\frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)}$ with $x>0$, then:
+    \[\ex{Xg(X)}=\frac{1}{\lambda}\ex{Xg'(X)}+\frac{\alpha}{\lambda}\ex{g(X)}\]
+}
+
+\prf{\
+    \enum{
+        \item Integration by parts from the left side, page $40$.
+        \item Reorganize the left hand side in to the right hand side and follow your nose, page $41$
+        \item See page $41$
+	}
+}
+
+The applications of these formulas is useful when $g(x)$ happens to be a polynomial.
+\eg{
+Suppose that $X\sim\text{N}(\mu,\sigma^2)$ and our following function is:
+\begin{align*}
+g(X)&=(X-\mu)^{2n-1}\\
+g'(X)&=(2n-1)(X-\mu)^{2n-2}
+\end{align*}
+By Stein's Lemma:
+\begin{align*}
+\ex{g(X)(X-\mu)}&=\sigma^2\ex{g'(X)}\\
+\ex{(X-\mu)^{2n}}&=\sigma^2(2n-1)\ex{(X-\mu)^{2n-2}}
+=\sigma^4(2n-1)(2n-3)\ex{(X-\mu)^{2n-4}}\\
+&\vdots
+\end{align*}
+By induction we have that:
+\begin{align*}
+\ex{(X-\mu)^{2n}}&=\sigma^{2n}(2n-1)(2n-3)\ldots(1)
+=\sigma^{2n}\frac{(2n)(2n-1)(2n-2)\ldots(2)(1)}{2n(2n-2)(2n-4)\ldots(2)}
+=\sigma^{2n}\frac{(2n)!}{2^n\cdot n!}
+\end{align*}
+
+Neat fact, $\ex{(X-\mu)^{2n+1}}=0$ by symmetry of $X$ about $\mu$ and the fact that $y=x^{2n+1}$ is an odd function.
+}
+
+\eg{
+Here we will see an application of Chen's Lemma.  Let $Z\sim\text{Poi}(\lambda)$ and our function is $g(z)=z^{n-1}$.  By Chen's Lemma:
+\begin{align*}
+\ex{Zg(Z)}&=\lambda\ex{g(Z+1)}\\
+\ex{Z^n}&=\lambda\ex{(Z+1)^{n-1}}
+=\lambda\ex{\sum\limits_{k=0}^{n-1}{n-1\choose k}Z^k}
+=\lambda\sum\limits_{k=0}^{n-1}{n-1\choose k}\ex{Z^k}
+\end{align*}
+We can compute the $n$th moment of $Z$ in terms of the lower moments:
+\begin{align*}
+\ex{Z}&=\lambda\\
+\ex{Z^2}&=\lambda\brac{{1\choose 0}\ex{Z^0}+{1\choose 1}\ex{Z^1}}
+=\lambda+\lambda^2\\
+\ex{Z^3}&=\lambda\brac{{2\choose 0}\ex{Z^0}+{2\choose 1}\ex{Z^1}+{2\choose 2}\ex{Z^2}}
+=\lambda(1+2\lambda+(\lambda+\lambda^2))
+=\lambda+3\lambda^2+\lambda^3
+\end{align*}
+}
+
+\section*{Lecture 9}
+\section{Convexity}
+\defn{
+A set $S\subset\R^m$ is said to be convex if for all $x,y\in S$, the line segment:
+\[\alpha x+(1-\alpha)y\text{ }0\le\alpha\le 1\]
+is entirely in $S$.
+}
+
+\rem{
+If $x_1,\ldots,x_n\in S$, convex, then:
+\[\alpha_1x_1+\alpha_2x_2+\ldots+\alpha_nx_n\in S\]
+where $\alpha_1,\alpha_2,\ldots,\alpha_n\ge 0$ and $\alpha_1+\ldots+\alpha_n=1$.  The set of all $\alpha_1x_1+\ldots+\alpha_nx_n$ is called the conved hull of the points $x_1,\ldots,x_n$.
+}
+
+\defn{
+Let $S$ be a convex set in $\R^m$ and let $f:S\to\R$ be a real-valued function on $S$.  Then $f$ is said to be convex if:
+\[f(\alpha x+(1-\alpha)y)\le\alpha f(x)_(1-\alpha)f(y)\]
+for all $x,y\in S$ and $0\le\alpha\le 1$.
+}
+
+\defn{
+Let $S$ be a convex set in $\R^m$ and let $f:S\to\R$ be a real-valued function on $S$.  Then $f$ is said to be  strictly convex if:
+\[f(\alpha x+(1-\alpha)y)\le\alpha f(x)_(1-\alpha)f(y)\]
+for all $x\ne y\in S$ and $0<\alpha<1$.
+}
+
+\rem{
+\[f(\alpha_1x_1+\alpha_2x_2+\ldots+\alpha_nx_n)\le\alpha_1f(x_1)+\alpha_2f(x_2)+\ldots+\alpha_nf(x_n)\]
+for all $\alpha_1,\ldots,\alpha_n\ge 0$ such that $\alpha_1+\ldots+\alpha_n=1$ and for all $x_1,\ldots, x_n\in S$.
+}
+
+\notation{
+Let $f:S\rightarrow\R$, differentiable where $S$ is an open convex set.  Then as $y\rightarrow x$, a Taylor expansion of $f$ about the point $x$ gives us the tangent linear approximation to $f$ at $x$:
+\[f(y)=f(x)+df(x)\cdot(y-x)+o(||y-x||)\]
+Where $\frac{o(||y-x||)}{||y-x||}\rightarrow 0$ as $y\rightarrow x$.
+
+In this notation $df(x)$ in vector notation as follows, let 
+$x=\begin{pmatrix}x_1\\
+\vdots\\
+x_m
+\end{pmatrix}$ and 
+$y=\begin{pmatrix}
+x_1\\
+\vdots\\
+y_m
+\end{pmatrix}$, then:
+\[df(x)=\brac{\frac{\partial f}{\partial x_1}x,\ldots,\frac{\partial f}{\partial x_n}x}\]
+and
+\[f(y)=f(x)\sum\limits_{j=1}^n\frac{\partial f}{\partial{x_j}}(x)(y_j-x_j)+o\brac{\sqrt{\sum\limits_{j=1}^m(y_j-x_j)^2}}\]
+}
+
+\prop{ (Supporting Hyperplane Theorem)
+
+A differentiable function $f(x)$ defined on an open convex $S\subset\R^m$ is convex if and only if:
+\[(1)\text{ }f(y)\ge f(x)+df(x)\cdot(y-x)\text{ }\forall x,y\in S\]
+}
+In other words a differentiable function is conved if and only if it is above its supporting tangent hyperplane.
+
+\prf{
+Suppose $f$ is convex, and we go to show the result in $(1)$.  For convex functions we have the result:
+\begin{align*}
+f(\alpha x+(1-\alpha)y)&\le\alpha f(x)+(1-\alpha)f(y)\\
+\rightarrow \frac{f(\alpha x+(1-\alpha)y)-f(x)}{1-\alpha}&\le \frac{(1-\alpha)f(y)-(1-\alpha)f(x)}{(1-\alpha)}=f(y)-f(x)
+\end{align*}
+Now consider the left side as $\alpha\rightarrow 1$.
+\begin{align*}
+\frac{df(x)((\alpha x+(1-\alpha)y)-x)+o(1-\alpha)}{1-\alpha}&\xrightarrow{\alpha\rightarrow 1} \frac{df(x)(1-\alpha)(y-x)}{1-\alpha}
+=df(x)(y-x)
+\end{align*}
+Sowe we conclude that:
+\[\lim\limits_{y\to x}\text{LHS}\le f(y)-f(x)\]
+or:
+\[df(x)(y-x)\le f(y)-f(x)\]
+So after minimal rearranging we have:
+\[f(y)\ge f(x)+df(x)(y-x)\text{ }(2)\]
+
+Now suppose that $(2)$ is true.  We now need to prove the convexity of $f$.  If we write $z=\alpha x+(1-\alpha)y$, then we can rewrite $(2)$ in two forms:
+\begin{align*}
+f(x)&\ge f(z)+df(z)(x-z)\text{ }(a)\\
+f(y)&\ge f(z)+df(z)(y-z)\text{ }(b)
+\end{align*}
+Now we take a linear combination of $\alpha(a)+(1-\alpha)(b)$
+\begin{align*}
+\alpha f(x)+(1-\alpha)f(y)&\ge \alpha f(z)+\alpha df(z)(x-z)+(1-\alpha)f(z)+(1-\alpha)df(z)(y-z)\\
+\alpha f(x)+(1-\alpha)f(y)&\ge f(z)+df(z)(\underbrace{\alpha x+(1-\alpha)y-z}_{=0})\\
+\leftrightarrow \alpha f(x)+(1-\alpha)f(y)&\ge f(\alpha x+(1-\alpha)y)
+\end{align*}
+As required, thus $f$ is convex.
+}
+
+\prop{
+Suppose $f$ is twice differentiable on the open convex set $S\subset\R^m$.  Let:
+\[d^2f(x)=\brac{\frac{\partial^2 f}{\partial x_j\partial x_k}}_{j,k=1,\ldots,m}\]
+be the matrix of second partials.  If $d^f(x)$ is non-negative definite for all $x\in S$, then $f$ is convex on $S$.
+}
+
+\prop{
+If $d^2f(x)$ is positive definite for all $x\in S$ then $f$ is strictly convex.
+}
+
+\eg{
+The family of linear functions 
+\begin{align*}
+f(x)&=A^Tx+b\\
+f(x_1,\ldots,x_m)&=\sum\limits_{j=1}^ma_jx_j+b
+\end{align*}
+are convex.
+\prf{
+Since $f(x)$ is linear, all higher order terms in terms of derivatives are zero:
+\begin{align*}
+f(y)&=f(x)+df(x)(y-x)\\
+\rightarrow f(y)&\ge f(x)+df(x)(y-x)
+\end{align*}
+}
+}
+
+\eg{
+\[f(x)=||x||\]
+\prf{
+By the triangle inequality:
+\begin{align*}
+||\alpha x+(1-\alpha)y||&\le ||\alpha x||+||(1-\alpha)y||
+\le \alpha||x||+(1-\alpha)||y||
+\end{align*}
+
+}
+The special case is when the dimension is 1, consider $m=1$.
+\[f(x)=|x|\]
+This is pretty cool since since it's convex and not linear
+}
+
+\eg{
+\[f(x)=\frac{1}{2}x^TAx+b^Tx+c\]
+Where $A$ is a non-negative definite $m\times m$ matrix, $b$ is a $m\times 1$ column vector and $c$ is a scalar.
+
+\prf{
+\[d^2f(x)=A\]
+Since $A$ is non-negative definite, the double derivative is non-negative everywhere.  Therefore $f$ must be a convex function.
+}
+
+Consider the case where $m=1$, then we have:
+\[f(x)=\frac{1}{2}ax^2+bx+c\text{ }a\ge 0\]
+
+}
+\section*{Lecture 10}
+\subsection{Properties of Convex Functions}
+\enuma{
+\item If $f:\R^m\to\R$ is a convex function, $g:\R\to\R$ convex and increasing, then $(g\circ f)(x)=g(f(x))$ is convex.
+
+\item If $f$ is convex, then $g=f(Ax+b)$ is convex.  Where $A$ has dimension $m\times m$ and $b$ has dimension $m\times 1$.
+
+\item $f,g$ convex, $\alpha$, $\beta\ge 0$, then $\alpha f+\beta g$ is convex.
+\item If $f_1,\ldots, f_n$ are convex, then $g(x)=\max(f_1(x),\ldots,f_n(x))$ is convex.
+\item If $\curlybrac{f_n}_{n=1}^\infty$ is a sequence of convex functions and $\lim\limits_{n\to\infty}f_n(x)$ exists then for all $x$, $f(x)=\lim\limits_{n\to\infty}f_n(x)$ is a convex function.
+}
+
+\defn{
+A function $f(x)>0$ is said to be log-convex if $\log(f)$ is convex.
+}
+
+\subsection{Jensen's Inequality}
+Let $h$ be a convex function on $(a,b)$ and $-\infty\le a<b\le\infty$.  Let $W$ be a random variable such that $P(a<W<b)=1$.
+
+Then $\ex{h(W)}\ge h(\ex{W})$ provided both expectations exists.  If $h$ is strictly convex, then $\ex{h(W)}=h(\ex{W})$ if and only if $W$ is constant, i.e. $P(W=\ex{W})=1$.
+
+\prf{
+We will only consider the case where $h$ is differentiable.
+
+By the supporting hyperplane theorems:
+\[h(x)\ge h(\mu)+h'(\mu)(x-\mu)\]
+where $\mu=\ex{W}$, for all $x\in(a,b)$, so:
+\begin{align*}
+h(W)&\ge h(\mu)+h'(\mu)(W-\mu)\\
+\ex{h(W)}&\ge h(\mu)+h'(\mu)\ex{W-\mu}
+\end{align*}
+But since $\ex{W-\mu}=0$ then we have:
+\[\ex{h(W)}\ge h(\mu)=h(\ex{W})\]
+}
+
+\eg{
+Consider $h(x)=x^2$
+\[\ex{X^2}\ge(\ex{X})^2\rightarrow\var{X}\ge 0\]
+}
+
+\eg{
+Consider $h(x)=e^{tx}$, then we have:
+\[\ex{e^{tX}}\ge e^{t\mu}\]
+where $\mu=\ex{X}$.  Then if we take $X\sim\text{N}(\mu,\sigma^2)$, we have:
+\begin{align*}
+e^{t\mu+\sigma^2tk}&\ge e^{t\mu}\\
+e^{\frac{\sigma^2t^2}{2}}&\ge 1
+\end{align*}
+
+This is equal ($t\ne 0$) if and only if $\sigma^2=0$, and if an only if $P(W=\ex{W})=1$. 
+}
+
+\eg{
+Consider $h(x)=\ln(x)$, which is a convex function.  This implies that $g(x)=-\ln(x)$ is concave.  Then we have the inequality:
+\[\ex{\ln(X)}\le\ln(\ex{X})\]
+}
+
+\section*{Lecture 11}
+
+\subsection{Schl\"{o}milch's Inequality}
+Let $X > 0$. Define
+\[ M(p) = [\ex{X^p}]^{1/p}, \qquad p \neq 0. \]
+See problem 24 chapter 3. We shall assume that $M( p )$ is finite. We can also define $M(0)$. We can check that
+\[ \lim_{p \to 0} M(p ) = e^{\text{E}[\ln(X)]} \]
+Suppose $0 < p < q$. Then $h(x) = x^{q/p}$ convex because $q/p \geq 1$ so
+\[ (\ex{X^p})^{q/p} \leq \ex{(X^p)^{q/p}} \]
+by Jensen's Inequality, which is $= \ex{X^q}$. Take each side to the power $1/q$
+\[ ((\ex{X^p})^{q/p})^{1/q} \leq (\ex{X^q})^{1/q} \qquad \text{or} \qquad (\ex{X^p})^{1/p} \leq (\ex{X^q})^{1/q} \]
+So if $0 < p < q$ then $M( p ) \leq M( q )$.
+
+\eg{
+$M(1) \leq M(2)$ for $X>0$.
+\[ \ex{X} \leq \sqrt{\ex{X^2}} \]
+}
+
+Now consider $p < q < 0$. Define $h(x) = -(x^{q/p})$. Then
+\[ (\ex{X^p})^{q/p} \geq \ex{X^q} \]
+So $(\ex{X^p})^{1/p} \leq (\ex{X^q})^{1/q}$ since $p < 0$, $q < 0$ or $M( p ) \leq M( q )$, $p < q < 0$.  By continuity the case $p=0$ can be included.
+
+Now we will look at some special cases of this inequality, we need the assumptions:
+
+$p < q$, $M(p) \leq M(q)$ and $M$ is an increasing function.
+
+\[ M(-1) \leq M(0) \leq M(1) \]
+\[ \frac{1}{\ex{X^{-1}}} \leq e^{E[ \ln(x) ]} \leq E[X] \]
+For example, suppose $X$ has a discrete uniform distribution on the set of real numbers $\{ x_1, x_2, \ldots, x_n \}$. That is 
+\[ \text{P}(X = x_j) = \frac{1}{n} \text{ for all } j. \]
+\[ \ex{X^{-1}} = \sum_{j=1}^n {x_j}^{-1} \cdot \frac{1}{n} = \frac{1}{n} \sum_{j=1}^n \frac{1}{x_j} \]
+\[ \frac{1}{\ex{X^{-1}}} = \frac{n}{\frac{1}{x_1} + \frac{1}{x_2} + \ldots + \frac{1}{x_n}} \qquad \text{Harmonic Mean} \]
+\[ \ex{\ln(x)} = \sum_{j=1}^n \ln(x_j) \cdot \frac{1}{n} = \frac{1}{n} \sum_{j=1}^n \ln(x_j) \]
+\[ = \frac{1}{n} \ln \left( \prod_{j=1}^n x_j \right) = \ln \left( (x_1 x_2 \cdots x_n)^{1/n} \right) \qquad \text{Geometric Mean} \]
+so $e^{\text{E}[ \ln(x) ]} = (x_1 x_2 \cdots  x_n)^{1/n}$.
+\[ \ex{X} = \frac{x_1 + x_2 + \cdots + x_n}{n} \qquad \text{Arithmetic Mean} \]
+HM $\leq$ GM $\leq$ AM (HM-GM-AM inequality).
+
+\subsection{H\"{o}lder's Inequality}
+
+$X, Y$ are random variables, and $p, q > 1$ such that $\frac{1}{p} + \frac{1}{q} = 1$. Then
+\[ |\ex{XY}| \leq [\ex{|X|^p}]^{1/p} [\ex{|Y|^q}]^{1/q} \]
+whenever the expectations on the right exist.
+
+\prf{
+Since $|\ex{XY}| \leq \ex{|X| \cdot |Y|}$ Jensen's inequality $h(x) = |x|$.
+
+So it suffices to show that
+\[ \ex{ |X| \cdot |Y| } \leq ( \ex{|X|^p} )^{1/p} ( \ex{|Y|^q} )^{1/q} \]
+that it suffices to prove
+\[ \ex{XY} \leq [\ex{X^p}]^{1/p} \cdot [\ex{Y^q}]^{1/q}, \qquad x, y \geq 0 \]
+Dividing LHS by RHS, it suffices to show
+\[ \ex{ \frac{X}{(\ex{X^p})^{1/p}} \cdot \frac{Y}{(\ex{Y^q})^{1/q}}} \leq 1 \]
+or equivalently $\ex{XY} \leq 1$ when $X,Y \geq 0$ and $\ex{X^p} = 1$, $\ex{X^q} = 1$.
+
+Set $r = 1/p$. Consider a random variable $Z$ such that
+\[ z = \begin{cases}
+u & \text{with probability } r \\ v & \text{with probability } 1-r. \end{cases} \]
+
+for any $u,v \geq 0$ Apply Shl\"{o}mlich's Inequality to $Z$. $M( 0 ) \leq M( 1 )$, calculating this we get
+\[ u^r v^{1-r} \leq ru + (1-r) v \]
+Let $X^p = u$ and $Y^q = v$.
+\[ X^{pr} \cdot Y^{q(1-r)} \leq rX^p + (1-r)Y^q \]
+But $pr = p \cdot \frac{1}{p} = 1$ and $q(1-r) = q(1-\frac{1}{p}) = q(\frac{1}{q}) = 1$.
+\[ X \cdot Y \leq \frac{1}{p} X^p + \frac{1}{q} Y^q \]
+so $\ex{XY} \leq \frac{1}{p} \ex{X^p} + \frac{1}{q} \ex{Y^q} = \frac{1}{p} \cdot 1 + \frac{1}{q} \cdot 1$ by assumption, which $= 1$.
+}
+
+
+Special case of H\"{o}lder's Inequality
+
+$p=q=2$ so that $\frac{1}{2} + \frac{1}{2} = 1$.
+\[ |\ex{XY}| \leq [\ex{X^2}]^{1/2} \cdot [\ex{Y^2}]^{1/2} \qquad\text{or}\qquad |\ex{XY}| \leq \sqrt{ \ex{X^2} \ex{Y^2} }\]
+A special case occurs when you replace $X$ with $X - \ex{X}$ and $Y$ with $Y - \ex{Y}$.
+
+\[ |\cov{X,Y}| \leq \sqrt{\var{X} \var{Y}} \qquad \text{or} \qquad |\cov{X,Y}| \leq \sigma(X) \sigma(Y) \leftrightarrow \left| \frac{\cov{X,Y}}{\sigma(X) \sigma(Y)} \right| \leq 1 \]
+$-1 \leq \rho_{xy} \leq 1$.
+
+\subsection{Markov's Inequality}
+$g(x) \geq 0$ monotone non-decreasing function, $X$ random variable
+\[ \text{P}(X > c) \leq \frac{\ex{g(X)}}{g(c )} \]
+
+\prf{
+\begin{align*}
+g( c ) \cdot 1_{X \ge c} &\le g(x) \cdot 1_{(X \ge c)} \le g(X)\\
+\ex{g(c ) \cdot 1_{X \ge c}} &\le \ex{g(X)}\\
+g(c)\ex{1_{(X\ge c)}}&\le\ex{g(X)}\\
+g(c)\text{P}(X\ge c)&\le\ex{g(X)}\\
+\text{P}(X\ge c)&\le\frac{\ex{g(X)}}{g(X)}
+\end{align*}
+}
+
+\subsection{A Bit of Magic: Large Deviation Theory}
+If we have a function $g(x)=e^{tx}$ with $t\ge 0$ and $c>0$, then:
+\begin{align*}
+\text{P}(X\ge c)&\le e^{-tc}\ex{e^{tX}}\\
+\text{P}(X\ge c)&\le\inf\limits_{t\ge 0}e^{-tc}\ex{e^{tX}}
+\end{align*}
+
+\eg{
+Let $X\sim\text{N}(0,1)$ with $\ex{e^{tX}}=e^{\frac{t^2}{2}}$.  Then we have:
+\begin{align*}
+\text{P}(X\ge c)&\le\inf\limits_{t\ge 0}e^{-ct+\frac{t^2}{2}}\\
+&\le \exp\brac{\underbrace{\inf\limits_{t\ge 0}\brac{-ct+\frac{t^2}{2}}}_{t=c}}\\
+&\le e^{-c^2+\frac{c^2}{2}}\\
+\text{P}(X\ge c)&\le e^{-\frac{c^2}{2}} \qquad \text{for } c>0
+\end{align*}
+}
+
+\section*{Lecture 12}
+\section{Combinatorics}
+\subsection{Bijections}
+Given a finite set $S$ we wish to find the number of elements in $S$, say $|S|$.
+\enum{
+\item Count the elements directly.
+\item Find a set $T$ such that there is a bijection (one-to-one correspondence) between $S$ and $T$.  So that $|S|=|T|$ (Bijection Identity).
+}
+
+\eg{
+Let $S$ be the collection of all subsets of size $k$ from the set $\curlybrac{1,2,\ldots,n+1}$.  Find $|S|$.
+
+If we do this directly it is quite easy to see that the answer is:
+\[|S|={n+1\choose k}\]
+
+Let's try finding a bijection.  Let consider two ways to choose a subset of size $k$.
+\enum{
+\item Choose $k-1$ elements from $\curlybrac{1,2,\ldots,n}$ and then choose $n+1$.
+\item Only choose $k$ elements from $\curlybrac{1,2,\ldots,n}$.
+}
+Therefore we finally get:
+\[|S|=(1)+(2)={n-1\choose k}+{n\choose k}\]
+Which is Pascal's Identity.
+}
+
+\eg{
+Consider the Fibonacci numbers.  Let $S_n$ be the number of subsets of $\curlybrac{1,2,\ldots, n}$ which do not contain two consecutive integers.  Take for example:
+\begin{align*}
+S_4&=\curlybrac{1,2,3,4}\\
+\curlybrac{1,3}&\in S_4\\
+\curlybrac{1}&\in S_4\\
+\curlybrac{1,3,4}&\not\in S_4\\
+\curlybrac{\varnothing}&\in S_4
+\end{align*}
+Let $s_n=|S_n|$.
+
+If we count it directly we should get $s_n$.  Otherwise we can count teh number of such subsets containing the element $n$, plus the number of such subsets that do not contain $n$.
+
+Any such subset which contains $n$ cannot contain $n-1$.  So the number of such subsets is the number of such subsets of $\curlybrac{1,2,\ldots,n-2}$ with $n$.  There are $s_{n-2}$ such subsets.
+
+Any such subset that does not contain $n$ as an element is such a subset of $\curlybrac{1,2,\ldots,n-1}$.  There are $s_{n-1}$ wuch subsets.
+
+So by bijection we get the following identity:
+\[s_n=s_{n-2}+s_{n-1}\]
+With the initial conditions $s_0=1$, $s_1=2$, and $s_2=3$.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & $f_n$ & $s_n$\\
+\hline
+1 & 1 & 2\\
+2 & 1 & 3\\
+3 & 2 & 5\\
+4 & 3 & 8\\
+5 & 5 & 13\\
+\hline
+\end{tabular}
+\end{center}
+
+So we have the relation:
+\[s_n=f_{n+2}\]
+where $f_n$ is the $n$th fibbonacci numbers.
+}
+
+\subsection{Inclusion-Exclusion Formula}
+Let $A_1,A_2,\ldots,A_n$ be any $n$-events.  We want to find $p_{\sqbrac{k}}$, the probability that exactly $k$ of the $n$ events occur.
+
+We first define the indicator
+\[1_{A_j}(\omega)=\begin{cases}1 & \omega\in A_j\\ 0 & \omega\not\in A_j\end{cases}\]
+and let $R$ be a subset of $\curlybrac{1,2,\ldots,n}$ such that $|R|=k$
+
+The probability that the events in $R$ occur and those not in $R$ do not occur is:
+\[\ex{\prod_{j\in R}1_{A_j}\prod_{j\not\in R}(1-1_{A_j})}\]
+
+Expand out inside the expectation, then push the expectation through on each term.  Expanding out we choose either $1$ or $1_{A_j}$ in the factors with $j\not\in R$.
+
+Take for example $R=\curlybrac{1,2,\ldots,k}$, then:
+\[\prod_{j\in R}1_{A_j}\prod_{j\not\in R}(1-1_{A_j})=1_{A_1}1_{A_2}\ldots 1_{A_{k}}(1-1_{A_{k+1}})(1-1_{A_{k+2}})\ldots (1-1_{A_{n}})\]
+
+For each term in the expansion, let $S$ be the subset of $\curlybrac{1,2,\ldots,n}$ of all $j$ where $1_{A_j}$ appears in the term.  So $R\subset S$ and thus:
+\[\prod_{j\in R}1_{A_j}\prod_{j\not\in R}(1-1_{A_j})=\sum_{j=k}^n(-1)^{j-k}\sum\limits_{\substack{S:R\subset S\\|S|=j}}\prod_{j\in S}1_{A_j}\]
+
+This first summation is adding over the cardinality of $S$, the second sum is summing over all subsets $S$ such that $|S|=j$.
+
+\begin{align*}
+p_{\sqbrac{k}}&=\sum\limits_{R:|R|=k}\ex{\prod_{j\in R}1_{A_j}\prod_{j\not\in R}(1-1_{A_j})}
+=\sum_{R:|R|=k}\sum_{j=k}^n(-1)^{j-k}\sum_{\substack{S:R\subset S\\|S|=j}}\p{\bigcap_{j\in S}A_j}\\
+&=\sum_{j=k}^n(-1)^{j-k}\sum_{R:|R|=k}\sum_{S:R\subset S}\p{\bigcap_{j\in S}A_j}\\
+p_{\sqbrac{k}}&=\sum_{j=k}\sum+{j=k}^n(-1)^{j-k}{j\choose k}\sum_{S:|S|=j}\p{\bigcap_{j\in S}A_j}
+\end{align*}
+
+\section*{Lecture 13}
+\subsection{Inclusion-Exclusion Formulas}
+Let $n$ events be denoted $A_1,A_2,\ldots,A_n$, and $X$ be the number of the events that occur, so:
+\[X=\sum_{j=1}^n1_{A_i}\]
+
+We want to calculate:
+\[p_{\sqbrac{k}}=\text{P}(X=k)\qquad k=0,1,2\ldots,n\]
+
+We found that:
+\begin{align*}
+p_{\sqbrac{k}}&=\sum_{j=k}^n(-1)^{j-k}{j\choose k}\sum_{S:|S|=j}\p{\bigcap_{j\in S}A_j}
+=\sum_{S:|S|=k}\p{\bigcap_{j\in S}A_j}-(k+1)\sum_{S:|S|=k+1}\p{\bigcap_{j\in S}A_j}+\ldots\\
+&\ldots+{k+1\choose 2}\sum_{S:|S|=k+2}\p{\bigcap_{j\in S}A_j}-\ldots+(-1)^{n-k}{n\choose k}\p{\bigcap_{j=1}^nA_j}
+\end{align*} 
+
+\rem{
+If $k=n$, the formula becomes:
+\[p_{\sqbrac{n}}=\p{A_1\cap A_2\cap\ldots\cap A_n}\]
+which is trivially true.
+}
+
+\rem{
+If we take $k=0$, the first term is:
+\[\sum_{S:|S|=0}\p{\bigcap{j\in S}A_j}=\p{\bigcap_{j\in\varnothing}A_j}\]
+
+We interpret empty intersections as $\Omega$.  So the first term in the formula for $p_{\sqbrac{0}}$ is $P(\Omega)=1$.
+}
+
+\rem{
+The sequence of partial sums form upper and lower bounds for $p_{\sqbrac{k}}$, depending on the sign of the last term we have:
+\begin{align*}
+p_{\sqbrac{k}}&\le\sum_{S:|S|=k}\p{\bigcap_{j\in S}A_j}\\
+p_{\sqbrac{k}}&\ge\sum_{S:|S|=k}\p{\bigcap_{j\in S}A_j}-(k+1)\sum_{S:|S|=k+1}\p{\bigcap_{j\in S}}
+\end{align*}
+Of course the more terms you include the closer bounds you can get, but for the sake of simplicity this is sufficient.  These are called the Bonferroni bounds.
+}
+
+Their most common use are in statistical inference on multiple comparisons for $k=0$
+\[1-p_{\sqbrac{0}}=\p{\bigcup_{j=1}^nA_j}\]
+The Bonferroni bounds become:
+\begin{align*}
+\p{\bigcup_{j=1}^nA_j}&\le\sum_{j=1}^n\text{P}(A_j)\qquad\text{(Boole's inequality)}\\
+\p{\bigcup_{j=1}^nA_j}&\ge\sum_{j=1}^n\text{P}(A_j)-\sum_{i<j}\text{P}(A_i\cap A_j)
+\end{align*}
+
+Let's return to our original problem, let
+\begin{align*}
+p_{\brac{k}}&=\text{P}(X\ge k)=\text{probability at least }k\text{ events occur}\\
+p_{\brac{k}}&=\sum_{l=k}^np_{\sqbrac{l}}
+=\sum_{j=k}^n(-1)^{j-k}{j-1\choose k-1}\sum_{S:|S|=j}\p{\bigcap_{j\in S}A_j}
+\end{align*}
+
+\defn{
+Events $A_1,\ldots,A_n$ are said to be exchangeable if:
+\begin{align*}
+\text{P}(A_j)&=\text{P}(A+1)\qquad \forall j\\
+\text{P}(A_i\cap A_j)&=\text{P}(A_1\cap A_2)\qquad \forall i<j\\
+&\vdots\\
+\text{P}(A_{j_1}\cap A_{j_2}\cap\ldots \cap A_{j_m})&=\text{P}(A_{j_1}\cap A_{j_2}\cap \ldots\cap A_{j_m})\qquad \forall j_1<j_2<\ldots<j_m
+\end{align*}
+}
+
+In this case, the formulas for $p_{\sqbrac{k}}$ and $p_{\brac{k}}$ become:
+\begin{align*}
+p_{\sqbrac{k}}&=\sum_{j=k}^n(-1)^{j-k}{j\choose k}{n\choose j}\text{P}(A_1\cap A_2\cap\ldots\cap A_j)\\
+p_{\brac{k}}&=\sum_{j=k}^n(-1)^{j-k}{j-1\choose k-1}{n\choose j}\text{P}(A_1\cap A_2\cap\ldots\cap A_j)
+\end{align*}
+
+\section*{Lecture 14}
+\section{Applications of Inclusion-Exclusion Formulas}
+\subsection{Random Permutations}
+A deck of $n$ cards has the numbers $1,2,\ldots,n$ written on each card.  The deck is then shuffled and the cards are dealt one at a time on a table.
+
+Let the random variable $X=$ number of cards where the $i$th card comes up on the $i$th deal.
+
+\begin{example}
+Consider when $n=6$
+\begin{center}
+\begin{tabular}{lc|c|cc|c|c}
+\cline{3-3}\cline{6-6}
+Position in deal & 1 & 2 & 3 & 4 & 5 & 6\\
+Card number & 3 & 2 & 6 & 1 & 5 & 4\\
+\cline{3-3}\cline{6-6}
+\end{tabular}
+\end{center}
+In this case $X=2$.
+\end{example}
+
+Another way to describe this is, let $\pi$ be a random permutation of the set $\left\{1,2,\ldots,n\right\}$.  That is $\pi(i)\in\left\{1,2,\ldots,n\right\}$ and $\pi$ is a $1$-$1$ correspondence from $\left\{1,2,\ldots,n\right\}$ to itself.
+
+We can redefine the random variable $X$ as:
+\[X=\#\left\{i:\pi(i)=i, \text{ for } i=1,2,\ldots,n\right\}\]
+
+Let $A_i=$even that card $i$ is on the $i$th deal, so:
+\[X=\sum\limits_{i=1}^n1_{A_i}\]
+The events $A_1,A_2,\ldots,A_n$ are exchangeable so:
+\[\text{P}(A_1\cap A_2\cap\ldots\cap A_j)=\frac{1}{n}\cdot\frac{1}{n-1}\cdot\frac{1}{n-2}\cdot\ldots\cdot\frac{1}{n-j+1}=\frac{(n-j)!}{n!}\]
+
+We wish to find the distribution of $X$, namely:
+\[p_{\left[k\right]}=\text{P}(X=k)\]
+
+We use the inclusion-exclusion formula for exchangeable events
+\begin{align*}
+p_{\left[k\right]}&=\sum\limits_{j=k}^n(-1)^{j-k}{j\choose k}{n\choose j}P(A_1\cap A_2\cap\ldots\cap A_j)
+=\sum\limits_{j=k}^n(-1)^{j-k}{j\choose k}{n\choose j}\frac{(n-j)!}{n!}\\
+&=\sum\limits_{j=k}^n(-1)^{j-k}\frac{1}{k!(j-k)!}
+=\frac{1}{k!}\sum\limits_{j=k}^n\frac{(-1)^{j-k}}{(j-k)!}\text{, let }i=j-k\\
+&=\frac{1}{k!}\sum\limits_{i=0}^{n-k}\frac{(-1)^i}{i!}
+\end{align*}
+
+This has a pretty cool interpretation if we take $n\to\infty$ and keep $k$ fixed.
+
+\begin{align*}
+p_{\left[k\right]}&=\text{P}(X=k)
+=\frac{1}{k!}\sum_{i=0}^\infty\frac{(-1)^i}{i!}
+=\frac{1}{k!}\cdot e^{-1}
+=\frac{1^ke^{-1}}{k!}
+=\frac{\mu^ke^{-\mu}}{k!}
+\end{align*}
+Where $\mu=1$, so this is Poisson distribution with mean $1$.
+
+\subsection*{Order Statistics}
+Let $X_1,X_1,\ldots,X_n$ be random variables.  We can rearrange $X_1,X_2,\ldots,X_n$ in increasing order as $X_{(1)},X_{(2)},\ldots,X_{(n)}$ where $X_{(1)}\le X_{(2)}\le X_{(3)}\le\ldots\le X_{(n)}$.
+
+\begin{example}
+Consider $n=3$
+\begin{tabular}{ccc}
+$X_1=5$ & $X_2=3$ & $X_3=7$\\
+$X_{(1)}=3$ & $X_{(2)}=5$ & $X_{(3)}=7$
+\end{tabular}
+\end{example}
+
+There are some useful quantities associated with the order statistics such as:
+\begin{align*}
+\text{Range}&=X_{(n)}-X_{(1)}\\
+\text{Median}&=X_{(m+1)}\text{ where }n=2m+1
+\end{align*}
+
+We wish to find the distribution of $X_{(i)}$, $1\le i\le n$.  That is, either its distribution function or its moments.  Let $S\subset\left\{1,2,\ldots,n\right\}$, we define:
+\begin{align*}
+X_S&=\min\left\{X_j,j\in S\right\}\\
+X^S&=\max\left\{X_j,j\in S\right\}\\
+F_S(t)&=\text{P}(X_S\le t)\\
+F^S(t)&=\text{P}(X^S\le t)
+\end{align*}
+
+\prop{\
+
+
+\enum{
+\item Useful for large order statistics
+\[F_{(i)}(t)
+=\text{P}(X_{(i)}\le t)
+=\sum\limits_{j=i}^n(-1)^{j-i}{j-1\choose i-1}\sum\limits_{S:|S|=j}F^S(t)\]
+
+\item Useful for small order statistics
+\[F_{(n-i+1)}(t)
+=\text{P}(X_{(i)}\le t)
+=\sum\limits_{j=i}^n(-1)^{j-i}{j-1\choose i-1}\sum\limits_{S:|S|=j}F_S(t)\]
+
+\item
+\[\ex{X_{(n)}^{-k}}=\sum\limits_{j=i}^n(-1)^{j-i}{j-1\choose i-1}\sum\limits_{S:|S|=j}\ex{(X^S)^k}\]
+
+\item
+\[\ex{X_{(n-i+1)}^{-k}}=\sum\limits_{j=i}^n(-1)^{j-i}{j-1\choose i-1}\sum\limits_{S:|S|=j}\ex{(X_S)^k}\]
+}
+}
+
+\paragraph{Special Case: }If $X_1,X_2,\ldots,X_n$ are identically and independentally distributed with common distribution function $F(t)$.  If $|S|=j$, then:
+\begin{align*}
+F^S(t)&=\text{P}(X^S\le t)
+=\text{P}(\max(X_1,X_2,\ldots,X_j)\le t)
+=(F(t))^j\\
+F_{(i)}(t)&=\sum\limits_{j=1}^n(-1)^{j-i}{j-1\choose i-1}{n\choose j}(F(t))^j
+=\frac{n!}{(i-1)!}\sum\limits_{j=i}^n(-1)^{j-i}\frac{(F(t))^j}{j(j-1)!(n-j)!}
+\end{align*}
+
+\section*{Lecture 15}
+\section{Catalan Numbers}
+\paragraph{Question 1}
+How many valid ways are there to order $n$ left parentheses and $n$ right parentheses in a simple algebraic expression.
+\begin{align*}
+1+1+1+1&\\
+(1+1)+(1+1)&\rightarrow()()\\
+(1+1+1)+(1)&\rightarrow()()\\
+((1+1)+1)+1&\rightarrow(())
+\end{align*}
+\enum{
+\item The number of left parentheses must be the same as the number of right parentheses
+\item Reading from left to right, the number of left parentheses is always greater than or equal to the number of right parentheses.
+}
+So $))(($ would be an invalid configuration.
+
+\paragraph{Question 2}
+A fair coin is tossed
+\[X_j=\begin{cases}
++1 & \text{ if }j\text{th toss is head}\\
+-1 & \text{ if }j\text{th toss is a tail}
+\end{cases}\]
+Define $S_0=0$ and $S_n=\sum\limits_{j=1}^nX_j$ for $n\ge 1$.
+
+Then $S_n$, $n\ge 0$ is called a simple symmetric random walk (starting at zero).
+
+What is the value of $\text{P}(S_j\ge 0)$ for all $j=1,2,\ldots,2n$.  In this even for it to be true, the number of heads on tosses $1,2,\ldots,j$ must be greater than the number of tails.
+
+\paragraph{Question 3}
+$2n$ people stand in line for movie tickets $n$ of them have $\$5$ bills.  $n$ of them have $\$10$ bills.  Each ticket costs $\$5$.  The guy operating the ticket booth has no change.  What is the probability that everyone can buy a ticket.
+
+For this to work at any position in the line, the number of people with $\$5$ dollar bills must be greater than the number of people with $\$10$ bills.
+
+\defn{
+Let $c_n$ be the number of valid strings of $n$ left parentheses and $n$ right parentheses.  The number $c_n$ is called the $n$th Catalan number.
+\[c_{n+1}=\sum\limits_{k=0}^nc_k\cdot c_{n-k}\]
+where $c_0=1$
+}
+
+This recursive formula can be derived by generating functions.  If $c(x)=\sum\limits_{n=0}^\infty c_nx^n$ then it can be shown that:
+\[c(x)=\frac{1-\sqrt{1-4x}}{2x}\]
+Next we take a Taylor expansion of $c(x)$ and find the formula for the coefficient $c_n$.  This is covered in more detail in the textbook.
+
+\paragraph{Solution 3}
+$c_n$ is the number of valid pairings of $n$ $\$5$ and $n$ $\$10$ bills.  ${2n\choose n}$ is the total possible pairings of $n$ $\$5$ and $n$ $\$10$ bills.
+\begin{align*}
+\frac{c_n}{{2n\choose n}}
+&=\frac{\frac{1}{n+1}{2n\choose n}}{{2n\choose n}}
+=\frac{1}{n+1}
+\end{align*}
+
+\section{Stirling Numbers}
+\subsection{Stirling Numbers Of The Second Kind}
+\paragraph{Question 1}
+How many ways can we partition $n$ objects in to $k$ groups?
+\eg{
+Consider $n=3,k=2$.  How many ways can we partition the set $\left\{1,2,3\right\}$ in to $2$ groups.
+\begin{align*}
+&\left\{1,2\right\}\cup\left\{3\right\}\\
+&\left\{1,3\right\}\cup\left\{2\right\}\\
+&\left\{2,3\right\}\cup\left\{1\right\}
+\end{align*}
+So in total we have $3$ ways to do this.
+}
+
+\defn{
+Let $\begin{Bmatrix}
+n\\
+k
+\end{Bmatrix}$ by the number of ways to partition $n$ objects in to $k$ groups, with $\begin{Bmatrix}
+n\\
+1
+\end{Bmatrix}
+=1$ and 
+$\begin{Bmatrix}
+n\\
+k
+\end{Bmatrix}
+=0$ for $k>n$.
+}
+
+\paragraph{Question 2}
+$n$ dice are tossed.  Find the probability that exactly $k$ distinct numbers appear.
+
+\paragraph{Solution 2}
+Note that any outcome with the dice which has $k$ different numbers will partition the set $\left\{1,2,\ldots,n\right\}$ in to $k$ groups.  For example $n=3,k=2$, we might have:
+\[6,3,3\leftrightarrow\left\{1\right\}\cup\left\{2,3\right\}\]
+Or $n=4,k=3$:
+\[5,1,3,5\leftrightarrow \left\{1,4,\right\}\cup\left\{2\right\}\cup\left\{3\right\}\]
+\begin{align*}
+\text{P}(k\text{ different numbers})&=\frac{(\#\text{ of partitions in to }k \text{ groups})(\#\text{ of ways of assigning faces to each group})}{\#\text{ of outcomes for }n\text{ tosses}}\\
+&=\frac{\begin{Bmatrix}n\\ k\end{Bmatrix}6\cdot 5\cdot\ldots\cdot(6-k+1)}{6^n}
+\end{align*}
+
+We can generalize this for dice with $r$ sides:
+\[\text{P}(k\text{ distinct sides})=\frac{\begin{Bmatrix}n\\ k\end{Bmatrix}r^{(k)}}{r^n}\]
+We have the following recursive formula for the Stirling numbers of a second kind:
+\[\begin{Bmatrix}
+n\\
+k
+\end{Bmatrix}=
+\begin{Bmatrix}
+n-1\\
+k-1
+\end{Bmatrix}
+=k\begin{Bmatrix}
+n-1\\
+k
+\end{Bmatrix}\]
+We have the initial conditions that $\begin{Bmatrix}
+n\\
+1
+\end{Bmatrix}
+=1$ and $\begin{Bmatrix}
+n\\
+k
+\end{Bmatrix}
+=0$
+ for $k>n$.
+
+\subsection{Stirling Numbers Of The First Kind}
+\paragraph{Question 1} How many permutations $\pi(1),\pi(2),\ldots,\pi(n)$ are there with exactly $k$ cycles?
+
+\eg{
+$n=6$
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$j$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$\\
+\hline
+$\pi(j)$ & $3$ & $6$ & $5$ & $4$ & $1$ & $2$\\
+\hline
+\end{tabular}
+
+\begin{align*}
+1&\rightarrow 2\rightarrow 5\rightarrow 1\\
+\pi(1)&\rightarrow\pi(\pi(1))\rightarrow\pi(\pi(\pi(1)))\\
+2&\rightarrow 6\rightarrow 2\\
+4&\rightarrow 4
+\end{align*}
+$\pi$ can be written as:
+\[(1,3,5)(2,6)(4)\]
+So we can see there are $k=3$ cycles in this permutation.
+}
+
+
+\defn{
+$\begin{bmatrix}
+n\\
+k
+\end{bmatrix}$ is the number of permutations of $n$ objects which have exactly $k$ cycles.
+}
+
+We have a recursive formula for this as well:
+\[\begin{bmatrix}
+n\\
+k
+\end{bmatrix}=
+\begin{bmatrix}
+n-1\\
+k-1
+\end{bmatrix}+
+(n-1)\begin{bmatrix}
+n-1\\
+k
+\end{bmatrix}\]
+
+Our initial conditions are:
+\begin{align*}
+\begin{bmatrix}
+n\\
+1
+\end{bmatrix}&=\frac{n!}{n}
+=(n-1)!\\
+\begin{bmatrix}
+n\\
+k
+\end{bmatrix}
+&=0\text{ for }k>n
+\end{align*}
+
+\paragraph{Question 2} Let $Y_n$ be the number of cycles in a random permutation of $n$ objects.  Find $P(Y_n=k)$.
+
+\paragraph{Solution 2}
+\[\text{P}(Y_n=k)=\frac{\begin{bmatrix}
+n\\
+k
+\end{bmatrix}}{n!}\]
+
+\section*{Lecture 16}
+Let $Z_0, Z_1, Z_2, \ldots$ be a sequence of random elements taking values in a countable (finite/countably infinite) set called the \emph{state space}. The elements of the state space are usually labelled as integers. $Z_n$, $n \geq 0$ satisfies the Markov property:
+\[ \text{P}(Z_n = i_n \mid Z_{n-1} = i_{n-1}, \ldots, Z_0 = i_0) = \text{P}(Z_n = i_n \mid Z_{n-1} = i_{n-1}) \]
+Under standard assumptions of time-homogeneity
+\[ \text{P}(Z_n = j \mid Z_{n-1} = i) = p_{ij}, \text{ independent of the value of $n$.} \]
+The $p_{ij}$ are called \emph{step transition probabilities}.
+
+We define $P = (p_{ij})$ the matrix of 1-step transition probabilities, called the Transition Matrix.
+
+Define ${p_{ij}}^{(n)} = \text{P}(Z_n = j \mid Z_0 = i)$, $n$-step transition probabilities
+\[ ({p_{ij}}^{(n)}) = P^n, \text{ the $n$th matrix power of $P$}. \]
+This fact follows from the Chapman-Kolmogorov equations
+\[ {p_{ij}}^{(n+m)} = \sum_k {p_{ik}}^{(n)} {p_{kj}}^{(m)} \]
+and induction.
+
+In general
+\[ {p_{ij}}^{(n)} = \sum_{i_1, i_2, \ldots, i_{n-1}} p_{ii_1}p_{i_1i_2}\ldots p_{i_{n-1}j} \]
+where the sum is over all possible paths
+\[ i \to i_1 \to i_2 \to \ldots \to i_{n-1} \to j \]
+from $i$ to $j$ (law of total probability).
+
+If ${p_{ij}}^{(n)} \to \pi_j$ as $n \to \infty$, independent of the choice of $i$, then
+\[ p^n \to \begin{pmatrix} \pi \\ \pi \\ \vdots \\ \pi \end{pmatrix} \]
+a matrix whose rows are the same vector $\pi = (\pi_j)$ (row vector). So
+\[ \begin{pmatrix} \pi \\ \pi \\ \vdots \\ \pi \end{pmatrix} = \lim_{n \to \infty} P^{n+1} = \lim_{n \to \infty} P^n \cdot P = \left( \lim_{n \to \infty} P^n \right) \cdot P = \begin{pmatrix} \pi \\ \pi \\ \vdots \\ \pi \end{pmatrix} P \]
+Matching entries in both sides: so $\pi_j = \sum_i \pi_i p_{ij}$ for all $j$ balance equations. $\sum_j \pi_j = 1$.
+
+\enum{
+\item When does a solution exist for some probability distribution $\pi$?
+\item If a solution exists, when is it unique?
+}
+
+If the state space is finite a solution exists.
+
+\subsection{Classification of states}
+\[ \sum_{n=1}^\infty {p_{ii}}^{(n)} < \infty \qquad \text{or} \qquad \sum_{n=1}^\infty {p_{ii}}^{(n)} = \infty \]
+if $\sum_{n=1}^\infty {p_{ii}}^{(n)} < \infty \leftarrow$ state $i$ is transient. 
+
+If $\sum\limits_{n=1}^\infty=\infty$ then we have two cases
+\enum{
+\item $p_{ii}^{(n)\to 0}$, then state $i$ is null recurrent/null persistent.
+\item $p_{ii}^{(n)\not\to 0}$, then state $i$ is positive recurrent/persistent.
+}
+
+The period of state $i$ is defined as $\gcd \{ n \ge 1 : {p_{ii}}^{(n)} > 0 \}$. If the period is 1, we say that state $i$ is \emph{aperiodic}. Otherwise state $i$ is said to be \emph{periodic}.
+
+\eg{
+${p_{ii}}^{(3)} > 0$; ${p_{ii}}^{(5)} > 0\rightarrow $ aperiodic; ${p_{ii}} = 0$.
+}
+
+\defn{
+A positive recurrent aperiodic state is said to be \emph{ergodic}.
+}
+
+\defn{
+A Markov chain is said to be irreducible if for any states $i$ and $j$ there exist integers $n,m \geq 0$ such that ${p_{ij}}^{(n)} > 0$ and ${p_{ji}}^{(m)} > 0$. We write $i \leftrightarrow j$ and say that $i$ and $j$ \emph{communicate}.
+}
+
+\prop{
+An irreducible Markov chain whose states are all ergodic has a unique equilibrium distribution $\pi$ (satisfying balance equations) and $\lim_{n \to \infty} {p_{ij}}^{(n)} = \pi_j$ for all $j$.
+}
+
+\prop{
+An irreducible Markov chain with finite state space, whose states are aperiodic has a unique equilibrium distribution $\pi$ and $\lim_{n \to \infty} {p_{ij}}^{(n)} = \pi_j$ for all $j$.
+}
+Proofs: Coupling arguments.
+
+\subsection{Time reversible Markov chains}
+
+Suppose limiting probabilities $\pi_j$ exist. Some Markov chain models satisfy equations stronger than the balance equations:
+\[ \pi_j p_{ji} = \pi_i p_{ij} \qquad \text{for all $i,j$.} \]
+
+\subsection{Detailed balance equations for $\pi$}
+\defn{
+An irreducible Markov chain with ergodic states is said to be time reversible if it satisfies the detailed balance equations.
+\[ \pi_j p_{ij} = \pi_i p_{ij} \]
+LHS is ``flow from $j$ to $i$'' at equilibrium, RHS is ``flow from $i$ to $j$'' at equilibrium.
+}
+
+\prop{
+Detailed balance implies balance.
+}
+
+\prf{
+Assume detailed balance equations. $\pi_j p_{ji} = \pi_i p_{ij}$. Sum over $i$
+\[ \pi_j \left( \sum_i p_{ji} \right) = \sum_i \pi_i p_{ij} \]
+}
+
+\section*{Lecture 17}
+\subsection{Kolmogorov's Circulation Criterion (KCC)}
+For any sequence of states $i_1,i_2,\ldots, i_n$ we have:
+\[p_{i_1i_2}p_{i_2i_3}\ldots p_{i_{n-1}i_{n}}p_{i_ni_1}=p_{i_1i_n}p_{i_ni_{n-1}}\ldots p_{i_3i_2}p_{i_2i_1}\]
+
+\prop{
+Let $Z_n$, $\lambda\ge 0$ be an irreducible Markov Chain whose states are ergodic.  Then $Z_n$, $n\ge 0$ is time-reversible if and only if the Kolmogorov circulation criterion is satisfied.
+}
+
+Suppose $Z_n$, $n\ge 0$ is time-reversible and let $i_1,\ldots,i_m$ be any given sequence of states.  From the detailed balance equations, we get:
+\begin{align*}
+\pi_{i_1}p_{i_1i_2}&=\pi_{i_2}p_{i_2i_1}\\
+\pi_{i_2}p_{i_2i_3}&=\pi_{i_3}p_{i_3i_2}\\
+&\vdots\\
+\pi_{i_m}p_{i_mi_1}&=\pi_{i_1}p_{i_1i_m}\\
+\end{align*}
+
+If we multiply all the equations we get:
+\[(\pi_{i_1}\ldots\pi_{i_m})(p_{i_1i_2}p_{i_2i_3}\ldots p_{i_mi_1})=(\pi_{i_1}\ldots\pi_{i_m})p_{i_mi_1}\ldots p_{i_2i_1}\]
+
+Since all states are ergodic, this implies that all states are positive recurrent, so $\pi_j>0$ for all $j$.  We can cancel $\pi_j$ on both sides, leaving the Kolmogorov circulation criterion.
+
+Conversely, suppose that the Kolmogorov circulation criterion is true.  Then $p_{ij}>0$ if and only if $p_{ji}>0$, since $p_{ji}>0$ if and only if there is a path from $j$ to $i$ and by irreduciblity if and only if there is a path from $i$ to $j$:
+\[p_{ij}p_{jk}\ldots p_{li}>0\xrightarrow{\text{KCC}}p_{li}\ldots p_{kj}p_{ji}>0\rightarrow p_{ji}>0\]
+
+To prove that $Z_n$, $n\ge 0$ is time reversible, we first construct the equilibrium distribution $\pi$.  Choose some reference states, say state $0$.  For any state $j$ consider a path:
+\[0\to i_1\to i_2\to\ldots\to i_m\to j\]
+With positive probability on the steps.  Suppose that $\pi_0$ is known.  We define:
+\[\pi_j=\pi_0\cdot\frac{p_{0i_1}p_{i_1i_2}\ldots p_{i_mj}}{p_{ji_m}\ldots p_{i_2i_1}p_{i_10}}\]
+
+Consider a state $k$ where $p_{jk}>0$.
+\[\pi_k=\pi_0\cdot\frac{p_{0i_1}\ldots p_{i_mj}p_{jk}}{p_{kj}p_{ji_m}\ldots p_{i_10}}=\pi_j\frac{p_{jk}}{p_{kj}}\]
+Which is the detailed balance equation.  It follows with a little more work, by irreducibility holdes for all $k$ in the state space.
+
+
+You can think of a Markov chain as a random walk on a weighted directed graph:
+\begin{align*}
+\text{state }i&\rightarrow\text{vertex }i\\
+p_{ij}>0&\rightarrow\text{directed edge }i\text{ to }j
+\end{align*}
+
+\defn{
+A graph is said to be a tree if it has no simple cycles.  For example:
+\[i\to j\to\ldots\to i\qquad i\ne j\]
+does not occur, for distinct $i$, $j$.
+}
+
+Suppose a markov chain can be represented as a random walk on a tree.  Then for $i_1,\ldots,i_m$,
+\[p_{i_1i_2}p_{i_2i_3}\ldots p_{i_{m-1}i_m}p_{i_mi_1}=p_{i_1i_m}p_{i_mi_{m-1}}\ldots p_{i_3i_2}p_{i_2i_1}\]
+
+will be true because both sides will be zero if the states are distinct.  For both sides to be non-zero we must have $p_{ij}$ appear on the left side the same number of times as $p_{ji}$ on the right side.
+
+\prop{
+Random walks on trees are time reversible.
+}
+
+\section*{Lecture 18}
+\subsection{Coupling}
+Couplings allows us to prove a relaionship between random variables by ``forcing'' them to be functions of some common quanities.
+
+\eg{
+Suppose that $X\sim\text{Bin}(n,p)$, $Y\sim\text{Bin}(n,q)$, where $q>p$.
+
+Intuitively for any $k$
+\[\text{P}(X>k)\le \text{P}(Y>k)\]
+
+We could try proving this from scratch:
+\[\sum_{j=k+1}^n{n\choose j}p^j(1-p)^{n-j}\le \sum_{j=k+1}^n{n\choose j}q^j(1-q)^{n-j}\]
+This is hard!
+
+Let's try some coupling.  Let $X_1,X_2,\ldots,X_n$ be independent and identically distributed random variables:
+\[X_j=\begin{cases}1 & \text{with probability }p\\0 & \text{with probability }1-p\end{cases}\qquad 1\le j\le n\]
+We then write:
+\[X=\sum_{j=1}^n X_j\]
+
+Define $Y_1,Y_2,\ldots,Y_n$ to be independent and identically distributed random variables with the following properties:
+\begin{align*}
+\condp{Y_j=1}{X_j=1}=1\qquad (1)\\
+\condp{Y_j=0}{X_j=1}=0\\
+\condp{Y_j=1}{X_j=0}=\frac{q-p}{1-p}\\
+\condp{Y_j=0}{X_j=0}=1-\frac{q-p}{1-p}=\frac{1-q}{1-p}\\
+\end{align*}
+
+
+By (1) we can argue that $\p{Y\ge X}=1$.
+\begin{align*}
+\p{Y_j=1}&=\condp{Y_j=1}{X_j=1}\cdot\p{X_j=1}+\condp{Y_j=1}{X_j=0}\cdot\p{X_j=0}\\
+&=1\cdot p+\frac{q-p}{1-p}\cdot(1-p)
+=p+q-p
+=q
+\end{align*}
+
+To finish the argument:
+\[\p{X>k}=\p{X>k,Y\ge k}\le\p{Y\ge k}\]
+}
+
+Two random variables $X,Y$ are said to be coupled if there is some third random element $Z$ such that $X=g(Z)$ and $Y=h(Z)$ for some functions $g$ and $h$.
+
+\eg{
+Suppose we have two sequences $X_n$, $n\ge 1$ and $Y_n$, $n\ge 1$.  We want to show that:
+\[\lim_{n\to\infty}\p{X_n=j}=\lim_{n\to\infty}\p{Y_n=j}\]
+
+A coupling proof of this might work by coupling the sequences so that:
+\[\p{X_n=Y_n}=1\qquad\text{For all }n\text{ large enough.}\]
+}
+
+\defn{
+Let $X$ and $Y$ be two integer valued random variables.  Let $\pi_X$ and $\pi_Y$ be their distributions.
+\begin{align*}
+\pi_X&=\curlybrac{\p{X=j},j\in\Z}\\
+\pi_Y&=\curlybrac{\p{Y=j},j\in\Z}\\
+\end{align*}
+}
+
+To measure the difference between $\pi_X$ and $\pi_Y$, we have another definition.
+
+\defn{
+\[||\pi_X-\pi_Y||_{\text{TV}}=\sup_{A\subset\Z}|\p{X\in A}-\p{Y\in A}|\]
+This is the first definition of Total Variation.
+}
+
+\defn{
+\[||\pi_X-\pi_Y||_{\text{TV}}=\frac{1}{2}\sum_{k=-\infty}^\infty|\p{X=k}-\p{Y=k}|\]
+This is the second definition of Total Variation.
+}
+
+\prop{
+For Total Variation Definition 1 $=$ Definition 2.
+}
+
+\prf{
+Problem 28 of Chapter 7.
+}
+
+\subsection{Coupling Inequality}
+\[||\pi_X-\pi_Y||_{\text{TV}}\le\p{X\ne Y}\]
+
+\prf{
+\begin{align*}
+||\pi_X-\pi_Y||_{\text{TV}}&=\sup_{A\subset\Z}|\p{X\in A}-\p{Y\in A}|\\
+&=\sup_{A\subset\Z}|\p{X=A,X=Y}+\p{X\in A,X\ne Y}-\p{Y=A,X=Y}-\p{Y\in A,X\ne Y}|\\
+&=\sup_{A\subset\Z}|\p{X\in A,X\ne Y}-\p{Y\in A, X\ne Y}|
+=\sup_{A\subset\Z}|\ex{1_{(X\in A,X\ne Y)}}-\ex{1_{(Y\in A,X\ne Y)}}|\\
+&=\sup_{A\subset\Z}|\ex{1_{(X\in A,X\ne Y)}-1_{(Y\in A,X\ne Y)}}|
+=\sup_{A\subset\Z}|\ex{1_{(X\in A)}\cdot 1_{X\ne Y)}-1_{(Y\in A)}\cdot 1_{(X\ne Y)}}|\\
+&=\sup_{A\subset\Z}|\ex{1_{(X\ne Y)}(1_{(X\in A)}-1_{(Y\in A)})}|
+\le \sup_{A\subset\Z}\ex{|1_{(X\ne Y)}(1_{(X\in A)}-1_{(Y\in A)})|}\\
+&=\sup_{A\subset\Z}\ex{1_{(X\ne Y)}\cdot \underbrace{|1_{(X\in A)}-1_{(Y\in A)})|}_{=0\text{ or }=1}}
+\le \sup_{A\subset\Z}\ex{1_{(X\ne Y)}}
+=\ex{1_{(X\ne Y)}}
+=\p{X\ne Y}
+\end{align*}
+}
+\section*{Lecture 19}
+\subsection{The Coupling Method}
+To show that $||\pi_X-\pi_Y||_{\text{TV}}\to 0$.  We coupld $X$ and $Y$ and who $\p{X\ne Y}\to 0$, then use the coupling inequality.
+
+\prop{
+Every finite state in an ergodic Markov chain has a unique equilibrium distribution $\pi$ and $\lim\limits_{n\to\infty}p_{ij}^{(n)}=\pi_j$ for all $ij$.
+}
+
+\prf{
+Consider two versions of the Markov chain, say $X_n$, $n\ge 0$ and $Y_n$, $n\ge 0$, both having the same transition probabilities, $p_{ij}$.  We assume $X_n$ and $Y_n$ are independent until sometime where they meet.  Define:
+\[T=\min\curlybrac{n:X_n=Y_n}\]
+
+First we need to prove that $\p{T<\infty}=1$ (Omitted).  For $n\ge T$, we force $X_n$ and $Y_n$ to couple, by redefining $Y_n'=X_n$ for $n\ge T$.  So:
+\[Y_n'=\begin{cases}Y_n & n<T\\ X_n & n\ge T\end{cases}\]
+
+So $Y_n$ and $Y_n'$ have the same distribution as stochastic processes.  The distribution of a Markov chain is determined by the transition matrix and its initial distribution at time $n=0$.  So $Y$ and $Y'$ have the same distribution.  So:
+\begin{align*}
+|\p{X_n=j}-\p{Y_n=j}|&=|\p{X_n=j}-\p{Y_n'=j}|\\
+&=|\p{X_n\in A}-\p{Y_n\in A}|\qquad \text{Set }A=\curlybrac{j}\\
+&\le\sup_{A}|\p{X_n\in A}-\p{Y_n\in A}|\\
+&=||\pi_{X_n}-\pi_{Y_n'}||_{\text{TV}}\qquad \text{Coupling Inequality}\\
+&\le \p{X_n\ne Y_n'}\\
+&=\p{T>n}\xrightarrow{n\to\infty}0\qquad \p{T<\infty}=1
+\end{align*}
+
+The next step is to show that an equilibrium distribution exists.  (Check that balance equation have a solution).  (Omitted).  Start $X_n$, $n\ge 0$ in the equilibrium distribution $\pi$.  So:
+\[\p{X_0=j}=\pi_j\qquad \forall j\]
+Therefore $\p{X_n=j}=\pi_j$, $\forall j,n$.  We also set $\p{Y_0=i}=1$.  Then:
+\begin{align*}
+\lim_{n\to\infty}p_{ij}^{(n)}
+&=\lim_{n\to\infty}\p{Y_n=j}
+=\lim_{n\to\infty}\p{X_n=j}
+=\lim_{n\to\infty}\pi_j
+=\pi_j
+\end{align*}
+}
+
+\subsection{Markov Chain Monte Carlo}
+To simualte from a distribution $\pi$ on a set $S$, we can often construct a Markov chain whose limiting probability distribution is $\pi$.
+
+\eg{ (Ehrenfest Markov chain)
+
+Suppose we wish to generate a $\text{Bin}\brac{n,\frac{1}{2}}$ random variables.  We set $S=\curlybrac{0,1,2\ldots, n}$.  And define $X_j$, $j\ge 0$ as follows:
+\begin{align*}
+p_{i,i+1}&=\p{X_{j+1}=i+1,X_j=i}=\frac{n-i}{n}\\
+p_{i,i-1}&=1-p_{i,i+1}=\frac{i}{n}
+\end{align*}
+
+This is a non-symmetric random walk on a tree.  So this is time-reversible.
+\begin{align*}
+\pi_i&=\pi_0\cdot\frac{p_{01}p_{12}p_{23}\ldots p_{i-1,i}}{p_{i,i-1}\ldots p_{32}p_{21}p_{10}}
+=\pi_0\cdot\frac{n(n-1)(n-2)\ldots (n-i+1)}{i(i-1)(i-2)\ldots 3\cdot 2\cdot 1}
+=\pi_0{n\choose i}
+\end{align*}
+
+Now
+\begin{align*}
+1&=\sum_{i=0}^n\pi_i
+=\sum_{i=0}^n\pi_0{n\choose i}
+=\pi_0\sum_{i=0}^n{n\choose i}
+=\pi_0\cdot 2^n\\
+\rightarrow \pi_0&=\frac{1}{2^n}\\
+\rightarrow \pi_i&={n\choose i}\brac{\frac{1}{2}}^n
+\end{align*}
+Which are the probabilities for a Binomial with parameters $(n,\frac{1}{2})$.
+}
+
+\section*{Lecture 20}
+\subsection{Metropolis-Hastings Algorithm}
+Given a countable set $S$ and a probability distribution $\pi$ on $S$, we wish to construct a Markov chain whose limiting distribution is $\pi$.  The Metropolis-Hastings algorithm cotructs a Markov chain s follows.
+
+Suppose that $X$ is in state $i$, let $(q_{ij})$ be any transition matrix.
+\enum{
+\item Markov Chain is in state $i$ at time $n$.
+\item From state $i$, choose state $j$ with probability distribution $\curlybrac{q_{ij},j\in S}$.
+\item Conditionally on the choice of $j$, define:
+\[a_{ij}=\min\curlybrac{\frac{\pi_jq_{ji}}{\pi_iq_{ij}},1}\]
+and generate a Bernoulli random variable $I$ such that:
+\[I=\begin{cases}
+1 & \text{with probability }a_{ij}\\
+0 & \text{with probability }1-a_{ij}
+\end{cases}\]
+\item If $I=1$ move to state $j$ at time $n+1$.  So $X_{n+1}=j$.  If $I=0$ stay in state $i$ at time $n+1$.  So $X_{n+1}=i$.
+\item Go to step 1.
+}
+The proof th this Markov chain converges in distriution to $\pi$ involves checking the detailed balance equations.
+
+Suppose $i\ne j$.  Without loss of generality we can assume that $\frac{\pi_jq_{ji}}{\pi_iq_{ij}}\le 1$.  Otherwise we just reverse the roles of $i$ and $j$.
+
+Let $p_{ij}=\text{P}(X_{n+1}=j\mid X_n=i)$.  Then
+\begin{align*}
+\pi_ip_{ij}&=\pi_i q_{ij}\cdot a_{ij}
+=\pi_i q_{ij}\cdot \frac{\pi_j q_{ji}}{\pi_i q_{ij}}
+=\pi_j q_{ji}
+=\pi_j q_{ji}\cdot 1
+=\pi_j q_{ji} a_{ji} \qquad \brac{\frac{\pi_iq_{ij}}{\pi_j q_{ji}}\ge 1}\\
+&=\pi_j p_{ji}
+\end{align*}
+
+\eg{
+Set $q_{ij}=q_j$.  This is an independent Markov chain.  So we have:
+\[a{ij}=\min\curlybrac{\frac{\pi_jq_i}{\pi_iq_j},1}=\min\curlybrac{\frac{w_j}{w_i},1}\]
+Where:
+\[w_j=\frac{\pi_j}{q_j}\qquad \text{and}\qquad w_i=\frac{\pi_i}{q_i}\]
+}
+
+\subsection{Acceptance Sampling}
+Consider a special case.  for $S$ finite:
+\[q{ij}=\frac{1}{|S|}\qquad \text{Uniform distribution on }S\]
+So
+\[a_{ij}=\min\curlybrac{\frac{\pi_j}{\pi_i},1}\]
+
+Our algorithm would as follows.  First pick an element $j\in S$ with uniform probability.
+\begin{itemize}
+\item If $\pi_j\ge\pi_i$ move to $j$ from $i$.
+\item If not, move to $j$ from $i$ with probability $\frac{\pi_j}{\pi_i}$, otherwise stay in $i$.
+\end{itemize}
+
+\section*{Lecture 21}
+\section{Continuous Time Markov Chains}
+A family $Z_t$, $0\le t<\infty$, of random variables takes values in a discrete set $S$ (the state space), where the elements of $S$ are labelled as integers.  Then $Z_t$, $t\ge 0$, is said to be a continuous time Markov chain if it satisfies the Markov property:
+\[\text{P}(Z_{t_n}=j\mid Z_{t_1}=i_1,Z_{t_2}=i_2,\ldots, Z_{t_{n-1}}=i_{n-1})=\text{P}(Z_{t_n}=j\mid Z_{t_{n-1}}=i_{n-1})\]
+
+for all $n$, and all $j$ and all $i,\ldots,i_n\in S$ and all times $0\le t_1<t_2<\ldots <t_n$.
+
+We usually assume that:
+\[\text{P}(Z_{t_2}=j\mid Z_{t_1}=i)\]
+is a function of $t_1$ and $t_2$ through the difference $t_2-t_1$, $t2>t_1$.  So in that case we can write:
+\[\text{P}(Z_{s+t}=j\mid Z_s=i)=p_{ij}(t)\qquad\forall s,t\ge 0\]
+
+\subsection{Competing Hazard Model for Markov Chains}
+Suppose a continuous Markov chain is in state $i$ at time $s$.  In teh competing hazard model, the Markov chain stays in state $i$ for a further length of time $T_i$ (after time $s$) and then jumps to another state in $\curlybrac{j,k,l,m,\ldots}$.
+
+The mechanism for this is as follows:
+\enum{
+\item For each $j\ne i$, let $T_{ij}$ be $\text{Exp}(\lambda_{ij})$.  So:
+\[\text{P}(T_{ij}>t)=e^{-\lambda_{ij}t}\]
+\item For states $k,l,m,\ldots\ne i$, the random variables $T_{ik}, T_{il}, T_{im},\ldots $ are independent.
+\item Let $T_i=\min\curlybrac{T_{ij}:j\in S, j\ne i}$.
+}
+
+It can be checked that $T_i\sim\text{Exp}(\lambda_i)$, where:
+\[\lambda_i=\sum_{\forall j, j\ne i}\lambda_{ij}\]
+
+At random time $s+T_i$, the Markov chain leaves state $i$ and goes to state $j$ with probability:
+\[\text{P}(T_{ij}<\min_{k\ne i,j}T_{ik})=\frac{\lambda_{ij}}{\sum_{\forall k, k\ne i}\lambda_{ik}}=\frac{\lambda_{ij}}{\lambda_i}\]
+
+At this stage we introduce the additional notation:
+\[q_{ij}=\frac{\lambda_{ij}}{\lambda_i}\]
+
+Let $D_i$ be the destination state of the Markov chain from state $i$.  that is, if $(Z_{s+T_i}=j\mid Z_s=i)$ then $D_i=j$.
+
+Then $T_i$ and $D_i$ are independent.
+
+So to describe a Markov chain we need a set of numbers.
+\[\lambda){ij}\ge 0\qquad i,j\in S\]
+
+Or equivalently:
+\begin{align*}
+\lambda_i&\ge 0\qquad i\in S\\
+q_{ij}&\ge 0\qquad i\ne j \text{ and }\sum_{j,j\ne i}q_{ij}=1
+\end{align*}
+
+One of our basic goals is to compute $p{ij}(t)$ for $t>0$.  Note that:
+\[p_{ij}(0)=\begin{cases}1 & j=i\\ 0 & j\ne i\end{cases}\]
+
+When $t$ is close to zero, $p_{ij}(t)$ is easy to approximate.
+\begin{align*}
+p_{ii}(t)&\ge\text{P}(T_i>t)
+=e^{-\lambda_i t}
+\underbrace{=}_{\text{Taylor Expansion}}1-\lambda_i t+\frac{\lambda^2 t^2}{2}\\
+&=1-\lambda_it+o(t)\qquad \text{as }t\to 0
+\end{align*}
+
+Howeever as $t\to 0$ we get $p_{ii}(t)\approx \text{P}(T_i>t)$.
+
+In fact:
+\[p_{ii}(t)=1-\lambda_it +o(t)\]
+
+Also, similarly for $j\ne i$, as $t\to 0$:
+\[p_{ij}(t)=\lambda_{ij}t+o(t)=\lambda_iq_{ij}t+o(t)\]
+
+\section*{Lecture 22}
+The competing hazards model assigns parameters
+\begin{align*}
+\lambda_{ij}&=\text{``hazard'' of going to state }j\text{ when in state }i\\
+\lambda_i&=\sum_{j,j\ne i}=\text{``hazard'' of leaving }i\\
+q_{ij}&=\frac{\lambda_{ij}}{\lambda_i}
+\end{align*}
+
+As well we derived the infinitesimal conditions:
+\begin{align*}
+p_{ii}(t)&=1-\lambda_it+o(t)\qquad \text{as }t\to 0\\
+p_{ij}(t)&=\lambda_{ij}t+o(t)\qquad \text{as }t\to 0, j\ne i\\
+&=\lambda_i q_{ij}t+o(t)
+\end{align*}
+
+For convenience, defined $\lambda_{ii}=-\lambda_i$.
+
+Combining the infinitesimal condition and the Chapman-Kolmogorov equations, gives us the backward equations.  These backward equations are:
+\begin{align*}
+p_{ij}'(t)&=\sum_{k\in S}\lambda_{ik}p_{kj}(t)\\
+p_{ij}(0)=\begin{cases}1 & i=j\\ 0& i\ne j\end{cases}
+\end{align*}
+
+These are a system of linear first order differential equations in $t$ for all $i,j\in S$.  We solve for $p_{ij}(t)$.  We solve for $p_{ij}(t)$.  In order to do this we write them in matrix form:
+\[P(t)=(p_{ij}(t))\qquad P'(t)=(p_{ij}'(t))\qquad \Lambda(t)(\lambda_{ij})\]
+
+So the backwards equations are in matrix form:
+\begin{align*}
+P'(t)=\Lambda \cdot P(t)\\
+P(0)=I\qquad \text{Initial Condition}
+\end{align*}
+
+The formal solution is:
+\[P(t)=e^{t\Lambda}:=I+(t\Lambda)+\frac{t^2\Lambda^2}{2!}+\frac{t^3\Lambda^3}{3!}+\cdot\]
+
+\eg{
+\begin{align*}
+S&=\curlybrac{0,1,2\ldots}\qquad i,j\in S\\
+\lambda_{ij}&=\begin{cases}\lambda & \text{if }j=i+1\\
+-\lambda & \text{if }j=i\\
+0 & \text{otherwise}\end{cases}
+\end{align*}
+
+Let $Z_0=, Z_t\ge 0$.
+\[p_{ij}'(t)=\sum_{k=0}^\infty \lambda_{ik}p_{kj}(t)\qquad i,j\in\curlybrac{0,1,2,3,\ldots}\]
+
+First $p_{ij}(t)=0$ for $j<i$.
+\begin{align*}
+p_{ii}'(t)&=\underbrace{\lambda_{i,i+1}}_{=\lambda}\cdot \underbrace{p_{i+1,i}(t)}_{=0}+\underbrace{\lambda_{ii}}_{-\lambda}p_{ii}(t)\\
+p_{ii}'(t)&=-\lambda p_{ii}(t)\qquad p_{ii}(0)=1
+\end{align*}
+
+The unique solution to this differential equation is:
+\[p_{ii}(t)=e^{-\lambda t}\qquad (1)\]
+
+Next we have:
+\begin{align*}
+p_{i,i+1}'(t)&=\underbrace{\lambda_{i,i+1}}_{\lambda}\cdot \underbrace{p_{i+1,i+1}(t)}_{(1)}+\underbrace{\lambda_{ii}}_{-\lambda}p_{i,i+1}(t)
+=\lambda e^{-\lambda t}-\lambda p_{i,i+1}(t)\\
+p_{i,i+1}'(t)+\lambda p_{i,i+1}(t)&=\lambda e^{-\lambda t}\qquad p_{i,i+1}(0)=0
+\end{align*}
+
+Next we solve the non-homogeneous equation by writing:
+\begin{align*}
+p_{i,i+1}(t)&=C(t)e^{-\lambda t}\\
+\brac{C(t)e^{-\lambda t}}'+\lambda\brac{C(t)e^{-\lambda t}}&=\lambda e^{-\lambda t}\\
+C'(t)e^{-\lambda t}+C(t)(-\lambda)e^{-\lambda t}+\lambda C(t)e^{-\lambda t}&=\lambda e^{-\lambda t}\\
+C'(t)&=\lambda \qquad C(t)=\lambda t+C_1
+\end{align*}
+
+Therefore:
+\[p_{i,i+1}(t)=(\lambda t+C_1)e^{-\lambda t}\]
+
+$C_1$ because of the initial condition $p_{i,i+1}(0)=0$.
+
+So far we have:
+\begin{align*}
+p_{ii}(t)&=e^{-\lambda t}\\
+p_{i,i+1}(t)&=(\lambda t)e^{-\lambda t}
+\end{align*}
+
+By induction, we can show that:
+\[p_{i,i+m}(t)=\frac{(\lambda t)^me^{-\lambda t}}{m!}\]
+this is the probability function of a Poisson random variable with mean $\lambda$.
+}
+
+\end{document}

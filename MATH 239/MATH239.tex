@@ -1,0 +1,289 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+\usepackage{hyperref}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+
+
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE University of Waterloo}\\[1.5cm] % Name of your university/college
+\textsc{\Large MATH 239}\\[0.5cm] % Major heading such as course name
+\textsc{\large Introduction to Combinatorics}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Course Notes}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi}\\ % Your name
+20339941
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professor:} \\
+Dr. Timothy \textsc{Chan} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+\newpage
+\section{Lecture 1}
+\begin{itemize}
+\item Binomial coefficients
+\item Bijections
+\end{itemize}
+
+\[{n\choose k} = \frac{n!}{(n-k)!k!}\qquad \text{Binomial coefficient}\]
+comes from the Binomial Theorem
+\[(1+x)^n=\sum_{k=0}^n{n\choose k}x^k\]
+
+\subsection{Combinatorial Explanation of the coefficient}
+\[(1+x)^n=\underbrace{(1+x)(1+x)\ldots(1+x)}_{n\text{ times}}\]
+\begin{itemize}
+\item In the expansion, we take one term from each binomial and multiply to get one possible term in the expansion. (sum over all such terms)
+\[(1+x)(1+x) = (1)(1) + (1)(x)+(1)(x)+(x)(x) = 1+2x+x^2\]
+\item we get $x^k$ by selecting $k$ copies of $x$ and $n-k$ copies of $1$.  The coefficient of $x^k$ is the number of ways of selecting $k$ copies of $x$ which is ${n\choose k}$
+\end{itemize}
+This gives the binomial theorem.
+
+\subsection{Bijections}
+A function $f:S\to T$ is:
+\begin{enumerate}
+\item 1-1 (injective) if no two of the same elements of $S$ are mapped to teh same element in $T$.
+\item onto (surjective) if every element in $T$ has something from $S$ that maps to it
+\item bijection both injective and surjective 
+\end{enumerate}
+
+Suppose $S$ and $T$ are finite, and $F:S\to T$ is a function
+\begin{enumerate}
+\item If $f$ is 1-1, then $|T|\ge |S|$
+\item If $f$ is onto, then $|T|\le |S|$
+\item If $f$ is bijective, then $|T| = |S|$
+\end{enumerate}
+
+\begin{example}
+$A=\{a,b,c\}$ and $B=\{1,2,3\}$.  We define $f:A\to B$ where $f(a)=2$, $f(b)=3$, $f(c)=1$.  Then $f$ is both onto and 1-1, therefore it is a bijection
+\end{example}
+
+\begin{example}
+$S=$ all subsets of $\{1,\ldots, n\}$ of size $k$, and $T=$ all subsets of $\{1,\ldots, n\}$ of size $n-k$.  Find a bijection of $f:S\to T$.
+
+Consider a smaller example where $n=4$ and $k=1$, so $S=\{\{1\},\{2\},\{3\},\{4\}\}$ and $T=\{\{1,2,3\},\{1,2,4\},\{1,3,4\},\{2,3,4\}\}$
+
+Following from the example we define a function $f:S\to T$ by $f(x)=\{1\ldots, n\}\setminus x$ for each $x\in S$.  We check if $f(x)\in T$.  Since $|x|=k$ and $x\subseteq \{1,\ldots, n\}$, we see that $|f(x)|=|\{1,\ldots, n\}\setminus x| = n-k$.  So $f(x)\in T$.  Though we've shown that $f(x)$ maps elements from $S$ to $T$, it's quite hard to prove that it's onto/1-1 so we will introduce the concept of an inverse, and find that instead. 
+\end{example}
+
+\begin{definition}
+Inverse: a function $f^{-1}:T\to S$ (of $f:S\to T$) such that for all $x\in S$, $f^{-1}(f(x)) = x$ and for all $y\in T$, $f(f^{-1}(y))$.  So intuitively the inverse just ``reverses'' the action of $f$.
+\end{definition}
+
+\begin{theorem}
+$f$ is a bijection iff $f$ has an inverse
+\end{theorem}
+
+\begin{proof}
+If $f$ is 1-1, and not onto, then $f$ cannot have an inverse.  Similarly if $f$ is onto, and not 1-1, then $f$ cannot have an inverse
+\end{proof}
+
+\begin{example}
+Back to the example.  The inverse of $f$ is $f^{-1}:T\to S$ where $f^{-1}(y)=\{1,\ldots, n\}\setminus y$ for all $y\in T$.
+
+Justification of $f^{-1}$, for each $x\in S$,
+\begin{align*}
+f^{-1}(f(x)) &= f^{-1}(\{1,\ldots, n\}\setminus x)
+=\{1,\ldots, n\}\setminus (\{1,\ldots, n\}\setminus x)
+=x
+\end{align*}
+\end{example}
+
+\end{document}

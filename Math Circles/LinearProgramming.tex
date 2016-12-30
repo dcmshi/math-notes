@@ -1,0 +1,274 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{P\left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{P \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+
+\title{Intermediate Math Circles}
+\author{Equations and Inequalities with Two Variables}
+\date{\today}
+
+\begin{document}
+  \maketitle 
+
+\paragraph{Review:}\
+Our goal is to solve systems of linear inequalities and to graph the regions corresponding to them.  This later relates to linear optimization optimization which we will connect these problem solving methods to.
+
+For one linear inequality we have a set number of steps to find the region that the linear inequality satisfies:
+\enum{
+\item Solve for the $x$ and $y$ intercepts of the line.
+\item Graph the line.
+\item Substitute a test point, not on the line in to the inequality.
+\item 
+\enum {
+\item If the test point satisfies the inequality, shade in the region that the test point is in.
+\item If the test point does not satisfy the inequality, shade in the region that the test point does not belong to.
+}
+}
+\paragraph{Example 1:}\
+Sketch the inequality $2x + y < 4$.
+
+\paragraph{Example 2:}\
+Sketch the inequality $3y + x \ge 0$.
+
+For multiple linear inequalities we have a similar strategy to graph the feasible region.  However we need to be worried about the overlap of multiple regions.  We will give steps to solve this as well.
+\enum{
+\item Solve for the $x$ and $y$ intercepts for every line.
+\item Take each pairwise combination of lines and solve for intersections.
+\item Graph the lines, and label the intersections.
+\item Substitute test points, that are not on the line in to all inequalities.
+\item
+\enum {
+\item If the test point satisfies the inequality, shade in the region that the test point is in.
+\item If the test point does not satisfy the inequality, shade in the region that the test point does not belong to.
+\item 
+}
+}
+
+\paragraph{Example 3:}\
+Sketch the feasible region of 
+\begin{align*}
+x+y &\le 1\\
+x+2y &\le 2
+\end{align*}
+
+\paragraph{Example 4:}\
+Sketch the region for the system
+\begin{align*}
+-3x+y &\le -2\\
+x+y &\le 6\\
+y&\ge x
+\end{align*}
+
+\paragraph{Example 5:}\
+
+Maximize $P=4x-3y$ subject to the constraints
+\begin{align*}
+-3x+y &\le -2\\
+x+y &\le 6\\
+y&\ge x
+\end{align*}
+
+The feasible region gives us the possible pairs of $(x,y)$ that satisfy our constraints.  Here is where the intersections come in to effect.  We have a theorem for the simplex method where the corner points of the region maximize or minimize the \emph{objective function}.  In this case our objective function is $P=4x-3y$.
+
+Usually in real world problems, our objective function and the constraints are not given.  We have to translate the described situation in to a mathematical model we can solve.
+
+In order to get this in to a form we can solve we need to set it up.
+\enum{
+\item Identify whether or not it is a maximization or minimization problem.
+\item Write out the objective function.
+\item Write out the constraints.
+}
+
+\paragraph{Example 6:}\
+
+Suppose that David tries to prepare a Math Circles lesson.  The number of mistakes he makes in the lesson is the sum of how many math problems he has the same week.  All of his professors do not want to over work David, so they let him decide how many exams and assignments to have, with some conditions.  They agree that in order to evaluate him fairly the number of exams and assignments must be positive.  
+
+How many exams and assignments must David ask his professors to have that week so he can reduce the amount of mistakes he makes during the lesson?
+
+
+
+\paragraph{Example 7:}\
+
+
+
+
+
+
+\pagebreak
+\paragraph{Problem Set:}\
+\enum{
+\item
+}
+\end{document}

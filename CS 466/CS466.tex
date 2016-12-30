@@ -1,0 +1,2367 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+\usepackage{hyperref}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+
+
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE University of Waterloo}\\[1.5cm] % Name of your university/college
+\textsc{\Large CS 466}\\[0.5cm] % Major heading such as course name
+\textsc{\large Algorithm Design and Analysis}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Course Notes}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi}\\ % Your name
+20339941
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professor:} \\
+Dr. Timothy \textsc{Chan} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+
+\newpage
+\section{Lecture 1}
+\subsection{Problem}
+Given an undirected graph $G=(V,E)$, $|V|=n$, $|E|=m$, decide whether $G$ contains a cycle of length $3$.  (called a triangle).
+
+Worst search case is a complete bipartite graph, which is fairly dense!
+
+\subsection{Connection}
+We should relate this to another problem
+\begin{itemize}
+\item special case of ``pattern matching'' in graphs (``subgraph isomorphism'')
+\item more precisely, special case of CLIQUE, but CLIQUE is NP-complete, uh-oh.
+\item related to finding the shortest cycle
+\begin{itemize}
+\item finding a cyle is easy by depth first search
+\item finding the shortest path is relatively easy by Dijkstra's, unforunately our old approaches won't work breadth first search
+\end{itemize}
+\end{itemize}
+
+\subsection{Algorithm 0 (Brute Force)}
+\begin{verbatim}
+for each u in V
+    for each v in V
+        for each w in V
+            if uv in E and uw in E and vw in E
+                return yes
+return no
+\end{verbatim}
+
+Analysis:
+This runs in $O(n^3)$ time, can you do better?
+
+
+\subsection{Algorithm 1 (Numerical)}
+let $a_{uv} = \begin{cases}1 & uv\in E\\
+0 & \text{otherwise}\end{cases}$
+
+\begin{verbatim}
+for u in V
+    for v in V
+        b_{uv} = \sum_{w\in V} a_{uw}a_{wv}
+        if a_{uv} = 1 and b_{uv} > 0
+            return yes
+return no
+\end{verbatim}
+Observation: line 3 is matrix multiplication!  By Strassen's algorithm all the $b_{uv}$'s can be computed simultaneously in $O(n^{2.81})$ time.  The rest of the algorithm is $O(n^2)$ so the total time is $O(n^{2.81})$.
+
+The current fastest matrix multiplication algorithm runs in $O(n^{2.373})$ (2012).
+
+Algorithm 1 is fastest in terms of $n$, what about sparse graphs ($m$ small)?
+
+\subsection{Algorithm 2 (Brute force, edge based)}
+\begin{verbatim}
+for each uv in E
+    for each w in V
+        if uw in E and wv in E
+            return yes
+return no
+\end{verbatim}
+
+Analysis: $O(mn)$ time.  Great for small $m$ ($n\le m\le n^2$).  can we do better for sparse graphs?
+
+\subsection{Algorithm 3 (Itai, Rodeh '77, ``high-low trick'')}
+choose a parameter $d$ and let $V_H = \{v\in V|\deg(v) > d\}$ (``high'' vertices) and $V_L = \{v\in V|\deg(v) \le d\}$ (``low'' vertices).
+
+Case 1: at least one of $u,v,w$ is low without loss of generality let $u$ be the low vertex
+\begin{verbatim}
+for each uv in E
+    if u in V_L
+        for each w adjacent to u
+            if wv in E then return yes
+\end{verbatim}
+
+Case 2: $u,v,w$ are all high
+\begin{verbatim}
+for u in V_H
+    for v in V_H
+        for w in V_H
+            if uv in E and uw in E and wv in E
+                return yes
+return no
+\end{verbatim}
+
+Analysis:
+Case 1: $O(md)$ time
+Case 2: $O(|V_H|^3)$ time
+
+Lemma $|V_H|\le \frac{2m}{d}$
+Proof $\sum_{v\in V}\deg(v) = 2m\ge \sum_{v\in V_H}\deg(v)>\sum_{v\in V_H}d = d|V_H|$
+
+Total time $O\left(md + \left(\frac{m}{d}\right)^3\right)$
+balance terms $md = \left(\frac{m}{d}\right)^3$.
+
+set $d=\sqrt{m}$ and our algorithm takes $O(m^{\frac{3}{2}})$ time.  It would be better stil to use matrix multiplication (Algorithm 1) in Case 2.
+
+Total time $O\left(md + \left(\frac{m}{d}\right)^{2.373}\right)$
+set $d=m^{0.41}$ which results in a run time of $O(m^{1.41})$ (Alon, Yuster, Zqick '94).  This is currently the fastest known for sparse graphs.
+
+Open Question: is $O(m\log m)$ possible?
+
+Vassilevska, Williams '10: reduce boolean matrix multiplication to triangle finding
+Yuster, Zwick '04: cycles of length $4$, $O(m^{1.48})$
+cycles of length $5$
+$O(m^{1.63})$
+
+\section{Lecture}
+\subsection{Problem}
+Given $n$ points $P=\{p_1,\ldots, p_n\}$ in 2D, compute the convex hull ( convex polygon enclosing $P$ with vertices fom $P$)
+
+return vertices in clockwise order
+
+output: $p_8$, $p_9$, $p_7$, $p_4$, $p_0$, $p_3$
+
+Applications/Motivation
+- simplest example in ``computational geometry''
+- ``shape'' of an image
+- bounding objects
+- identifying ``extremes''/farthest pair
+
+Remark - suffice to compute upper part of the convex hull, upper hull = UH
+
+\subsection{Observation}
+$p_i p_j$ is an edge of the upper hull iff all points are on or below $\overline{p_ip_j}$.
+
+\subsection{Brute-force Algorithm}
+\begin{verbatim}
+for i = 1 to n
+    for j = 1 to n
+        flag = true
+        for k = 1 to n
+            if p_k above \overline{p_i p_j} then flag = false
+        if flag and i\ne j then print \overline{p_i p_j}
+\end{verbatim}
+Analysis $O(n^3)$ time
+
+\subsection{Implementation Issues}
+primitives
+say $p_i$ left of $p_j$ $(x_i<x_j)$
+
+$p_k$ below $\overline{p_i p_j}$
+$\leftrightarrow p_ip_jp_k$ is a clockwise turn
+\begin{align*}
+\leftrightarrow
+\begin{vmatrix}
+1 & x_i & y_i\\
+1 & x_j & y_j\\
+1 & x_k & y_k
+\end{vmatrix}
+&<0\\
+\leftrightarrow
+\begin{vmatrix}
+x_k-x_i & y_k - y_i\\
+x_k-x_j & y_k-y_j
+\end{vmatrix}
+&<0\\
+\leftrightarrow
+(x_k-x_i)(y_k-y_j)&<(x_k-x_j)(y_k-y_i)
+\end{align*}
+
+degeneracies
+what if $p_i$, $p_j$, $p_k$ are colinear?
+
+\subsection{Graham's Algorithm (``Graham Scan'' 1972)}
+idea - add points one at a time and maintain the upper hull (``incremental approach'')
+- go from left to right (``sweeping'')
+
+\begin{verbatim}
+sort p_1,\ldots, p_n in x-coordinate \rightarrow O(n\log n) 
+q_1=p_1, q_2 = p_2, i=2
+for k = 3 to n do
+    while q_{i-1} above \overline{q_ip_k} do i = i-1
+    q_{i+1}=p_k, i = i+1
+return <q_1, q_2, \ldots, q_i>
+\end{verbatim} 
+
+Rough Analysis:
+line 4 takes $O(n)$ time
+total time $O(n^2)$
+
+Better Analysis:
+line 4 = $O(\text{number of decrements})$
+\begin{align*}
+\text{number of decrements} &\le \text{total number increments}\\
+&\le n
+\end{align*}
+
+lines 3-5 has total time $O(n)$, so overall $O(n\log n)$ time
+
+\section{Lecture}
+\subsection{Lower Bound Theorem}
+The upper hull problem requires $\Omega(n\log n)$ worst-case time among comparison based algorithms
+
+Proof: idea - reduce sorting to upper hull finding
+
+Suppose we can compute the upper hull in better than $n\log n$ time
+
+Given $n$ numbers $x_1,\ldots, x_n\in\mathbb{R}$
+\begin{verbatim}
+for i = 1 to n do p_i = (x_i, -x_i^2)
+compute UH of p_1,\ldots, p_n
+return the order
+\end{verbatim}
+
+This is done in less than $n\log n$ time by our assumption, contradiction known $\Omega(n\log n)$ sorting lower bound.
+
+What if we don't need output in sorted order?
+
+\subsection{Ben-Or's Lower Bound Theorem (1980)}
+For the problem of deciding whether the number of upper hull vertices is $n$ requires $\Omega(n\log n)$ worst-case time.
+
+Among algorithms that access input only through algebraic comparison ( is $f(x_1, y_1,\ldots, x_n, y_n)<0$? for any polynomial function $f$ of fixed degree)
+
+Proof: Omitted (decision trees)
+\begin{align*}
+n!&\le \text{number of leaves}\le 2^H\\
+\rightarrow H&=\Omega(\log(n!))
+=\Omega(n\log(n))
+\end{align*}
+algebraic decision trees, need algebraic geometry
+
+beating the lower bound when number of upper hull vertices is small $h$
+
+\subsection{Jarvis' Algorithm (``Jarvis March''/``Gift Wrap'' 1973)}
+idea - go from an upper hull vertex to the next
+
+choose $x_{i+1}$ with largest angle compared to vertical
+\begin{verbatim}
+q_1 = leftmost point
+for i =1,2,\ldots do {
+    if q_i==rightmostpoint then return <q_1,\ldots, x_i>
+    x_{i+1}=right most point
+    for k = 1 to n do
+        if p_k above \overline{q_iq_{i+1}} and p_k right of q_i
+            q_{i+1}=p_k
+}
+\end{verbatim}
+
+Analysis:
+$h$ iterations so $O(nh)$ time
+
+Fact - if points are uniformly distributed in a square then $E\left[ h\right] = O(\log n)$
+if points are uniformly distributed in a circle then $E\left[ h \right]=O(n^{\frac{1}{3}}$
+
+What is the best algorithm in terms of $n$ and $h$?
+answer $O(n\log h)$ [Kirkpatrick, Seidel '86]
+
+\subsection{Timothy Chan's Algorithm (1995)}
+
+
+\section{Lecture}
+Bounding $d_{\text{max}}$
+\subsection{Definition}
+Let $F_i$ be class of trees that can be formed by Fibonacci heap method with root degree $i$
+
+\subsection{Property}
+Any tree in $F_{i+1}$ can be written as
+
+where $\alpha\in F_i$, $\beta\in F_j$, $j\ge i-1$
+
+\subsection{Proof}
+when $v$ is linked to $u$, $\alpha, \beta\in F_k$.
+
+Afterwards , $\alpha\in F_i$, $i\le k$ (as root $u$ may lose may children)
+$\beta\in F_j$, $k-1\le j\le k$ (as $v$ may lose at most one child)
+
+\subsection{Definition}
+Let $f_i=$ smalles tree in $F_i$
+
+$|f_{i+1}|=|f_i|+|f_{i-1}|$ Fibonacci numbers!
+
+\begin{align*}
+|f_i|&=\Theta(\phi^i)\\
+\phi &= \frac{1+\sqrt{5}}{2}\approx 1.618\\
+i&\le \log_\phi|f_i|\\
+i&=O(\log|f_i|)\\
+d_{\text{max}}&=O(\log n)
+\end{align*}
+
+\subsection{Problem}
+data structure to maintain an undirected graph $G=(V,E)$
+operations: insert an edge to $E$
+query: given $u,v\in V$, decide if $u$ and $v$ are connected
+
+applications:
+networks
+Kruskal's algorithm
+harder variations:
+allow delete edges
+delete/reinsert vertices
+
+we will focus on the simpler version
+
+\subsection{Solution (insert-only)}
+maintain the connected components to insert an edge $uv$, union the two components (union(find($u$), find($v$))) to query, find the components containing $u$ and $v$ (find($u$)==find($v$)) and see if the same
+
+\subsection{Problem Rephrased}
+maintain collection of disjoints sets
+operations:
+union($A$, $B$) union sets labelled $A$ and $B$
+find($x$) returns the label of the set continuing $x$ 
+makeset($x$) create $\{x\}$
+
+\subsection{Method 1 - List Approaches}
+idea 1.0 - linked lists
+
+union - $O(1)$ times
+find - $O(n)$ time, worst case
+
+idea 1.1 - linked lists with label field
+
+find: $O(1)$ time
+union: $O(n)$ time worst case
+
+union1($A$, $B$) for each $x\in B$ do change $x$'s label to $A$
+
+idea 1.2 - linked lists with label field and weighted union heursitic
+
+union($A$, $B$): if size($A$) $>$ size ($B$) union1($A$, $B$), else union1($B$, $A$)
+
+worst-case find $O(1)$, union still $O(n)$
+amortized analysis: find $O(1)$
+makeset/union $O(\log n)$ amortized time
+
+To show: sewuence of $n$ makeset and $m$ unions $(m\le n-1)$ takes $O(n\log n)$ total time
+
+Proof: total time = $O(n + \text{total number of label changes})$
+fix an element $x$
+let size($x$)= size of set containing $x$
+each time $x$ changes label, size($x$) at least doubles
+
+$x$ changes label at most $\log n$ times then total number of label changes is $O(n\log n)$
+
+\subsection{Method 2: Tree Approaches}
+roots as label
+
+idea 2.1 - Lazy union
+\begin{verbatim}
+union1(u, v):
+    p[v] = u //link two trees
+
+find1(x):
+    if p[x]==nil then return x
+    else return find(p[x]) //go up a path
+\end{verbatim}
+
+union1: $O(1)$ time
+find1: $O(n)$ time
+
+idea 2.2 - lazy union with weighted union heuristic
+\begin{verbatim}
+union(u, v):
+    if size(u) > size(v) then p[v] = u
+    else p[u] = v
+\end{verbatim}
+
+union1: $O(1)$ time
+find1: $O(\log n)$ time worst-case!
+
+Proof: Observe that size($p[x]$)$\ge$ 2 size$[x]$
+because when $x$ is link to $p[x]$ claim is true
+
+afterwards size[$x$] stays the same size$(p[x])$ can only increase
+
+So any path has length at most $\log n$
+\section{Lecture}
+\subsection{Problem (Union-Find)}
+Method 1 list approaches
+find $O(1)$
+make set/union $O(\log n)$ amortized
+
+Method 2 Tree approaches
+
+idea 2.1 - lazy union
+idea 2.2 - weighted union heuristic
+idea 2.3 - path compression
+
+for 2.1 and 2.2, find is $O(\log n)$ and union is $O(1)$
+
+\subsection{Final Method}
+\begin{verbatim}
+makeset(x): 
+    p[x]=nil
+    r[x]=2
+
+union(u, v):
+    if r[u] > r[v] then
+        p[v] = u
+    else
+        p[u]=v
+        if r[u] == r[v] then
+            r[v]++
+find(x):
+    if p[x]==nil then
+        return x
+    else
+        return p[x]=find(p[x])
+\end{verbatim}
+
+\subsection{Amortized Analysis (Tarjan '75)}
+makeset/union/find $O(\alpha(n))$ amortized time
+
+What is $\alpha(n)$?  inverse Ackermann function
+(smaller than $\log n$, $\sqrt{\log n}$, $\log\log n$, $\log\log\log n$, $\log^\ast n$, $\log^\ast\log^\ast n$, $\log^{\ast\ast}n$)
+
+\subsection{Definition}
+\begin{align*}
+f_0(n) &= n+1\\
+f_{k+1}(n) &=\underbrace{f_k(f_k(\ldots f_x(n))\ldots)}_{n\text{ times}}\qquad \text{Ackermann function}\\
+f_1(n)&=2n\\
+f_2(n)&=2^n\\
+f_3(n)&\ge 2^{2^{2^{\ldots^2}}}\qquad n\text{ times exponentiated}
+\end{align*}
+
+$\alpha(n)=$ smallest $k$ such that $f_k(2)\ge n$
+\begin{align*}
+f_1(2)&=4\\
+f_2(2)&=8\\
+f_3(2)&=2048\\
+f_4(2)&\ge 2^{2^{2^{\ldots^2}}}\qquad 2048\text{ times exponentiated}\\
+\end{align*}
+
+\subsection{Proposition 1}
+ranks are ``usually'' small
+\[\sum_{\forall x}r[x] = O(n)\]
+
+Proof: each makeset adds 2 to sum, each union adds 1 to sum.
+
+\subsection{Proposition 2}
+parent's rank gets only bigger
+$r[p[x]]>r[x]$ and $r[p[x]]$ oly increases but $r[x]$ stays the same.
+
+Proof: When $x$ first gets a parent, the statement is true
+
+still true after subsequent unions and finds
+
+To show: Sequence of $n$ makesets/unions and $m$ finds takes $O((n+m)\alpha(n))$ total time
+
+Proof: total time = $O(n+m+\text{total number of parent changes})$
+
+We say that a parent change of $x$ from $y$ to $y'$ is far if $r[y']\ge f_k(f[y])$ where the level $k$ satisfies $f_k(r[x])\le r[y]<f_{k+1}(r[x])$, near otherwise.
+
+a) How many far parent changes?
+
+Fix an element $x$.  At each level $k$, $x$ undergoes at most $r[x]$ far parent changes.
+
+The number of far parents changes of $x$ $\le r[x]$ (number of levels) and $\le r[x]\alpha(n)$
+\begin{align*}
+\text{total number}&= O(n\alpha(n))
+=\sum_{\forall x}r[x]\alpha(n)
+=\alpha(n)\sum_{\forall x} r[x] \qquad \text{by proposition 1}\\
+&= O(n)\alpha (n)
+\end{align*}
+
+b) How many near parent changes?
+Fix a find operation, which involves a path up to a root $u$
+
+At level $k$, $x$'s parent change from $y$ to $u$ is near only if $r[u] < f_k(r[y])$ and $f_k(r[x])\le r[y])$
+
+this implies $f_k(r[y])> r[u]$, $f_k(r[x])\le r[u]$
+
+only one such $x$ in the path
+
+number near parent changes per find operation $\le$number of levels, $\le\alpha(n)$
+
+total number $\le m\alpha(n)$
+
+\section{Lecture}
+\subsection{Definition}
+Randomized algorithm is an algorithm that makes random choices, i.e. has access to a random number generator
+random-bit()$\rightarrow$ 0 or 1
+random$(a,b)\rightarrow a$ or $a+1$ or $\ldots$ or $b$
+
+It's Las Vegas if it's always correct, we analyze expected run time in this case.  Monte Carlo if correctness depends on the random choices, here we must also analyze the probability of error.  Probability space is over the sequence of random bits (numbers assumed uniform and independent) not over input.
+
+\subsection{Quick Probability Review}
+events $E$, $E'$ and random variables $X, Y$.
+\begin{align*}
+P(E\cup E')&\le P(E) + P(E')\qquad \text{equal if events are disjoint}\\
+P(E^c)&=1-P(E)\\
+P(E\cap E')=P(E)P(E')\qquad \text{if independent}\\
+P(E|E')&=\frac{P(E\cap E')}{P(E')}\qquad \text{conditional probability}\\
+E\left[X\right] &=\sum_{x} x P(X=x)\\
+E\left[X + Y\right] &=E\left[X\right]+E\left[Y\right]\\
+E\left[aX\right]&= a E\left[X\right]\\
+E\left[XY\right]&= E\left[X\right]E\left[Y\right]\qquad \text{if independent}
+\end{align*}
+
+\subsection{Markov's Inequality}
+If $X\ge 0$ and $E\left[X\right]=\mu$ 
+\[P(X\ge c\mu) \le \frac{1}{c}\]
+So a Las Vegas algorithm can be converted to a Monte Carlo algorithm with worst-case runtime
+
+Proof:
+\begin{align*}
+\mu&=E\left[X\right]
+=\sum_x P(X=x)
+\ge \sum_{x\ge c\mu} xP(X=x)
+\ge c\mu\sum_{x\ge c\mu}P(X=x)
+=c\mu P\left(\bigcup_{x\ge c\mu}(X=x)\right)
+=c\mu P(X\ge c\mu)
+\end{align*}
+
+Chebyschev's Inequality:
+\begin{align*}
+P(|X-\mu|\ge c\sigma)&=P((X-\mu)^2\ge c^2\sigma^2)\le \frac{1}{c^2}
+\end{align*}
+
+\subsection{Problem}
+ Given a large $n$-bit number $N$, is $N$ prime or composite?
+ 
+\subsection{Trivial Algorithm (??BC)}
+\begin{verbatim}
+for a = 2, \ldots, \sqrt{N}
+    if N is divisible by a
+        return ``composite''
+return ``prime''
+\end{verbatim}
+
+This takes $O(2^{\frac{n}{2}}n^2)$ time
+
+Remark - factoring is probably hard (RSA cryptography assumes this) but not necessarily testing primality (by theorems from number theory?)
+
+\subsection{Wilson's Theorem 17??}
+$N$ is prime iff $(N-1)!\equiv -1 \bmod N$
+Remark - computationlly USELESS, the number of multiplications is $O(N)$ which results in a $O(2^n)$ algorithm
+
+\subsection{Fermat's Little Theorem (16??)}
+$N$ is prime then $a^{N-1}\equiv 1\bmod N$
+
+Remark - $a^{N-1}$ can be computed quickly by repeated squaring 
+number of multiplication$=O(\log N)=O(n)\rightarrow O(n^3)$ polynomial time
+
+implication only one way, we can modify the theorem
+$N$ is prime iff $\forall a\in\{1,\ldots, N-1\}$, $a^{N-1}\equiv 1\bmod N$
+this is linear in $N$ though so no good.
+
+Restated - $N$ is composite iff $\exists a\in\{1,\ldots, N-1\}$, $a^{N-1}\not\equiv 1\bmod N$ (*)
+
+\subsection{Fermat's ``Pseudo-Algorithm''}
+\begin{verbatim}
+if (*) holds for a = 2 ( or 3 or 5 or 7)
+    then return ``composite''
+    else return ``maybe prime?''
+\end{verbatim}
+
+Note: Wrong! counter example $N=341=11\cdot 31$ but works for many inputs.  (for $n\le 25$ billion the number of counter examples $\le 22000$, so the fraction of counter examples is $<10^{-6}$
+
+Note - for ``Carmichael numbers''
+e.g. $n=7045248121 = 821\times 8581301$, $a=821$
+
+\subsection{Refined Fermat's Theorem}
+$N$ is composite iff $\exists a\in\{1,\ldots, N-1\}$, $a^{N-1}\not\equiv 1\bmod N$ or for some $k=\frac{N-1}{2}$, $a^{2k}\equiv 1\bmod N$ or $a^k\not\equiv \pm 1\bmod N$ (**)
+
+Remark - can still test (***) just as quickly refined ``psuedo-algorithm'' use (**) instead of (*)
+
+Note: for $N<25$ billion the number of counter examples $=1$
+
+\subsection{Counting THeorem (Rabin 1976)}
+if $N$ is composite number of $a$'s satisfying (**) is $\frac{3}{4}(N-1)$
+
+
+\section{Lecture}
+\subsection{Problem}
+Given a $n$-bit number $N$, is $N$ prime?
+
+\subsection{Refined Fermat's Theorem}
+$N$ is composite iff $\exists a\in \{1,\ldots, N-1\}$, $a^{N-1}\not\equiv 1\bmod N$, or for some $k=\frac{N-1}{2^i}$, $a^{2k}\equiv 1\bmod N$, but $a^K\not\equiv \pm 1 \bmod N$.
+
+\subsection{Counting Theorem (Rabin '76)}
+If $N$ is composite, then number $a$'s satisfying (**) $\frac{3}{4}(N-1)$
+
+\subsection{Miller-Rabin's Monte Carlo Algorithm}
+\begin{verbatim}
+repeat d times{
+    a=random(1, N-1)
+    if (**) holds return ``definitely composite''
+}
+return ``probably prime''
+\end{verbatim}
+
+Analysis: runtime $O(dn^3)$
+Probability of error: (``one-sided'')
+If $N$ is prime, always correct
+If $N$ is composite, let $E_t=\{a\text{ satisfies (**) at }t\text{th iteration}\}$
+
+\begin{align*}
+P(E_t)&\ge \frac{\frac{3}{4}(N-1)}{N-1}
+=\frac{3}{4}\\
+P(\text{algorithm errors})&=P\left(\bigcap_{t=1}^dE_t^c\right)
+=\prod_{t=1}^dP(E_t^c)
+\le \left(\frac{1}{4}\right)^d
+\end{align*}
+
+If $d=9$, $\le 1$ in million chance of error!
+
+\subsection{Miller's Theorem ('76)}
+Assume Extended Riemann Hypothesis.  Then $N$ is composite iff $\exists a < 2\log^2 N$ such that (**) holds, and polytime deterministically
+
+Adleman, Pmerance, Rumely '83 $n^{O(\log\log n)}$ time deterministically
+
+\subsection{Agrawal, Kayal, Saxenn's Theorem (2002)}
+$N$ is composite iff $N$ is a perfect power or $\exists a <\log^{3.5}N$, $r < 16\log^5N$,
+\[\begin{cases}
+\text{gcd}(a,n)\ne 1 & \text{or}\\
+(x+a)^N-(x^N+a)\not\equiv 0 \bmod x^r-1, N
+\end{cases}\]
+
+in total polytime deterministically
+
+\subsection{Problem}
+Given strings $u=a_1a_2\ldots a_n$ (text), $v=b_1b_2\ldots b_m$ (pattern), is $v$ a substring of $u$?  ($m << n$).  (if yes, return any occurrence)
+
+\subsection{Example}
+$u=0110\overline{10110}10$, $v=10110$.
+
+\subsection{Brute Force Method}
+\begin{verbatim}
+for i = 0 to n - m do
+    if a_{i+1}a_{i+2}\ldots a_{i+m} == b_1b_2\ldots b_m
+        return ``match at i''
+return ``no match''
+\end{verbatim}
+
+Total time $O(nm)$
+
+\subsection{The ``CS360'' Method}
+\begin{verbatim}
+build DFA for {all strings containing v}
+run DFA on u
+\end{verbatim}
+
+Analysis: $O(f(m)+n)$, where $f(m)=O(m)$
+
+\subsection{Knuth-Morir-Pratt Method}
+similar, but with a 11compressed'' representation of the DFA.  $O(m+n)$ time, if $m << n$ then  $O(n)$ time.
+
+\subsection{Subproblem}
+Alice has a string $u\in \{0, 1\}^\ast$, Bob has a string $v\in \{0,1\}^\ast$, $(|u|=|v|=n)$.  They want to see whether $u=v$.
+
+obvious idea - need to transmit $n$ bits
+another idea- ``checksum''
+
+randomized idea - let $x\in\{0,\ldots, p-1\}$, $p$ prime define fingerprint function (like hash functions)
+\begin{align*}
+F_x:\{0,1\}^\ast &\rightarrow \{0,1,\ldots, p-1\}\\
+F_x(a_{n-1}a_{n-2}\ldots a_0)&=\sum_{i=0}^{n-1} a_ix^i\bmod p
+\end{align*}
+
+\subsection{Monte Carlo Algorithm}
+$x=\text{random}(0,p-1)$
+Alice transmits $F_x(u)$ to Bob ($\log p$ bits).  Bob says ``probably equal'' if $F_x(u)=F_x(v)$.  ``definitely unequal'' if $F_x(u)\ne F_x(v)$
+
+Error Analysis: if $u=v$, correct
+if $u\ne v$ say $u=a_{n-1}\ldots a_0$, $v=b_{n-1}\ldots b_0$
+\begin{align*}
+\text{Algorithm Errors} &\iff F_x(u) = F_x(v)\\
+&\iff \sum_{i=0}^{n-1}a_ix^i\equiv \sum_{i=0}^{n-1} b_ix^i\bmod p\\
+&iff \sum_{i=0}^{n-1}(a_i-b_i)x^i\equiv 0\bmod p
+\end{align*}
+
+\subsection{Counting Lemma}
+A non zero polynomial of degree $n-1$ has at most $n-1$ roots, $\bmod p$
+\begin{align*}
+P(\text{algorithm errors})&\le \frac{n-1}{p}\qquad \text{pick }p\approx n^{d+1}\\
+&\le O\left(\frac{1}{n^d}\right)
+\end{align*}
+number of bits transmitted $O(d\log n)$
+
+\section{Lecture}
+\subsection{Problem}
+Given $u=a_1\ldots a_n\in\{0,1\}^\ast$, and $v=b_1\ldots b_m\in\{0,1\}^\ast$, $(n>> m)$, is $v$ a subrstring of $u$?
+
+Alice-Bob: is $u=v$
+pick a random $x$
+\[F_x(a_{n-1}a_{n-2}\ldots a_0) = \sum_{i=0}^{n-1}a_ix^i\bmod p\]
+where $p$ is some prime, if $u\ne v$  $P(F_x(u) = F_x(v))\le\frac{n-1}{p}$
+
+\subsection{Rabin-Karp Randomized Algorithms (Monte Carlo)}
+\begin{verbatim}
+x = random(0, p-1)
+A = F_x(a_1a_2\ldots a_m)
+B = F_x(b_1b_2\ldots b_m)
+for i = 0 to n-m do {
+    if A==B return ``possible match at i''
+    //update A=F_x(a_{i+2}a_{i+3}\ldots a{i+m+1})
+    A = Ax + a_{i+m+i-a_{i+1}x^m)\bmod p
+}
+return ``definitely no match''
+\end{verbatim}
+
+Runtime: each iteration $O(1)$ arithmetic operations (on $\log p$ bit numbers), so $O(n)$ total time
+
+Error Analysis: let $E_i = \{\text{algorithm errors at }i\text{th iteration}\}$.
+
+By Alice-Bob $P(E_i)\le \frac{m-1}{p}$.
+\begin{align*}
+P(\text{algorithm errors}) &= P\left(\bigcup_{i=0}^{n-m} E_i\right)
+\le \sum_{i=0}^{n-m}P(E_i)
+\le \sum_{i=0}^{n-m}\frac{m-1}{p}
+=(n-m+1)\left(\frac{m-1}{p}\right)
+\le \frac{n^2}{p}\\ \qquad \text{pick }p=n^{d+2}
+&\le \frac{1}{n^d} 
+\end{align*}
+
+Las Vegas Version:
+\begin{verbatim}
+run Rabin-Karp
+if it says ``possible match at i'' {
+    verify that a_{i+1}\ldots a_{i+m}=b_1\ldots b_m
+    if so, return ``definite match at i''
+    else run brute force
+}
+\end{verbatim}
+This is always correct
+
+Analysis
+if Karp-Rabin is correct
+we run in $O(n)$ time with probability $1-\frac{1}{n^d}$.
+
+Otherwise we run in $O(mn)$ time with probability $\le \frac{1}{n^d}$
+
+Expected run time:
+\begin{align*}
+O\left(n\left(1-\frac{1}{n^d}\right)+mn\frac{1}{n^d}\right)&= O(n)\qquad \text{pick }d=1
+\end{align*}
+
+\subsection{Problem}
+Evaluate an AND-OR complete- binary tree given values of $2^n$ leaves (number of level=$n$)
+
+application 
+AI: game trees
+logic: ```Quantifier SAT'' $\exists x_1 \forall x_2 \exists x_3\forall x_4-\forall (x_1,\ldots x_n)$
+
+Brute-force method bottom-up $\Theta(2^n)$ time
+
+Known heuristics:
+$\alpha-\beta$ prunint, etc
+
+\subsection{Lower Bound Theorem}
+Every deterministic algorithm has to inspect all $2^n$ leaves in the worst case
+
+\subsection{Proof Idea (adversary argument)}
+You are the algorithm.  I will construct an input (depending on algorithm)
+
+If you ask for a leaf $v$, I find largest subtree in which $v$ is the last node.  If root is AND, set $v$ to 0, if root is OR, set $v$ to 1.
+
+\subsection{Snir's Las Vegas Algorithm (1985)}
+\begin{verbatim}
+eval(u):
+    if u is a leaf then return u's value
+        let u_1, u_2 be u's children IN RANDOM ORDER
+        if u is OR node {
+            if eval(u_1) == 1 then return 1
+            else return eval(u_2)
+        } if u is AND node {
+            if eval(u_1)==0 then return 0
+            else return eval(u_2)
+        }
+\end{verbatim}
+
+Random Analysis: An OR node is good if it's value is 1, an AND node is good if it's value is 0.
+
+Let $G(n)=$expected cost for a good node $u$ at level $n$.  Let $B(n)=$expected cost for a bad node $u$ at level $n$
+
+wlog say $u$ is an OR node
+Case 1 $u$ is bad, 2 recursive calls
+\[B(n)\le 2 G(n-1)\]
+
+Case 2 $u$ is good
+Sub case 2.1 $u_1, u_2$ both $1$, 1 recursive call
+
+Subcase 2.2 exactly one of $u_1,u_2$ is 1.  with probability $\frac{1}{2}$ 1 recursive call (bad), with probaiblity $\frac{1}{2}$ 2 recursive calls (good, bad)
+\[G(n)\le B(n-1)+\frac{1}{2}G(n-1)\rightarrow G(n) \le 2 G(n-2) + \frac{1}{2}G(n-1)\]
+
+Guess $G(n)\le x^n$
+
+Want:
+\begin{align*}
+2x^{n-2}+\frac{1}{2}x^{n-1}&=x^n\\
+2 + \frac{1}{2}x&=x^2\\
+x^2-\frac{1}{2}x-2&=0\\
+x&= \frac{1+\sqrt{33}}{4}\\
+O\left(\left(\frac{1+\sqrt{33}}{4}\right)^n\right)&\approx O(1.69^n)
+\end{align*}
+
+\section{Lecture}
+\subsection{Problem}
+Given a set $S$ of $n$ points in 2D, complete the minimum circle $C^\ast$ enclosing $S$.
+
+Applications - bounding object
+- findin a ``center'' point
+
+Observation $C^\ast$ is a unique and must have 3 points on the boundary or 2 points as diamter
+
+Proof Sketch: By Contradiction
+
+Ideas - brute force: try all $O(n^3)$ possibilities, this takes $O(n^4)$ time
+- compute convex hull $O(n\log h + h^4)$
+- then compute its minimum circle, how to do this?
+
+- compute a ``Voronoi diagram'', $O(n\log n)$.
+
+\subsection{Megiddo-Dyer Algorithm (1983)}
+$O(n)$ time!, a bit complicated (use median-finding multiple times ...)
+
+
+\subsection{Subproblem (1D)}
+Given a set of numbers $x_1,\ldots , x_n$, find the minimum.  Standard ``incremental'' algorithm:
+\begin{verbatim}
+randomly permute x_1,\ldots x_n
+ans = +\infty 
+for i = 1 to n do
+    if x_i < ans
+        ans = x_i (*)
+\end{verbatim}
+
+Question: how many times is (*) done.
+Worst case analysis - $n$ times
+
+randomized analysis: rewrite algorithm
+\begin{verbatim}
+min(s):
+if S\ne\emptyset return +\infty 
+pick x\in S randomly
+ans = min(S-\{x\})
+if x<ans
+    ans = x (*)
+return ans
+\end{verbatim}
+
+For a fixed input $S$
+\[P((*) \text{ is done})=P(x=\min(S))=\frac{1}{n}\]
+
+So expected number of times (*) is done satisfies:
+\begin{align*}
+T(n) &= T(n-1)+\frac{1}{n}\cdot 1
+=\frac{1}{n}+\frac{1}{n-1}+\frac{1}{n-2}+\ldots+ 1\qquad\text{ Harmonic series}\\
+&=O(\log n)
+\end{align*}
+
+\subsection{Deidel - Welgle's Las Vegas Algorithm}
+amazingly simple!
+idea - incrementally add points, if new point $p$ is inside current circle, unchanged, else new cricle must have $p$ on boundary.
+
+Proof Sketch
+By Contradiction
+
+\begin{verbatim}
+circle(S, B):
+//min circle enclosing S with B on boundary
+if S = \emptyset or |B|=3 return
+pick p \in S randomly
+c = circle(S-\{p\}, B)
+if p outside C then
+    circle(S-\{p\}, B\cup\{p\}) (*)
+return C
+\end{verbatim}
+
+Random Analysis:
+let $T_b(n)=$expected run time for $|S|=n$, $|B|=b$, $b\in\{0,1,2,3\}$
+
+For any fixed $S$, $B$
+\[P((*)\text{ is done})=P(p\text{ is on boundary of cricle } (S,B))\le\frac{3}{n}\]
+
+\begin{align*}
+T_b(n)&\le T_b(n-1)+\frac{3}{n}G_{b+1}(n-1)+O(1)\\
+T_3(n) &= O(1)\\
+T_2(n) &\le T_2(n-1) + O(1)\\
+\rightarrow T_2(n)&=O(n)\\
+T_1(n)&\le T_1(n-1) + \frac{3}{n}T_2(n-1)+O(1)
+=T_1(n-1) + \frac{3}{n}O(n) + O(1)\\
+\rightarrow T_1(n) &= O(n)\\
+T_0(n)&\le T_0(n-1)+\frac{3}{n}T_1(n-1)+O(1)
+=T_0(n-1)+\frac{3}{n}O(n)+O(1)\\
+\rightarrow T_0(n)&=O(n)
+\end{align*}
+
+Remark: in $d$ dimensions $O((d+1)!n)$ expected time
+Open question: can we get polynomial in $d$ and $n$?
+
+\section{Lecture}
+\subsection{Problem}
+Given weighted undirected graph $G=(V,E)$, $n=|V|$, $m=|E|$, $w:E\rightarrow\mathbb{R}^+$.  Find minimum weight spanning tree.
+
+Assume weights are distinct
+
+\subsection{Inclusion Rule}
+If $u$'s nearest neighbour is $v$ then $uv\in\text{MST}(G)$.
+
+contract $u$ to $v$ in $G$, so remove $uv$ and rename $u$ as $v$
+
+\subsection{Exclusion Rule}
+If a cycle $c$'s heaviest edge is $e$ then $e\not\in\text{MST}(G)$.  So delete $e$ in $G$
+
+
+Remark: essentiall all MST algorithm suse only these 2 rules
+
+\subsection{Kruskal's Algorithm (1956)}
+\begin{verbatim}
+repeat {
+    take lightest edge uv (by inclusion rule)
+    print w(uv)
+    contract u and v
+}
+\end{verbatim}
+implementation = sorting + union-find data structure
+\[O(m\log n +m\alpha(n)=O(m\log n)\]
+
+
+\subsection{Prim's Algorithm (1957)}
+\begin{verbatim}
+fix an s \in V
+repeat {
+    find s's nearest neighbour v (by inclusion rule)
+    print w(sv)
+    contract v to s
+}
+\end{verbatim}
+
+Implementation - Fibonacci heap
+($m$ decrease-key, $n$ delete-min) $\rightarrow O(n\log n + m)$
+
+\subsection{Boruvka's Algorithm (1926)}
+\begin{verbatim}
+repeat{
+    BoruvkaStep()
+}
+
+BoruvkaStep():
+    unmark all vertices
+    for each u\in V do do
+        if u unmarked {
+            find u's nearest neighbour v
+            print w(uv)
+            contract u to v
+            mark v
+\end{verbatim}
+
+Implementation - no data structure
+Analysis: line 4 $O(\deg(u))$ time
+line 6 $O(\deg(u))$ time
+
+time for one Boruvka Step
+\[O(\sum_{u\in V}\deg(u))=O(m)\]
+
+After one Boruvka Step the number of vertices $\le \frac{n}{2}$ (since each marked vertex is a contraction of at least 2 vertices.
+\[T(m,n)\le T(m,\frac{n}{2})+O(m)\rightarrow O(m\log n)\text{ time}\]
+not as good as Prim
+
+\subsection{A ``hybrid'' Algorithm}
+\begin{verbatim}
+for i = 1 to r do
+    BoruvkaStep()
+Prim()
+\end{verbatim}
+
+Analysis:
+line 0: $O(mr)$ time
+After line 0, number of vertices$\le \frac{n}{2^r}$
+
+line 1:
+\begin{align*}
+2^r &= \log n\\
+r &= \log\log n\\
+O\left(\frac{n}{2^r}\log\frac{n}{2^r}+m\right)
+&\rightarrow O(mr + \frac{n}{2^r}\log n)
+\rightarrow O(m\log\log n + n)
+\rightarrow O(m\log\log n)
+\end{align*}
+
+
+
+\section{Lecture}
+\subsection{A randomized algorithm for satisfiability}
+
+\subsection{SAT}
+input: Boolean formula in Conjuctive Normal Form (CNF)
+\[E=\underbrace{(x_1\vee x_2\vee x_3)}_{\text{clause}}\wedge(x_1\vee\overline{x}_2)\wedge (\overline{x}_1\vee \overline{x}_2\vee \overline{x}_3)\wedge(\underbrace{x_2}_{\text{literal}}\vee \overline{x}_3)\]
+
+3-SAT - 3 literals per clause
+2-SAT - 2 literals per clause
+
+Applications of Satisfiability
+- many problems can be expressed as satisfiability - more generally: Quantified Boolean formulas $\forall x\exists y (\text{Boolean Formula})$
+
+SAT is a special case with only $\exists$
+3-SAT is NP-complete - brute force $n$-variables
+2-SAT has polytime algorithm $O(\underbrace{2^n}_{\text{number T/F assignments}}\underbrace{\text{poly}(n)}_{\text{check satisfiability}}$
+
+Best known algorithm for 3-SAT takes $O(1.5^n)$ time.
+
+If we use randomness can we get polynomial time?
+Unliekly: if $SAT\in RP$ then $RP=NP$
+
+\subsection{SAT Algorithm [Papadimitrion '91]}
+input: boolean formula $E$ in CNF
+idea: local improvement (``hill climbing'')
+
+start with any T/F assignment $A$ to variables
+\begin{verbatim}
+repeat t times
+    if A satisfies E output YES
+    pick unsatisfied clause C
+    randomly pick a literal alpha in C
+    flip value of alpha in A
+end
+return No (the algorithm has not found a satisfying truth assignment)
+\end{verbatim}
+
+\subsection{Analysis for 2-SAT}
+If $E$ is not satisfiable, algorithm is correct.
+If $E$ is satisfiable the algorithm may error, we want probability of error.
+
+Let $A^\ast$ be a truth value assignment satisfying $E$, we will study difference between $A$ and $A^\ast$
+Let $i=$number of variables same in $A$ and $A^\ast$
+
+If $i$ reaches $n$ then $A=A^\ast$ and algorithm says YES.  How does $i$ change?
+
+$i$ goes to $+1$ or $-1$, analyze probability
+
+Use random walk on a line, we want expected number of steps to reach $n$.
+
+At each step $i$ becomes $i+1$ with probability $\frac{1}{2}$
+At each step $i$ becomes $i-1$ with probability $\frac{1}{2}$
+
+Execpt if $i=0$ becomes $1$ with probability $1$
+
+Let $t_i=$expected number of steps from $i$ to $n$
+\begin{align*}
+t_n&=0\\
+t_0&=1+t_1\\
+t_i&=\frac{1}{2}t_{i-1}+\frac{1}{2}t_{i+1}+1\qquad 1\le i\le n-1
+\end{align*}
+
+Now we perfrom a tricky change of variables:
+\begin{align*}
+\frac{1}{2}t_i - \frac{1}{2}t_{i+1}&=1+\frac{1}{2}t_{i-1}-\frac{1}{2}t_i\\
+\underbrace{t_i-t_{i+1}}_{d_i}&=2+\underbrace{t_{i-1}-t_{i}}_{d_{i-1}}\\
+d_i&=2+d_{i-1}\\
+d_0&=t_0-t_1
+=1+t_1-t_1
+=1\\
+d_{n-1}&=t_{n-1}-t_n
+=t_{n-1}
+\end{align*}
+
+We need to solve the recurrence $d_i=2i+1$
+\begin{align*}
+t_i &= d_i+t_{i+1}\\
+t_n&=0\\
+t_i&=\sum_{j=1}^{n-1}d_j
+=\sum_{j=i}^{n-1}2j+1
+=2\sum_{j=i}^{n-i}j+\sum_{j=i}^{n-1}
+=n-i+n(n-1)-i(i-1)
+=n^2-i^2
+\end{align*}
+
+maximium is $n^2$ and occurs when $i=0$
+
+Back to Papdimitrion's Algorithm:
+Show $i$ becomes $i+1$ with probability $\ge\frac{1}{2}$
+Show $i$ becomes $i-1$ with probability $\le\frac{1}{2}$
+
+for 2-SAT
+assignment $A$
+$i=$number of matches in $A$ and $A^\ast$
+suppose $A$ does not satisfy $E$, choose cluase $C$ not satisfied.
+
+$C$ has 2 literals say $C=(\alpha \vee \beta)$
+in $A^\ast$ at least one is true, wlog $\beta$ is true
+with probabilty $\frac{1}{2}$ algorithm chooses $\beta$ and $i$ becomes $i+1$
+with probability $\frac{1}{2}$ algoithm chooses $\alpha$ then $i$ might go up or down
+
+So probability $i$ goes to $i+1$ is $\ge\frac{1}{2}$
+
+Can apply random walk analysis
+expected number of steps for $i$ to reach $n$ is $\le n^2$
+Note: Algorirthm might output Yes before reaching $A^\ast$ (this is good)
+
+How many repeats of algorithm? IE value of $t$
+Use Markov's Inequality
+
+If $X\ge 0$ and $E\left[X\right]=\mu$ then $P\{X\ge c\mu\}\le \frac{1}{c}$
+
+with $c=2$
+use $t=2n^2$
+then $P(\text{error})<\frac{1}{2}$
+Run time $O(n^2)$
+
+What about 3-SAT?
+Fact: Algorithm has expected number of steps $\approx 2^n$
+why?
+Any clause $C=(\alpha_k\vee\alpha_j\vee\alpha_k)$
+probability of choosing the $\alpha$ in $A^\ast$ is $\frac{1}{3}$
+
+For a random walk it is less likely to get to $n$
+
+Schonug '99 had 2 ideas for improvement
+\begin{itemize}
+\item choose random initial assignment
+\item increasing number trials do not help start with new random $A$
+\end{itemize}
+
+with right choice of number repeats of step 2 and improvement steps, we can get $P(\text{error})<\frac{1}{2}$ with run time $O\left(\left(\frac{4}{3}\right)^nn\right)$
+
+\section{Lecture}
+\subsection{Problem MST}
+Inclusion Rule If $u$'s nearest neighbour is $v$ then $uv\in \text{MST}(G)$, can contract $u$ to $v$
+
+Exclusion Rule If a cycle $c$'s heaviest edge is $e$ then $e\not\in\text{MST}(G)$, remove $e$
+
+Kruskal's Algorithm $O(m\log n)$
+Prim's Algorithm $O(n\log n + m)$
+Boruvka's Algorithm $O(m\log n)$
+Hybrid Algorithm $O(m\log\log n)$
+
+\subsection{History of ``modern'' MST algorithms}
+Yao '75 $O(m\log\log n)$
+Cheriton, Tarjan '76
+Fredman Tarjan '85 $O(m\log^\ast n)$
+Gabow, Galil, Spencer '86 $O(m\log(\log^\ast n))$
+Chayelle '97 $O(m\alpha(n))$ (really complicated)
+
+
+\subsection{Karger's Las Vegas Algorithm (1993)}
+Idea 1 - use exclusion rule to reduce number of edges
+Idea 2 - random sampling
+\begin{verbatim}
+MST(E):
+    take a random subset R\subseteq E of size r
+    T = MST(R)
+    for each uv \in E do
+        classify uv as heavy 
+                                if uv\not\in T and
+                                uv is heavier than all edges
+                                in the path from u to v in T
+        light otherwise
+    remove all heavy edges
+    return MST({all light edges})
+\end{verbatim}
+
+Observation (1) Imagine inserting $e$ to $R$
+if $e$ is heavy then $\text{MST}(R)$ is unchanged, else the new $\text{MST}(R)$ must use $e$
+
+(2) $T$ is the $\text{MST}(G)$ iff all edges $e\not\in T$ are heavy
+
+Implementation of line 4 can be handled by known data structures
+
+Tarjan '79 $O(m\alpha(n))$ time
+Kromlos '85/ Dixon et al '92/King '93/Bashbaum eta l '98 $O(m)$ time
+
+\subsection{Sampling Lemma}
+\[E\left[\text{number of light edges}\right]\le \frac{mn}{r}\]
+
+Proof: Pick random $e\in E$, Suffice to show $P\{e\text{ is light}\}\le \frac{n}{r}$
+
+Idea - think backwards
+fix $R'=R\cup\{e\}$, $e$ is a random element of $r'$
+\begin{align*}
+P\{e\text{ light}|R'\text{ fixed}\} &= P\{e\in\underbrace{\text{MST}(R')}_{\text{fixed trees }\le n-1\text{ edges}}|R'\text{ fixed}\} \qquad \text{by observation } (1)\\
+&\le \frac{n-1}{|R'|}
+\le \frac{n}{r}\\
+P\{e\text{ light}\} &\le \frac{n}{r}
+\end{align*}
+
+\subsection{Analysis: expected runtime}
+\[T(m,n)\le T(r,n) + T\left(\frac{mn}{r}, n\right)+O(m+n)\]
+
+choose $r=2n$
+\begin{align*}
+T(m,n)&\le \underbrace{T(2n,n)}_{\text{use Kruskal/Boruvka}} + T\left(\frac{m}{2}, n\right)+O(m+n)\\
+T(m,n)&\le O(n\log n + T\left(\frac{m}{2}, n\right)+O(m+n)\\
+T(m,n)&\le T\left(\frac{m}{2}, n\right)+O(m+n\log n)\\
+T(m,n) &= O(n\log^2n + m)
+\end{align*}
+Linear if not too sparse, and without the use of fibonacci heaps
+
+\subsection{Karger-Kleir-Tarjan's Modified Algorithm (1994)}
+\begin{verbatim}
+MST(E):
+    for i = 1 to 3 do BoruvkaStep()
+    Karger's Las Vegas Algorithm
+\end{verbatim}
+
+\subsection{Analysis}
+After line 0 number of vertices$\le\frac{n}{8}$
+\[T(m,n)\le T\left(\frac{n}{4},\frac{n}{8}\right)+c'\left(\frac{m}{2}+\frac{n}{8}\right)+(m+n)\]
+
+Guess $T(m,n)\le c'(m+n)$
+Verify by induction
+\begin{align*}
+T(m,n)&\le c'\left(\frac{n}{4}+\frac{n}{8}\right)+c'\left(\frac{m}{2}+\frac{n}{8}\right)+(m+n)
+\le \frac{3}{8}c'n+\frac{1}{2}c'm+\frac{1}{8}c'n+(m+n)\\
+&=\left(\frac{c'}{2}+1\right)m+\left(\frac{c'}{2}+1\right)n
+\le c'(m+n)
+\end{align*}
+
+We want
+\begin{align*}
+\frac{c'}{2}+1&=c'\\
+c'+2&=2c'\\
+c'&=2
+\end{align*}
+
+\section{Lecture}
+Travelling Salesman Problem (TSP)
+Given weighted graph $G=(V,E)$, find a Hamiltonia cycle with minimum total edge weight.
+
+Aspects of optimization problems
+
+Instance
+Feasible Solution, usually we don't worry about this measure
+
+\subsection{Theorem}
+If $P\ne NP$ then for any function $f(n)$ that can be computed in polynomial time, TSP can't be approximated in polytime with ratio $f(n)$
+
+Reduce Hamiltoni
+
+
+\section{Lecture 15}
+\subsection{Problem}
+Given a set $S$ of $n$ unit squares in 2D find a subset $T\subseteq S$ of disjoint squares maximizing $|T|$.
+
+application - map labelling, VLSI design, data mining
+connection - define graph $G=(V,E)$, $V=S$, $E=\{s_is_j|s_i \text{ intersect }s_j\}$
+
+Same as finding maximum independent set (NP-complete)
+
+geometric version is also NP-complete.  Independent set is very hard to approximate in general (lower bound theorem: no factor $n^{1-\epsilon}$ if $P\ne NP$)
+
+\subsection{Approximation Algorithm 1: (Incremental)}
+\begin{verbatim}
+T = \emptyset
+while S \ne \emptyset {
+    pick any square t \in S
+    insert t\in T
+    remove t and all squares intersecting t from S
+}
+\end{verbatim}
+This algorithm is clearly polytime
+
+\subsection{Analysis (Incremental)}
+Let $T^\ast=$optimal solution, Let $X=$set of all corner points of $T$.  we know $|X|=4|T|$, since each square has 4 corner points
+
+Observation: every square $s\in S$ contains at least one point of $X$
+
+Proof: every $s$ must intersect some square $t\in T$ ( since $s$ is eventually removed)  thus $s$ must contain a cornder of $t$
+
+\begin{align*}
+|T^\ast|&\le |X|
+|T^\ast|&\le 4|T|
+|T|&\ge \frac{|T^\ast|}{4}
+\end{align*}
+Thus we get an approximation factor of $\frac{1}{4}$.
+
+\subsection{Equivalent Problem}
+Given a set $P$ of $n$ points in 2D find a subset $Q\subseteq P$, maximizing $|Q|$ such that $\forall q_1, q_1\in Q$, $|q_1.x-q_2.x|>1$ or $|q_1.y-q_2.y|>1$
+
+basically a rephrasing of the problem
+
+\subsection{Approximation Algorithm 2 (Grid)}
+
+Let $R_0=\{(x, y)|\floor x\rfloor \text{ is even and }\lfloor y\rfloor \text{ is even}\}$
+
+\subsection{Lemma}
+The problem for $P\cap R_0$ can be solved in linear time
+
+Proof: Just take 1 point in each cell of $R_0$
+
+now let:
+\begin{align*}
+R_1&=\{(x, y)|\floor x\rfloor \text{ is even and }\lfloor y\rfloor \text{ is odd}\}\\
+R_2&=\{(x, y)|\floor x\rfloor \text{ is odd and }\lfloor y\rfloor \text{ is even}\}\\
+R_3&=\{(x, y)|\floor x\rfloor \text{ is odd and }\lfloor y\rfloor \text{ is odd}\}
+\end{align*}
+
+\begin{verbatim}
+for i = 0 to 3 do
+    Q_i = solution for P\cap R_i
+return largest Q among \{Q_1, Q_2, Q_3, Q_4\}
+\end{verbatim}
+
+\subsection{Analysis (Grid)}
+Let $Q^\ast=$optimal solution.  Each point belongs to one of 4 regions $R$
+\begin{align*}
+|Q^\ast| &= \sum_{i=0}^3|Q^\ast\cap R_i|
+\le \sum_{i=0}^3|Q_i|=4|Q|\\
+|Q|&\ge\frac{1}{4}|Q^\ast|
+\end{align*}
+So we have an approximation factor of $\frac{1}{4}$.
+
+\subsection{Hochbaum-Mauss Algorithm (1985)}
+idea - again shifted grid.  Fix constant $k>2$.  Let $R_{ij}=\{(x, y)|\floor x\rfloor\bmod k \ne i\text{ and }\lfloor y\rfloor\bmod k\ne j\}$, $i,j\in\{0,\ldots, k-1\}$
+
+\subsection{Lemma}
+The problem for $P\cap R_{ij}$ can be solve in polytime
+
+Proof: in each $(k-1)\times(k-1)$ cell can take $\le (k-1)^2$ points
+brute force: try all subsets of size $\le (k-1)^2$, so we have $O(n^{(k-1)^2})$ tun time.
+
+\begin{verbatim}
+for i = 0, ..., k-1
+    for j = 0, ..., k-1
+        Q_{ij} = solution for P\cap R_{ij} by Lemma
+return largest Q among \{Q_{ij}\}
+\end{verbatim}
+
+\subsection{Analysis}
+Let $Q^\ast=$optimal solution each point belongs to $(k-1)^2$ of $k^2$ regions $R_{ij}$
+
+\begin{align*}
+(k-1)^2|Q^\ast|&=\sum_{i,j}|Q^\ast\cap R_{ij}|
+\le\sum_{i,j}|Q_{ij}|
+\le k^2|Q|\\
+|Q|&\ge \left(\frac{k-1}{k}\right)^2|Q^\ast|
+\end{align*}
+
+So we get an approximation factor of $\left(\frac{k-1}{k}\right)^2$
+\begin{align*}
+k&=3 \qquad \text{factor}=\frac{4}{9}\\
+k&=5 \qquad \text{factor}=0.64\\
+k&=10 \qquad \text{factor}=0.81\\
+k&=100 \qquad \text{factor}=0.9\\
+\end{align*}
+
+We can get a factor arbitrarily close to 1
+
+\subsection{Definition}
+A polytime approximation scheme (PTAS) is a factor $(1+\epsilon)$ or $(1-\epsilon)$ algorithm that runs in polytime for any given constant $\epsilon > 0$.
+
+\section{Lecture 16}
+\subsection{Definition}
+Given a maximiziation problem an approximation algorithm has asymptotic approximate factor $t$ if it always returns a feasible solution $s$ with $\text{cost}(s)\le t\text{cost}(s^\ast) + O(1)$.  Where $s^\ast$ is the optimal solution
+
+\subsection{Problem (Bin Packing)}
+Given $n$ numbers (items) $s=\{s_1,\ldots, s_n\}\subseteq [0, 1]$, partition $s$ into subsets (bins) such that each subset sum to $\le 1$, while minimizing number of bins used.
+
+\subsection{Example}
+0.3, 0.8, 0.1, 0.2, 0.5, 0.1
+
+2 bins is optimal
+\[0.2+0.8=1\qquad 0.1+0.5+0.1+0.3=1\]
+This problem is NP-complete
+
+Applications
+\begin{itemize}
+\item packing books in to boxes
+\item job scheduling
+\end{itemize}
+
+\subsection{Algorithm 1 First-Fit (greedy, ``on-line'')}
+\begin{verbatim}
+for i = 1 to n
+    place s_i in to first bin that fits
+\end{verbatim}
+
+\subsection{Example}
+\subsection{Upper bound Analysis}
+we have an approximation factor $\le 2$
+Proof: Let $\sigma = \sum_{i=1}^n s_i$, and let $\text{OPT}(s)=$number of bins in the optimal solution, we know $\text{OPT}(s)\ge \sigma$.
+
+Consider the first-fit solution say $m$ bins are used.  At most one bin can sume to $\le\frac{1}{2}$.  (Proof by contradaction, would not open new bin if there is space in a previous bin)
+
+so $m-1$ bins have sum $>\frac{1}{2}$
+\begin{align*}
+\sigma &> (m-1)\frac{1}{2}\\
+m &< 2\sigma + 1 \le 2 \text{OPT}(s) + 1\\
+m &< 2\text{OPT}(s) + 1\\
+m &< 2\text{OPT}(s)\\
+\end{align*}
+
+\subsection{Bad Examples}
+We can force an asymptotic approximation factor of $\ge\frac{5}{3}\approx 1.66$
+\[\underbrace{0.15,\ldots, 0.15}_{k\text{ copies}}\underbrace{0.34,\ldots, 0.34}_{k\text{ copies}}\underbrace{0.51,\ldots, 0.51}_{k\text{ copies}}\]
+
+Optimal solution requires $k$ bins each with $0.51 + 0.34 + 0.15 = 1$, so $\text{OPT}(s)=k$.
+
+The first fit algorithm requires $m=\frac{k}{6}+\frac{k}{2}+k=\frac{5}{3}k$
+
+\subsection{Improved bad Example (Gacey, Johnson et al '74)}
+asymptotic approximation factor $\ge 1.7$
+
+\subsection{Improved Upper Bound Analysis (Gacey, Johson again)}
+$m\le 1.7\text{OPT}(s)+1$ which implies an asymptotic approximation factor of $1.7$.  Proof is too long to explain
+
+\subsection{Algorithm 2 Best-Fit}
+\begin{verbatim}
+for i = 1 to n do
+    place s_i in to the fallest bin that fits
+\end{verbatim}
+
+\subsection{Worst-Case Analysis}
+Same story, we get asymptotic approximation factor $1.7$
+
+\subsection{Lower Bound Theorem (Vliet '92)}
+Any online algorithm (where the placement of $s_i$ depends only on $s_1,\ldots, s_i$) must have asymptotic approximation factor $>1.54$ in worst case.
+
+so we have to consider off-line algorithms
+
+\subsection{Algorithm 3 First-Fit Decreasing}
+reorder and apply greedy algorithm.
+\begin{verbatim}
+sort s_1,..., s_n in decreasing order
+run first-fit
+\end{verbatim}
+
+\subsection{Upper-Bound Analysis (Johnson '73)}
+$m\le \frac{11}{9}\text{OPT}(s)+4$, so we get an asymptotic factor $\frac{11}{9}\approx 1.22$
+
+Proof: very long again!
+
+\subsection{Bad Example: asymptotic factor $\ge\frac{11}{9}$}
+\[\underbrace{0.51,0.275,0.26,0.23,0.225}_{k\text{ copies}}\]
+
+$OPT=\frac{3}{2}k$
+$m = k + \frac{k}{3}+ \frac{k}{4}+ \frac{k}{4}=\frac{11}{6}k$
+
+$\text{factor}=\frac{\frac{11}{6}}{\frac{3}{2}}=\frac{11}{9}$
+
+
+\subsection{Algorithm 4 Best-Fit Decreasing}
+\begin{verbatim}
+sort s_1,...,s_n in decreasing order
+run best-fit
+\end{verbatim}
+Results in the same factor $1.22$
+
+Can we do better?
+Johnson, Garey '80 1.19
+de la Vega, Leuker '81 $1+\epsilon$
+
+
+\section{Lecture}
+\subsection{Problem (Bin Packing)}
+
+de la Vega, Leuker '81 $1+\epsilon$ factor $\rightarrow$ asymptotic PTAS
+
+Idea use rounding
+\subsection{Lemma A}
+There is a polytime algorithm if there is only a constant number $k$ of different values $s_i$ and all $s_i\ge \epsilon$.
+
+\subsection{Proof (Lemma A)}
+Each bin holds $\le \frac{1}{\epsilon}$ items
+
+$\rightarrow$ number of different bin configurations is $\le (k+1)^{\frac{1}{\epsilon}}$
+
+$\rightarrow$ number of different possible solutions is $\le n^{(k+1)^{\frac{1}{\epsilon}}}$
+
+This is big, but it's still polynomial (for each bin configuration specify how many)
+
+\subsection{Lemma B}
+There is a polytime $(1+\epsilon)$-approximation algorithm if all $s_i\ge\epsilon$
+
+\subsection{Proof (Lemma B)}
+First try - round values
+Second try - round indices
+i.e. sort $s_1\le s_2\le \ldots\le s_n$
+
+Given $S=\{s_1,\ldots s_{\frac{n}{k}},s_{\frac{n}{k}+1},\ldots s_{\frac{2n}{k}},\ldots,s_{n-\frac{n}{k}},\ldots s_{n}\}$
+
+Now we create $S^+$ as follows $S^+=\{s_{\frac{n}{k}},\ldots s_{\frac{n}{k}},s_{\frac{2n}{k}},\ldots s_{\frac{2n}{k}},\ldots,s_{n},\ldots s_{n}\}$.
+
+Now since $S^+$ has $k$ distinct values we can apply lemma A
+
+\subsection{Analysis}
+let $S^-=\{0,\ldots, 0,s_{\frac{n}{k}},\ldots s_{\frac{n}{k}},\ldots,s_{n-\frac{n}{k}},\ldots s_{n-\frac{n}{k}}\}$
+
+We know that:
+\begin{align*}
+\text{OPT}(S^-) &\le \text{OPT}(S)\\
+\text{OPT}(S^+) &\le \text{OPT}(S^-)+\frac{n}{k}\\
+\text{OPT}(S) &\ge \frac{n}{\frac{1}{\epsilon}}\qquad \text{since each bin holds }\le \frac{1}{\epsilon}\text{ items}
+\end{align*}
+
+\begin{align*}
+\text{OPT}(S^+)&\le \text{OPT}(S) +\frac{n}{k}\\
+&\le \text{OPT}(S)+\frac{\frac{1}{\epsilon}\text{OPT}(S)}{k}
+=\left(1+\frac{1}{\epsilon k}\right)\text{OPT}(S)
+=(1+\epsilon)\text{OPT}(S)
+\end{align*}
+
+set $k=\frac{1}{\epsilon^2}$ with runtime $n^{(\frac{1}{\epsilon}+1)^{\frac{1}{\epsilon}}}$
+
+\subsection{Final Algorithm}
+\begin{verbatim}
+pack all s_i\ge \epsilon by Lemma B
+run first-fit to pack remaining items
+\end{verbatim}
+
+\subsection{Analysis (Final Algorithm)}
+If no new bin created by line 2, then we're done.  Otherwise the last bin is new
+
+Only the last bin can sum to $\le 1-\epsilon$, otherwise we could fit more items in previous bins.
+
+Let $\sigma=\sum_{i=1}^n s_i$, and let $m$ be the number of bins used:
+\begin{align*}
+\sigma &>(m-1)(1-\epsilon)\\
+\rightarrow m < \frac{\sigma}{1-\epsilon} + 1
+\le \frac{1}{1-\epsilon}\text{OPT}(S) + 1
+\end{align*}
+
+Asymptotic approximation factor is close to 1, so we have an asymptotic PTAS
+
+Karmarkan Karp '82 $O\left(\left(\frac{1}{\epsilon}\right)^8 n\log n\right)$
+
+$m\le \text{OPT}(S) + O(\log^2)\text{OPT}(S)$
+
+Rothauss B
+
+$m\le \text{OPT}(S) + O(\log \text{OPT}(S)\log\log \text{OPT}(S))$
+
+Open Problem, can you get $m\le \text{OPT}(S) + O(1)$
+
+\subsection{Problem (MAX-SAT)}
+Given $m$ clauses $c_1,\ldots, c_m$ in $n$ variables $x_1,\ldots, x_n$ find an assignment $A$ maximizing $f(A)=$number of clauses satisfied by $A$
+
+\subsection{Example}
+$x_1\vee x_3$, $\overline{x}_1\vee x_3$, $\overline{x}_1\vee \overline{x}_2$, $\overline{x}_3$
+
+the maximum clauses we can satisfy is $f(A^\ast)=3$ with the following assignment $x_1=1$, $x_2=0$, $x_3=1$.
+Note - NP-complete if clause length=2
+Motivation - to introduce an important approximation techniques
+
+\subsection{Algorithm 1: Greedy}
+\begin{verbatim}
+for i =1,...,n
+if number of occurence of x_i\ge number of occurences of \overline{x}_i
+    set x_i true
+else
+    set x_i false
+remove all clauses containing x_i or \overline{x}_i
+\end{verbatim}
+
+\subsection{Analysis (Greedy)}
+Let $m_i=$number of clauses remove in iteration $i$
+\begin{align*}
+\text{number of clauses satisfied}&\ge\sum_{i=1}^n\frac{m_i}{2}
+=\frac{m}{2}
+\ge \frac{f(A^\ast)}{2}
+\end{align*}
+
+So we get an approximation factor of $\frac{1}{2}$
+
+\subsection{Algorithm 2: Local Improvement}
+\begin{verbatim}
+A=any assignment
+repeat:
+    for i=1,...,n
+    A'=assignment obtained by flipping x_i
+    if f(A') > f(A)
+        A=A', goto repeat
+return A
+\end{verbatim}
+
+\subsection{Analysis (Local Improvement)}
+Runtime $\le m$ iteration since $f(A)$ so the algorithm is polytime.
+
+at the end we have:
+\begin{align*}
+f(A) &\ge \frac{m}{2}\ge \frac{f(A^\ast)}{2}
+\end{align*}
+
+again we get a factor of $\frac{1}{2}$
+
+\subsection{Proof (Local Improvement)}
+for each clause $c_k$ if it's satisfied by $A$, select a true literal from $c_k$.  If not, select any literal from $c_k$
+without loss of generality say say $x_1=\ldots=x_n=1$ in $A$
+
+Let $d_i$=number of times $x_i$ is selected
+$\hat{d}_i=$number of times $x_i$ or $\overline{x}_i$ is selected
+
+Then $x_i\ge\frac{\hat{d}_i}{2}$, (otherwise $x_i$ can be flipped)
+\begin{align*}
+f(A)&=\sum_i d_i
+\ge \frac{\sum_i\hat{d}_i}{2}
+=\frac{m}{2}
+\end{align*}
+
+\section{Lecture}
+\subsection{Problem MAX-SAT}
+Given clauses $c_1,\ldots,c_m$, $n$ variables $x_1,\ldots, x_n$, find assignment $A$ maximizing $f(A)=$number of clauses satisfied by $A$
+
+Algorithm 1 Greedy had approximation factor $\frac{1}{2}$
+Algorithm 2 Local Improvement had approximation factor $\frac{1}{2}$
+
+\subsection{Algorithm 3 Randomized (``do nothing'')}
+\begin{verbatim}
+for i=1 to n do
+    set x_i = random-bit()
+\end{verbatim}
+
+\subsection{Analysis Randomized}
+Runtime is $O(n)$ and is independent of the input, next we analyze the expected approximation factor.  First we defined some quantity $\sigma_k$
+
+\begin{align*}
+\sigma_k&=
+\begin{cases}
+1 & \text{if }c_k\text{ satisfied}\\
+0 & \text{otherwise}
+\end{cases}\\
+E\left[\sigma_k\right]&=P(c_k\text{ satisfied})
+=\begin{cases}
+\frac{1}{2} & \text{if }c_k\text{ has length }1\\
+\frac{3}{4} & \text{if }c_k\text{ has length }2\\
+1-\left(\frac{1}{2}\right)^i & \text{if }c_k\text{ has length }i\\
+\end{cases}\\
+c_k&\ge 2
+\end{align*}
+
+
+
+\begin{align*}
+E\left[f(A)\right]&=E\left[\sum_{k=1}^m\sigma_k\right]
+=\sum_{k=1}^m E\left[\sigma_k\right]
+\ge \sum_{k=1}^m \frac{1}{2}
+=\frac{m}{2}\ge\frac{f(A^\ast)}{2}
+\end{align*}
+so we get an expected factor of $\frac{1}{2}$
+
+Consider a special case MAX-1-2-SAT where all clauses have length 1 or 2
+\subsection{Algorithm 4 Goemans - williamson's technique '93}
+\begin{verbatim}
+let y_1,...,y_n be solution to linear programming (LP) relaxation
+for i=1 to n do
+set x_i = 1 with probability y_i, 0 otherwise
+[randomized rounding]
+\end{verbatim}
+
+\subsection{Example}
+$x_1\vee x_3$, $\overline{x}_1\vee x_3$, $\overline{x}_1\vee \overline{x}_2$, $\overline{x}_3$
+
+Introduces $y_1,\ldots, y_n$ and $z_1,\ldots, z_n$, with the following definition
+\[y_i=
+\begin{cases}
+1 & \text{if }x_i \text{ true}\\
+0 & \text{otherwise}
+\end{cases}\qquad
+z_k=
+\begin{cases}
+1 & \text{if }c_k \text{ satisfied}\\
+0 & \text{otherwise}
+\end{cases}\]
+
+We want to satisfy the following linear program
+\begin{align*}
+\max z_1+z_2+z_3+z_4\\
+y_1+y_3&\ge z_1\\
+1-y_1+y_3&\ge z_2\\
+1-y_1+1-y_2&\ge z_3\\
+1-y_3&\ge z_4\\
+0&\le y_1,y_2,y_3,z_1,z_2,z_3,z_4\le 1
+\end{align*}
+
+One possible assignment is:
+\begin{align*}
+y_1 &= \frac{1}{2}\\
+y_2 &= \frac{1}{2}\\
+y_3 &= \frac{1}{2}\\
+z_1 &= 1\\
+z_2 &= 1\\
+z_3 &= 1\\
+z_4 &= 1\\
+\end{align*}
+Which results in 3.5 clauses being satisfied.
+
+\subsection{Original Problem}
+find optimal integer solution (interger programming is NP-complete).  Let value be $z^\ast$.  The LP relxation is finding optimal real solution (linear program can be solved in polytime) there are well known algorithms:
+
+simplex method, ellipsoid method, interior-point methods
+
+let value be $z_{LP}$, we observe that $z_{LP}\ge z^\ast$
+
+\subsection{Analysis for MAX-1-2 SAT}
+\begin{align*}
+E\left[f(A)\right]&=E\left[\sum_{k=1}^m\sigma_k\right]
+=\sum_{k=1}^mE\left[\sigma_k\right]
+=\sum_{k=1}^mP(c_k\text{ satisfied})
+\end{align*}
+
+Case 1 $c_k$ has length 1, say $c_k=x_i$ we have $y_i\ge z_k$
+
+$P(c_k \text{ satisfied})=y_i\ge z_k$
+
+
+Case 2 $c_k$ has length 2, say, $c_k=x_i\vee x_j$ we have $y_i+y_j\ge z_k$
+
+\begin{align*}
+P(c_k \text{ satisfied})&=1 - P(c_k \text{ not satisfied})
+=1-(1-y_i)(1-y_j)
+=y_i+y_j-y_iy_j
+\ge y_i+y_j-\left(\frac{y_i+y_j}{2}\right)^2
+\ge z_k - \left(\frac{z_k}{2}\right)^2
+=z_k - \frac{z_k^2}{4}
+\ge z_k - \frac{z_k}{4}
+=\frac{3}{4}z_k
+\end{align*}
+
+Since by AMGM inquality
+\begin{align*}
+\sqrt{ab} &\le \frac{a+b}{2}\\
+ab &\le \left(\frac{a+b}{2}\right)^2
+\end{align*}
+
+Also that $x-\left(\frac{x}{2}\right)^2$ is increasing over $[0, 2]$.
+
+So finally we have:
+\begin{align*}
+E\left[f(A)\right]&\ge \sum_{k=1}^m\frac{3}{4}z_k
+=\frac{3}{4}\sum_{k=1}^mz_k
+=\frac{3}{4}z_{LP}
+\ge \frac{3}{4}z^\ast
+\end{align*}
+Thus we have an approximation factor of $\frac{3}{4}$
+
+\subsection{Analysis for general MAX-SAT}
+for each clause of length $l$, factor:
+\begin{align*}
+1-\left(1-\frac{1}{l}\right)^l
+&\rightarrow 1-e^{-1}
+\approx 0.632
+\end{align*}
+
+More precisely, let $m_l=|\{k: c_k\text{ has length }l\}|$, $z_l = \sum_{k:c_k\text{ has length }l} z_k$.
+
+\begin{align*}
+E\left[f(A)\right] &= 1\cdot z_1 + \frac{3}{4}z_2+\frac{19}{27}z_3+\ldots\\
+E\left[f(A')\right] &= \frac{1}{2}z_1 + \frac{3}{4}z_2+\frac{7}{8}z_3+\ldots\\
+\end{align*}
+
+\subsection{Final Algorithm}
+take the best of the two
+\begin{align*}
+E\left[\max\{f(A), f(A')\}\right] &\ge \frac{1}{2}E\left[f(A)\right] + \frac{1}{2}E\left[f(A')\right]
+\ge \frac{3}{4}z_1 + \frac{3}{4}z_2+\frac{3}{4}z_3+\ldots
+=\frac{3}{4}z_{LP}
+\ge \frac{3}{4}z^\ast
+\end{align*}
+So we get an approximation factor of $\frac{3}{4}$
+
+MAX-SAT: 0.7968
+
+\section{Lecture}
+\subsection{Problem}
+A cow is lost, how to find the fence?
+
+Let $d$ be the initial distance between the cow and the fence $d\in\mathbb{Z}$, $d\ge 1$ and is not known in advance.  The shortest distance is obviously $d$, but what if the cow is near-sighted, she only knows the fence is there if she is touching it.
+
+Comment 
+\begin{itemize}
+\item special case of ``robot navigation problems''
+\item dealing with incomplete information or on-line algorithms 
+\end{itemize}
+
+\subsection{Algorithm 0}
+\begin{verbatim}
+for i = 1, 2, ...
+    walk i units right, walk i units left
+    walk i units left, walk i units right
+(until we hit the fence)
+\end{verbatim}
+
+\subsection{Analysis}
+distance travelled if fence is on the right is $4(1+2+\ldots d-1) +d$, however if the fence is in the opposite direction wlog left, then we get the following distance:
+\begin{align*}
+4(1+2+\ldots d-1) +3d &=Theta(d^2)
+\end{align*}
+Which isn't that good
+
+\subsection{Algorithm 1 (doubling)}
+\begin{verbatim}
+for i=0,1,2,...
+    if i odd then
+        walk 2^i units right, 2^i units left
+    else
+        walk 2^i units left, 2^i units right
+\end{verbatim}
+
+\subsection{Analysis (doubling)}
+say $2^i\le d\le 2^{i+1}$, then:
+\[\text{distance travelled} = \begin{cases}
+2(1+2+4+\ldots + 2^i)+d & \text{in best case}\\
+2(1+2+4+\ldots + 2^{i+1})+d & \text{in worst case}\\
+\end{cases}\]
+
+So we can bound the total distance:
+\begin{align*}
+\text{distance travelled} &\le 2(2^{i+2} - 1) + d
+\le 2(4d-1) + d
+=8d-2+d = 9d-2 < 9d
+\end{align*}
+We say the algorithm has competitive ratio 9
+\subsection{Remark (doubling)}
+turns out 9 is the best possible for all deterministic algorithms
+
+\subsection{Algorithm 2 (doubling with random start direction)}
+\begin{verbatim}
+\gamma = random-bit()
+for i=0,1,2,....
+    if imod2=\gamma then
+        walk 2^i left, then 2^i right
+    else
+        walk 2^i right, then 2^i left
+\end{verbatim}  
+
+\subsection{Analysis (double random start)}
+\begin{align*}
+\text{expected distance travelled} &=
+2(1+2+\ldots +2^i)+d+2\cdot d^{i+1}\cdot\frac{1}{2}
+=2(2^{i+1}-1)+d+2^{i+1}
+\le 2(2d-1) + d +2d 
+=7d-1 
+< 7d
+\end{align*}
+So we have an expected ratio of 7
+
+\subsection{``Smart Cow'' Algorithm}
+Here we star with random distance and random initial distance
+\begin{verbatim}
+\gamma = random-bit()
+x = random real number in [0,1)
+for i = 0,1,2,...
+    if i mod 2 = gamma then
+        walk r^{i+x} right, r^{i+x} left
+    else
+        walk r^{i+x} left, r^{i+x} right
+\end{verbatim}
+
+\subsection{Analysis (``Smart Cow'')}
+Let $d=r^t$, $i+x\le t < i + x + 1$, $i = \lfloor t - x\rfloor$.
+
+Expected distance travelled for fixed $x$ is:
+\begin{align*}
+2(r^x + r^{1+x}+r^{2+x}+\ldots+r^{i+x}) +d +2r^{i+x+1}\cdot \frac{1}{2}
+&=2r^x(1 + r + r^2 + \ldots+r^i) +d + r^{i+x+1}
+=2r^x\left(\frac{r^{i+1}-1}{r-1}\right) +d + r^{i+x+1}
+\le  2r^x\left(\frac{r^{i+1}}{r-1}\right) +d + r^{i+x+1}
+=\left(\frac{2}{r-1}+1\right)r^{i+x+1} +d
+=\left(\frac{(r+1)r}{r-1}r^{i+x-t}+1\right)d
+=\left(\frac{(r+1)r}{r-1}r^{-y}+1\right)d
+\end{align*}
+
+Where $y$ is defined as:
+\begin{align*}
+y &= t- i - x
+=t-x-\lfloor t - x\rfloor
+=\{t-x\}\qquad \text{fractional part}
+\end{align*}
+
+Observe $y$ is uniformly distributed over $[0, 1]$
+\begin{align*}
+\int_0^1r^{-y}dy &= \left[\frac{-r^{-y}}{\ln r}\right]_0^1
+=-\frac{1}{r\ln r} + \frac{1}{\ln r}
+=\frac{r-1}{r\ln r}
+\end{align*}
+
+As a result we have that our expected ratio is:
+\begin{align*}
+\text{expected ratio}&\le \frac{(r+1)r}{r-1}\cdot\frac{r-1}{r\ln r} + 1
+=\frac{r+1}{\ln r}+1
+\end{align*}
+
+Experimenting with different values of $r$ we get:
+\begin{align*}
+r&=2 \qquad \text{ratio}=5.329\\
+r&=3 \qquad \text{ratio}=4.641\\
+r&=4 \qquad \text{ratio}=4.607\\
+r&=5 \qquad \text{ratio}=4.728
+\end{align*}
+
+our best choice occurs when $r\approx 3.592$ we get an expected ratio of $4.592$
+
+\section{Lecture}
+\subsection{Definition}
+Given input ``stream'' $x_1,x_2,\ldots, x_n$ an online algorithm generates a solution ``stream'' $s_1,s_2,\ldots, s_n$ where $s_i$ depends on $x_1, x_2, x_i$.  It has competitive ratio $t$ if $\text{cost}(s_1s_2\ldots s_n)\le t\text{cost}(s_1^\ast s_2^\ast \ldots s_n^\ast) +O(1)$
+
+Application - bin packing (First - fit online with ratio 1.7)
+- scheduling etc.
+
+\subsection{Problem (Paging)}
+Main memory is slow but we have a small cache with $k$ pages
+
+Given a sequence of page requests, find a way to serve the requests, minimizing cost.
+
+To serve a request for page $p$:
+if $p$ is in cache, done
+else evict some page $q$ from cache, fetch $p$ to cache
+else clause is called a page fault
+
+the cost is the number of faults
+
+Example
+$k=3$ 
+requests
+ABCBDCEABE
+
+optimal cost is 3
+
+\subsection{An Optimal Offline Algorithm (OPT)}
+to choose which page $q$ to evict:
+let $t(x)=$time when $x$ will be next requested choose $q$ with max $t(q)$ in the cache
+
+Proof of optimality: skipped
+Disadvantages: need to know the future
+
+\subsection{Online Algorithm 0:  Least Frequently Used (LFU)}
+let $n(x)$ be the number of times $x$ has been requested, choose $q$ with minimum $n(q)$.
+
+e.g. ABCBDCEABE
+$n(A)=1, n(B)=2, n(C)=1$.
+cost$=4$
+
+Bad Example:
+ABCAAAAABBBBBBCDCDCDCD
+LFU$=7\to\infty$
+OPT=1
+LFU is not competitive
+
+\subsection{Online Algorithm 1: Least Recently Used (LRU)}
+Let $t(x)$ be the time when $x$ was last requested choose $q$ with $\min t(q)$
+
+e.g. ABCBDCEABE
+$t(A)=1, t(B)=4, t(C)=3$.
+cost$=4$
+
+\subsection{Online Algorithm 2: FIFO}
+Let $t(x)$ be the time when $x$ was last fetched to cache choose $q$ with $\min t(x)$.                       
+
+\subsection{Competitive Analysis of LRU/FIFO: (Sleator, Tarjan '85)}
+divide request sequence into phases as follows:
+begin a new phase whenever we have seen requests for $k+1$ different pages
+
+e.g.($k=3$)
+$\underbrace{ABACBABCD}_{\text{a phase}}D$
+
+Within each phase LRU/FIFO makes $\le k$ faults.  (Since once a page is fetched, it won't be evicted by LRU/FIFO)
+
+Any algorithm must have $\ge1$ fault (after shifting by 1)
+(If not each must hold $k+1$ different pages)
+\begin{align*}
+\text{cost of LRU/FIFO} &\le k \cdot\text{number of phases} + O(1)\\
+&\le k \cdot\text{cost of any algorithm} + O(1)\\
+&\rightarrow\text{competitive ratio } k\\
+\end{align*}
+
+\subsection{Lower Bound Theorem} 
+Any deterministic online algorithm for paging has competitive ratio $\ge k$ (in worst case)
+
+Proof: You are the algorithm.  I the adversary will construct a bad sequence of $n$ requests.  In my example total number of pages $k+1$, so there is exactly one page outside of the cache.
+
+At each step I request the page outside the cache.
+Number of faults by you is $n$
+faults by OPT $\le \frac{n}{k}$
+(we evict page with max next-request time, the next fault occurs $\ge k$ requests later)
+
+\subsection{A Randomized Online Algorithm: RAND-MARK (Fiat et al '91)}
+To ser ve a request for page $p$:
+\begin{verbatim}
+mark p as ``recent''
+if p is not in cache {
+    if all pages in cache are marked ``recent''
+        unmark everything
+    choose a random unmarked page q
+    evict q, fetch p
+}
+\end{verbatim}
+
+\section{Lecture}
+\subsection{Problem}
+Paging,  so we have that LFU is not competitive and LRU and FIFO have competitive ratio $\le k$, which is the best possible among deterministic algorithms
+
+\subsection{RAND-MARK Algorithm (Fiat et al '91)}
+\begin{verbatim}
+initially mark all pages in cache ``old''
+to serve request for page p
+mark p as ``recent''
+if p not in cache
+    if no ``old'' page in cache
+        begin new phase and remark all pages in cache as ``old''
+    choose a random ``old'' page q to evict
+\end{verbatim}
+
+RAND-MARK Analysis
+Consider phase $i$.  Define type-A pages as all pages in cache at the beginning, and type-B otherwise.
+
+Let $a_1,a_2,\ldots$ be the type-A pages in order of first request.  When $a_j$ is first requested, $a_i,\ldots, a_{j-1}$ were changed to recent 
+
+
+The number of old pages is $k-(j-1)$
+
+Let $\beta_i$ be the number of distinct type-B pages requested
+
+The number of old pages in cache is $k-(j-1)-\beta_i$.  Old pages in cache are random
+\begin{align*}
+P(a_j\text{ is in cache})&= \frac{\text{number of old pages in cache}}{\text{number of old pages}}=\frac{k-(j-1)-\beta_i}{k-(j-1)}\\
+P(a_j\text{ is not in cache})&\le \frac{\beta_i}{k-(j-1)}\\
+E\left[\text{number of faults in phase }i \text{ by RAND-MARK}\right] &\le \beta_i + \sum_{j=1}^k \frac{\beta_i}{k-(j-1)}
+=\beta_i(\ln k + O(1))\\
+E\left[\text{total number of faults by RAND-MARK}\right] &\le (\ln k + O(1))\sum_i\beta_i
+=\beta_i(\ln k + O(1))\\
+\end{align*}
+
+In phase $i-1$ and phase $i$, there are $\ge k + \beta_i$ distinct pages requested.
+\begin{align*}
+\text{number of faults in phase }i-1 \text{ and }i &\ge\beta_i\qquad \text{by any algorithm}\\
+\text{total number of faults by any algorithm}&\ge\frac{1}{2}\sum_i\beta_i\\
+\text{expected competitive ratio} &\le \frac{(\ln k + O(1))\sum_i\beta_i}{\frac{1}{2}\sum_i\beta_i}
+=2(\ln k + O(1))
+=O(\log k)
+\end{align*}
+
+Remark - can improve to exactly $1+\frac{1}{2}+\frac{1}{3}+\ldots+\frac{1}{k}$, matching lower bound
+
+A generalization (called the ``$k$-server problem'')  We have $k$ ``server'' points in a metric space to serve a request for a point $p$:  
+move some server point to $p$.  Cost is the total distance travelled.
+
+Paying is a special case when $d(p,q)=\begin{cases}1 & p\ne q\\ 0 & \text{else}\end{cases}$.
+
+``$k$-Server Conjecture'' can we get competitive ratio $k$ for the $k$-server problem?
+
+Fiat et al '94 $(k!)^3$ deterministic
+Kowtsorpias Papadimitrion '95 $2k-1$
+Bansal et al 2011: $O(\log^2 k\log^3 n n \log\log n)$
+
+
+Problem Given stream of numbers $A=\{a_1,a_2,\ldots, a_n\}$ find the median, with limited space
+
+Definition A streaming algorithm is an algorithm that makes small number of passes over the input and uses small amount of space
+
+Motivation - big data
+
+Examples - average, 1 pass, $O(1)$ space
+- majority (an element that occurs$ >\frac{n}{2}$ times)
+e.g. 2,3,2,1,3,3,5,3,6,3,3,3
+
+Lemma If $x$ is the majority of $A_1\cup A_2$ then $x$ is the majority of $A_1$ or majority of $A_2$.  (In particular if $A_1$ has no majority $x$ is the majority of $A_2$)
+
+Streaming Algorithm
+\begin{verbatim}
+canadidate = a
+count = 0
+for i = 2 to n do {
+    if count == 0
+        candidate = a_i//a_1,...,a_{i-1} has no majority and can be eliminated
+    if a_i == candidate //by Lemma
+        count++
+    else
+        count--
+}
+\end{verbatim}
+
+We need 1 pass with $O(1)$ space and a 2nd pass to check candidate
+
+Lower Bound Theorem Any 1-pass
+Streaming algorithm for median
+require $\Omega(n)$ space
+Proof Sketch $n=2m-1$
+$a_1,\ldots, a_m$, $\underbrace{-\infty, \ldots, -\infty}_{m-i},\underbrace{\infty, \ldots, \infty}_{i}$
+
+median is the $i$th smallest of $a_1,\ldots, a_m$
+
+Need to relax the problem
+Option 1: allow multiple passes
+Option 2: find an $\epsilon$-approximation median with rank $\in\left[\left(\frac{1}{2}-\epsilon\right) n, \left(\frac{1}{2}+\epsilon\right) n\right]$
+
+
+\section{Lecture}
+\subsection{Problem}
+find an $\epsilon$-approximation median in the streaming model
+\[\text{rank}\in\left[\left(\frac{1}{2}-\epsilon\right)n, \left(\frac{1}{2}+\epsilon\right)n\right]\]
+
+\subsection{Munro and Paterson's Algorithm (1980)}
+idea - solve a more general problem:
+find an $\epsilon$-approximation quantile set $Q' = \{a_1,\ldots, a_k\}$ such that $\forall x$ with $\text{rank}_{Q}(x)=i$ $\text{rank}_A(x)\in \left[\left(\frac{i}{k}-\epsilon\right)n, \left(\frac{i}{k}+\epsilon\right)n\right]$.
+
+median at $\epsilon$-approximation quantiles ia n $\epsilon$-approximation median.
+
+\subsection{Merging Lemma}
+if $Q_1$ is $\epsilon$-approximation quantile set for $A_1$ and $Q_2$ is for $A_2$, where $|Q_1|=|Q_2|=k$ and $|A_1|=|A_2|=k$, then $Q_1\cup Q_2$ is $\epsilon$-approximation where $|Q_1\cup Q_2|=2k$ and $|A_1\cup A_2|=2n$.
+
+\subsection{Proof}
+Suppose $\text{rank}_{Q_1}(x) = i_1$, $\text{rank}_{Q_2}(x) = i_2$, $\text{rank}_{Q_1\cup Q_2}(x) = i_1+i_2=i$
+
+$\text{rank}_{A_1}(x) \in \left[\left(\frac{i_1}{k}-\epsilon\right)n, \left(\frac{i_1}{k}+\epsilon\right)n\right]$
+$\text{rank}_{A_2}(x) \in \left[\left(\frac{i_2}{k}-\epsilon\right)n, \left(\frac{i_2}{k}+\epsilon\right)n\right]$
+
+
+then $\text{rank}_{A_1\cup A_2}(x)\in \left[\left(\frac{i}{k}-2\epsilon\right)n, \left(\frac{i}{k}+2\epsilon\right)n\right] = \left[\left(\frac{i}{2k}-\epsilon\right)2n, \left(\frac{i}{2k}+\epsilon\right)2n\right]$
+
+\subsection{Halving Lemma}
+if $Q=\{a_1,\ldots, a_{2k}\}$ it is an $\epsilon$-approximation quantile set then $Q'=\{a_2,a_4\ldots, a_{2k}\}$ is an $\left(\epsilon + \frac{1}{2k}\right)$-approximation quantile set.
+
+\subsection{Proof}
+Suppose $\text{rank}_{Q'}(x) = i$, $\text{rank}_Q(x) = i\in \left[2i', 2i'+1\right]$
+\begin{align*}
+\text{rank}_A(x)&\in \left[\left(\frac{i}{2k}-\epsilon\right)n, \left(\frac{i}{2k}+\epsilon\right)n\right]\\
+&\in \left[\left(\frac{2i'}{2k}-\epsilon\right)n, \left(\frac{2i'+1}{2k}+\epsilon\right)n\right]\\
+&\in \left[\left(\frac{i'}{k}-\epsilon\right)n, \left(\frac{i}{k}+\epsilon+\frac{1}{2k}\right)n\right]
+\end{align*}
+
+At any time, just store one quantile set per level
+$O(\log n)$ quantile set total
+$O(k\log n)$ space
+
+final $\epsilon \approx \frac{\log n}{k}$
+set $k\approx \frac{1}{\epsilon_0}\log n$
+
+$\epsilon_0$-approximation median in $O\left(\frac{1}{\epsilon_0}\log^2 n\right)$ space in 1 pass
+
+Can we find exact median in multiple passes?
+
+\subsection{Munro and Paterson's 2-pass Algorithm}
+to set the $j$th smallest
+
+find approximuate $j$th $l$, $u$ with
+\[\text{rank}_A(l)\in[j-\epsilon n, j] \qquad \text{rank}_A(u)\in[j, j+\epsilon n]\]
+extract all elements between $l$, $u$ and return $(j-\text{rank}(l))$th smallest.
+
+Takes $O\left(\frac{1}{\epsilon}\log^2 n + \epsilon n\right)$
+
+Choose
+\begin{align*}
+\epsilon&=\frac{\log n}{\sqrt{n}}
+=O(\sqrt{n}\log n)
+\end{align*}
+space
+
+Remark: 3 pass algorithm is similar with space complexity $O\left(\frac{1}{\epsilon}\log^2 n + \frac{1}{\epsilon}\log^2 n + \epsilon^2 n\right)$.
+
+Choose $\epsilon = \frac{\log \frac{2}{3n}}{\log \frac{1}{3}}$, which results in space complexity $\tilde{O}(n^{\frac{1}{3}})$.
+
+Essentially $p$ passes results in $\tilde{O}(n^{\frac{1}{p}})$ space
+
+\subsection{1-Pass Algorithm for Random-Order Stream}
+Fact if $R$ is random sample at size $r_1$
+\[\text{rank}_R\left(\text{median at }A\right)\in\left[\frac{r}{2} - c\sigma, \frac{r}{2} + c\sigma\right]\]
+with probability $\ge 1-\frac{1}{N}$ for $c\approx\log N$.
+
+idea - maintain sorted list $h$ at all elements between $l$ and $u$
+
+for $i=1$ to $n$ do:
+if $l <a_i<u$ then insert $a_i$ to $L$
+if $\text{rank}(l)$ goes below $\frac{r}{2}-c\sigma$ then remove first element at $h$, move $l$ to next element.
+if $\text{rank}(u)$ goes below $\frac{r}{2}+c\sigma$ then remove last element at $h$, move $l$ to previous.
+
+$O(c\sqrt{n}) = O(\sqrt{n}\log n)$ space
+Remark: $p$ passes with $\tilde{O}(n^{\frac{1}{2p}})$ space for random order.
+
+
+\end{document}

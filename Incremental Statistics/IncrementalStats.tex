@@ -1,0 +1,629 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+%
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE Verdigris Technologies}\\[1.5cm] % Name of your university/college
+\textsc{\Large }\\[0.5cm] % Major heading such as course name
+\textsc{\large }\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Incremental Statistics}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Jonathon \textsc{Chu} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[1cm] % Date, change the \today to a set date if you want to be precise
+\includegraphics[scale = 0.2]{logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\tableofcontents % Include a table of contents
+
+\newpage
+\section{Simple Average}
+We'll start off with one of the simplest summary statistics, the average.  We denote the average of $n$ values $x_1, x_2,\ldots, x_n$ to be $\mu_n$ and is calculated as follows:
+\[\mu_n=\frac{1}{n}\sum_{i=1}^n x_i\]
+
+The interesting part is if we want to introduce or remove data points.  We could use the formula above to recalculate the new average, but we would rather not since it would take $O(n)$ operations.  So here we derive some $O(1)$ methods to recalculate moving averages on the fly.
+
+\subsection{Incremental Simple Average}
+Given $\mu_n$ we want to calculate $\mu_{n+1}$ when we introduce some new data point $x_{n+1}$.  By definition $\mu_{n+1}$ is:
+\[\mu_{n+1}=\frac{1}{n+1}\sum_{i=1}^{n+1} x_i\]
+
+With a little bit of rearranging, we can relate this to the quantity we already know $\mu_n$.
+\begin{align*}
+\mu_{n+1}&=\frac{1}{n+1}\sum_{i=1}^{n+1} x_i\\
+(n+1)\mu_{n+1}&=\sum_{i=1}^{n+1} x_i\\
+(n+1)\mu_{n+1}&=\sum_{i=1}^{n} x_i + x_{n+1}\\
+\frac{n+1}{n}\mu_{n+1}&=\underbrace{\frac{1}{n}\sum_{i=1}^nx_i}_{\mu_n}+\frac{x_{n+1}}{n}\\
+\frac{n+1}{n}\mu_{n+1}&=\mu_n+\frac{x_{n+1}}{n}\\
+\mu_{n+1} &= \frac{n\mu_n+x_{n+1}}{n+1}
+\end{align*}
+
+\subsection{Decremental Simple Average}
+How about if we go the other way, and we want to remove an existing data point from our set of values.  Without loss of generality let this point be $x_1$, we are now interested in the average $\mu_{n-1}$, we will see that the derivation is similar as the incremental simple average.  
+\begin{align*}
+\mu_{n-1} &= \frac{1}{n-1}\sum_{i=2}^{n}x_i\\
+(n-1)\mu_{n-1} &= \sum_{i=2}^{n}x_i\\
+(n-1)\mu_{n-1} + x_1 &= \sum_{i=2}^{n}x_i + x_1\\
+(n-1)\mu_{n-1} + x_1 &= \sum_{i=1}^{n}x_i\\
+\frac{n-1}{n}\mu_{n-1} + \frac{x_1}{n} &= \underbrace{\frac{1}{n}\sum_{i=1}^nx_i}_{\mu_n}\\
+\frac{n-1}{n}\mu_{n-1} + \frac{x_1}{n} &= \mu_n\\
+\frac{n-1}{n}\mu_{n-1} &= \mu_n - \frac{x_1}{n}\\
+\mu_{n-1} &= \frac{n\mu_n - x_1}{n-1}
+\end{align*}
+
+\subsection{Sliding Simple Average}
+Now if we want to perform an increment and a decrement at the same time, what will our formula look like?  Since the number of samples will stay the same in our new average we will denote it $\mu_{n}^\ast$, and without loss of generality we will say we are removing $x_1$ and adding $x_{n+1}$.  Now we go:
+\begin{align*}
+\mu_{n}^\ast &= \frac{1}{n} \sum_{i=2}^{n+1} x_i\\
+n\mu_{n}^\ast &= \sum_{i=2}^{n+1} x_i\\
+n\mu_{n}^\ast + x_1 - x_{n+1} &= \sum_{i=2}^{n+1} x_i + x_1 - x_{n+1}\\
+n\mu_{n}^\ast + x_1 - x_{n+1} &= \sum_{i=1}^{n}x_i\\
+\mu_{n}^\ast + \frac{x_1 - x_{n+1}}{n} &= \underbrace{\frac{1}{n}\sum_{i=1}^{n}x_i}{\mu_n}\\
+\mu_{n}^\ast + \frac{x_1 - x_{n+1}}{n} &= \mu_n\\
+\mu_{n}^\ast &= \mu_n - \frac{x_1 - x_{n+1}}{n}\\
+\mu_{n}^\ast &= \mu_n + \frac{x_{n+1} - x_1}{n}\\
+\end{align*}
+
+\subsection{Vector Formulas}
+For ease of use in programming, if your samples consist of $m$ readings we present the vectorized formulas.  We denote $\mathbf{x}_i = \begin{bmatrix}
+x_{1i}\\
+x_{2i}\\
+x_{3i}\\
+\vdots\\
+x_{mi}
+\end{bmatrix}$ to be the $i$th sample recorded and $x_{ji}$ to be the $j$th reading of the $i$th recorded sample $1\le j\le m$, $1\le i$.  As well $\boldsymbol{\mu}_i = \begin{bmatrix}
+\mu_{1i}\\
+\mu_{2i}\\
+\mu_{3i}\\
+\vdots\\
+\mu_{mi}
+\end{bmatrix}$ to be the $i$th running mean and $\mu_{ji}$ to be the mean of the $j$th readings over $i$ samples, $1\le j\le m$, $1\le i$.
+
+\begin{align*}
+\boldsymbol{\mu}_{n + 1} &= \frac{n\boldsymbol{\mu}_n + \mathbf{x}_{n+1}}{n + 1}\\
+\boldsymbol{\mu}_{n - 1} &= \frac{n\boldsymbol{\mu}_n - \mathbf{x}_1}{n-1}\\
+\boldsymbol{\mu}_n^\ast &= \boldsymbol{\mu}_n + \frac{\mathbf{x}_{n+1} - \mathbf{x}_{1}}{n}
+\end{align*}
+
+\section{Weighted Average}
+Now we'll talk about the weighted average of $n$ numbers $x_1, x_2,\ldots, x_n$ with corresponding weights $w_1,w_2,\ldots, w_n$ and total weight $\sum_{i=1}^n w_i = W_n$.  We define the weighted average $\mu_n$ to be:
+\[\mu_n=\frac{1}{W_n}\sum_{i=1}^n w_ix_i\]
+
+As with the simple average we are interested in a faster method to compute incremental and decremental weighted averages.  Although a little bit more tricky, we will see that it is definitely possible to get a constant time function.
+
+\subsection{Incremental Weighted Average}
+The idea for deriving the incremental weighted average is quite similar to the simple average.  Say we want to add a new data point $x_{n+1}$ with weight $w_{n+1}$ to find the new mean $\mu_{n+1}$.  We start with the definition of the formula for weighted mean and create a relation to $\mu_n$.
+
+\begin{align*}
+\mu_{n+1} &= \frac{1}{W_{n+1}}\sum_{i=1}^{n+1} w_ix_i\\
+W_{n+1}\mu_{n+1} &= \sum_{i=1}^{n+1} w_ix_i\\
+W_{n+1}\mu_{n+1} &= \sum_{i=1}^{n} w_ix_i + w_{n+1}x_{n+1}\\
+\frac{W_{n+1}}{W_n}\mu_{n+1} &= \underbrace{\frac{1}{W_n}\sum_{i=1}^{n} w_ix_i}_{\mu_n} + \frac{w_{n+1}x_{n+1}}{W_n}\\
+\frac{W_{n+1}}{W_n}\mu_{n+1} &= \mu_n + \frac{w_{n+1}x_{n+1}}{W_n}\\
+\mu_{n+1} &= \frac{W_n\mu_n + w_{n+1}x_{n+1}}{W_{n+1}}
+\end{align*}
+
+\subsection{Decremental Weighted Average}
+Here we are removing and existing value $x_1$ with weight $w_1$ and want to compute the average $\mu_{n-1}$ of the remaining numbers.  Strategy still stay the same in manipulating the right side to produce $\mu_{n}$ and relating the two quantities.
+\begin{align*}
+\mu_{n-1} &= \frac{1}{W_{n-1}}\sum_{i=2}^nw_ix_i\\
+W_{n-1}\mu_{n-1} &= \sum_{i=2}^nw_ix_i\\
+W_{n-1}\mu_{n-1} + w_1x_1 &= \sum_{i=2}^nw_ix_i + w_1x_1\\
+W_{n-1}\mu_{n-1} + w_1x_1 &= \sum_{i=1}^nw_ix_i\\
+\frac{W_{n-1}}{W_n}\mu_{n-1} + \frac{w_1x_1}{W_n} &= \underbrace{\frac{1}{W_n}\sum_{i=1}^nw_ix_i}_{\mu_n}\\
+\frac{W_{n-1}}{W_n}\mu_{n-1} + \frac{w_1x_1}{W_n} &= \mu_n\\
+\frac{W_{n-1}}{W_n}\mu_{n-1}  &= \mu_n - \frac{w_1x_1}{W_n}\\
+\mu_{n-1} &= \frac{W_n\mu_n - w_1x_1}{W_{n-1}}
+\end{align*}
+
+\subsection{Sliding Weighted Average}
+Here we denote the the sliding mean $\mu_n^\ast$ to represent the weighted mean of the values $x_2,x_3,\ldots, x_{n+1}$.  With corresponding weights $w_2,w_3,\ldots, w_{n+1}$, and total weight $W_n^\ast = \sum_{i=2}^{n+1}w_i$.  The method for solving the relationship stays the same.  The only new thing to keep in mind is the relationship between the current total weight, versus the new total weight
+
+\begin{align*}
+W_n &= \sum_{i=1}^n w_i\\
+W_n - w_1 + w_{n+1} &= \sum_{i=1}^n w_i - w_1 + w_{n+1}\\
+W_n - w_1 + w_{n+1} &= \sum_{i=2}^{n+1} w_i\\
+W_n - w_1 + w_{n+1} &= W_n^\ast
+\end{align*}
+
+Which intuitively makes sense, since we should be removing the old weight and adding the new weight when considering the new average.
+
+\begin{align*}
+\mu_n^\ast &= \frac{1}{W_n^\ast}\sum_{i=2}^{n+1}w_ix_i\\
+W_n^\ast\mu_n^\ast &=\sum_{i=2}^{n+1}w_ix_i\\
+W_n^\ast\mu_n^\ast + w_1x_1 - w_{n+1}x_{n+1} &=\sum_{i=2}^{n+1}w_ix_i + w_1x_1 - w_{n+1}x_{n+1}\\
+W_n^\ast\mu_n^\ast + w_1x_1 - w_{n+1}x_{n+1} &=\sum_{i=1}^nw_ix_i\\
+\frac{W_n^\ast\mu_n^\ast + w_1x_1 - w_{n+1}x_{n+1}}{W_n} &=\underbrace{\frac{1}{W_n}\sum_{i=1}^nw_ix_i}_{\mu_n}\\
+\frac{W_n^\ast\mu_n^\ast + w_1x_1 - w_{n+1}x_{n+1}}{W_n} &=\mu_n\\
+W_n^\ast\mu_n^\ast + w_1x_1 - w_{n+1}x_{n+1} &=W_n\mu_n\\
+W_n^\ast\mu_n^\ast  &=W_n\mu_n - w_1x_1 + w_{n+1}x_{n+1}\\
+\mu_n^\ast  &= \frac{W_n\mu_n - w_1x_1 + w_{n+1}x_{n+1}}{W_n^\ast}
+\end{align*}
+
+A little bit less nice, but there is less simplification to be done since the total weight is being adjusted twice.
+
+\subsection{Vector Formulas}
+\begin{align*}
+\boldsymbol{\mu}_{n + 1} &= \frac{n\boldsymbol{\mu}_n + \mathbf{x}_{n+1}}{n + 1}\\
+\boldsymbol{\mu}_{n - 1} &= \frac{n\boldsymbol{\mu}_n - \mathbf{x}_1}{n-1}\\
+\boldsymbol{\mu}_n^\ast &= \boldsymbol{\mu}_n + \frac{\mathbf{x}_{n+1} - \mathbf{x}_{1}}{n}
+\end{align*}
+
+\section{Simple Variance}
+Another useful summary statistic to use in conjunction of the mean.  Variance gives us a better idea of the spread of the data, and is defined as follows:
+\begin{align*}
+\mu_n &=\frac{1}{n}\sum_{i=1}^n x_i\\
+\sigma_n^2 &= \frac{1}{n}\sum_{i=1}^n (x_i - \mu_n)^2
+\end{align*}
+
+In order to derive formulas for variance, we will write the right side in a different form that will make our lives a little bit easier in the long run:
+\begin{align*}
+\sigma_n^2 &= \frac{1}{n}\sum_{i=1}^n (x_i - \mu_n)^2\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - 2\mu_nx_i + \mu_n^2\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - \frac{1}{n}\sum_{i=1}^n2\mu_nx_i + \frac{1}{n}\sum_{i=1}^n \mu_n^2\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - 2\mu_n\underbrace{\frac{1}{n}\sum_{i=1}^nx_i}_{\mu_n} + \mu_n^2\frac{1}{n}\sum_{i=1}^n 1\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - 2\mu_n\mu_n + \frac{n\mu^2}{n}\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - 2\mu_n^2 + \mu^2\\
+&=\frac{1}{n}\sum_{i=1}^n x_i^2 - \mu_n^2
+\end{align*}
+
+Here we define the quantity $S_n$ to be, also simplify our calculations a little bit:
+\begin{align*}
+S_n &= n\sigma_n^2
+= \sum_{i=1}^n x_i^2 - n\mu_n^2
+\end{align*}
+
+\subsection{Incremental Simple Variance}
+Here our method will use the difference in consecutive $S_n$ to find the relationship between consecutive variances, as opposed to the mean which started from the definition and creating the previous quantity on the other side.
+
+\begin{align*}
+S_{n+1} - S_n &= (n+1)\sigma_{n+1}^2 - n\sigma_{n}^2\\
+&= \sum_{i=1}^{n+1} x_i^2 - (n+1)\mu_{n+1}^2 - \brac{\sum_{i=1}^n x_i^2 - n\mu_n^2}\\
+&= x_{n+1}^2 - (n+1)\mu_{n+1}^2 + n\mu_n^2\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + n\mu_n^2 - n\mu_{n+1}^2\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + n(\mu_n^2 - \mu_{n+1}^2)\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + n(\mu_n - \mu_{n+1})(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + n\brac{\frac{1}{n}\sum_{i=1}^nx_i-\frac{1}{n+1}\sum_{i=1}^{n+1}x_i}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \brac{\sum_{i=1}^nx_i-\frac{n}{n+1}\sum_{i=1}^{n+1}x_i}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \brac{\sum_{i=1}^nx_i + x_{n+1} - \frac{n}{n+1}\sum_{i=1}^{n+1}x_i - x_{n+1}}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \brac{\sum_{i=1}^{n+1}x_i - \frac{n}{n+1}\sum_{i=1}^{n+1}x_i - x_{n+1}}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \brac{\brac{1 - \frac{n}{n+1}}\sum_{i=1}^{n+1}x_i - x_{n+1}}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \brac{\underbrace{\frac{1}{n+1}\sum_{i=1}^{n+1}x_i}_{\mu_{n+1}} - x_{n+1}}(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + (\mu_{n+1} - x_{n+1})(\mu_n + \mu_{n+1})\\
+&= x_{n+1}^2 - \mu_{n+1}^2 + \mu_{n+1}\mu_n + \mu_{n+1}^2 - x_{n+1}\mu_n - x_{n+1}\mu_{n+1}\\
+&= x_{n+1}^2 - x_{n+1}\mu_n - x_{n+1}\mu_{n+1} + \mu_{n+1}\mu_n\\
+&=(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)
+\end{align*}
+
+Looks nice but we're not quite done, since we have to rearrange for the variance, not just the increment:
+\begin{align*}
+S_{n+1} - S_n  &=(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+(n+1)\sigma_{n+1}^2 - n\sigma_{n}^2 &=(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+(n+1)\sigma_{n+1}^2  &= n\sigma_{n}^2 + (x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+\sigma_{n+1}^2  &= \frac{n\sigma_{n}^2 + (x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)}{n+1}\\
+\end{align*}
+In this case $\mu_{n+1}$ is not currently known, but from our previous derivation, with the information of $\mu_n$ it can be calculated in constant time.  So our entire computation is constant with respect to $n$.
+
+\subsection{Decremental Simple Variance}
+Similar strategy to last time, we're going to take the difference of $S_n$ and $S_{n-1}$, and do a similar manipulation:
+\begin{align*}
+S_n - S_{n-1} &= n\sigma_n^2 - (n-1)\sigma_{n-1}^2\\
+&=\sum_{i=1}^n x_i^2 - n\mu_n^2 - \brac{\sum_{i=2}^n x_i^2 - (n-1)\mu_{n-1}^2}\\
+&=x_1^2 - n\mu_n^2 + (n-1)\mu_{n-1}^2\\
+&=x_1^2 - n\mu_n^2 + n\mu_{n-1}^2 - \mu_{n-1}^2\\
+&=x_1^2 - \mu_{n-1}^2  + n(\mu_{n-1}^2 - \mu_n^2)\\
+&=x_1^2 - \mu_{n-1}^2  + n(\mu_{n-1} - \mu_n)(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + n\brac{\frac{1}{n-1}\sum_{i=2}^n x_i - \frac{1}{n}\sum_{i=1}^n x_i}(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + \brac{\frac{n}{n-1}\sum_{i=2}^n x_i - \sum_{i=1}^n x_i}(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + \brac{\frac{n}{n-1}\sum_{i=2}^n x_i - \sum_{i=2}^n x_i - x_1}(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + \brac{\brac{\frac{n}{n-1}-1}\sum_{i=2}^n x_i - x_1}(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + \brac{\underbrace{\frac{1}{n-1}\sum_{i=2}^n x_i}_{\mu_{n-1}} - x_1}(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + (\mu_{n-1} - x_1)(\mu_{n-1} + \mu_n)\\
+&=x_1^2 - \mu_{n-1}^2  + \mu_{n-1}^2 + \mu_n\mu_{n-1} -x_1\mu_{n-1} - x_1\mu_{n}\\
+&=x_1^2 - x_1\mu_{n} -x_1\mu_{n-1}  + \mu_n\mu_{n-1}\\
+&=(x_1 - \mu_n)(x_1 - \mu_{n-1})
+\end{align*}
+
+With some more rearranging we get the decremental simple variance:
+\begin{align*}
+S_n - S_{n-1} &=(x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+n\sigma_n^2 - (n-1)\sigma_{n-1}^2 &= (x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+(n-1)\sigma_{n-1}^2 &= n\sigma_n^2 - (x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+\sigma_{n-1}^2 &= \frac{n\sigma_n^2 - (x_1 - \mu_n)(x_1 - \mu_{n-1})}{n-1}\\
+\end{align*}
+
+\subsection{Sliding Simple Variance}
+Here we define $S_n^\ast$ to be:
+\[S_n^\ast = n{\sigma_n^\ast}^2\]
+
+But we haven't defined ${\sigma_n^\ast}^2$, so we'll do that now:
+\[{\sigma_n^\ast}^2 = \sum_{i=2}^{n+1}x_i^2 - n{\mu_n^\ast}^2\]
+
+Where finally $\mu_n^\ast$ is the sliding mean that we derived above in Section 2.3.  And now we implement  the same differential strategy and solving for the difference between $S_n$ and $S_n^\ast$.
+
+\begin{align*}
+S_n - S_n^\ast &= n\sigma_n^2 - n{\sigma_n^\ast}^2\\
+&= \sum_{i=1}^nx_i^2 - n\mu_n^2 - \brac{\sum_{i=2}^{n+1}x_i^2 - n{\mu_n^\ast}^2}\\
+&= x_i^2 - x_{n+1}^2 - n\mu_n^2 + n{\mu_n^\ast}^2\\
+\end{align*}
+
+Now we've cancelled out the bulk of the terms, we can now isolate for ${\sigma_n^\ast}^2$.
+\begin{align*}
+S_n - S_n^\ast &= x_i^2 - x_{n+1}^2 - n\mu_n^2 + n{\mu_n^\ast}^2\\
+n\sigma_n^2 - n{\sigma_n^\ast}^2 &= x_1^2 - x_{n+1}^2 - n\mu_n^2 + n{\mu_n^\ast}^2\\
+\sigma_n^2 - {\sigma_n^\ast}^2 &= \frac{x_1^2 - x_{n+1}^2}{n} - \mu_n^2 + {\mu_n^\ast}^2\\
+{\sigma_n^\ast}^2 &= \sigma_n^2 - \frac{x_1^2 - x_{n+1}^2}{n} + \mu_n^2 - {\mu_n^\ast}^2
+\end{align*}
+
+\section{Weighted Variance}
+With weighted mean, we also have a weighted variance.  Which is defined below:
+\[\sigma_n^2 =\frac{1}{W_n}\sum_{i=1}^n w_i(x_i - \mu_n)^2\]
+
+With data points $x_1,x_2,\ldots, x_n$, corresponding weighted $w_1,w_2,\ldots, w_n$, total weight $W_n = \sum_{i=1}^nw_i$, and $\mu_n$ is the weighted average of the $n$ data points.
+
+We're going to do some rearranging to the original weighted variance formula that will help later:
+\begin{align*}
+\sigma_n^2 &=\frac{1}{W_n}\sum_{i=1}^n w_i(x_i - \mu_n)^2\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - 2\mu_nw_ix_i + \mu_n^2w_i\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - \frac{1}{W_n}\sum_{i=1}^n2\mu_nw_ix_i + \frac{1}{W_n}\sum_{i=1}^n\mu_n^2w_i\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - 2\mu_n\underbrace{\frac{1}{W_n}\sum_{i=1}^nw_ix_i}_{\mu_n} + \mu_n^2\frac{1}{W_n}\sum_{i=1}^nw_i\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - 2\mu_n\mu_n + \frac{W_n\mu_n^2}{W_n}\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - 2\mu_n^2 + \mu_n^2\\
+&=\frac{1}{W_n}\sum_{i=1}^n w_ix_i^2 - \mu_n^2
+\end{align*}
+
+We define quantity $S_n$ to be:
+\begin{align*}
+S_n &= W_n\sigma_n^2
+=\sum_{i=1}^n w_ix_i^2 - W_n\mu_n^2
+\end{align*}
+
+\subsection{Incremental Weighted Variance}
+The derivation is very similar in nature to the simple variance where we take the difference of $S_n$:
+\begin{align*}
+S_{n+1} - S_n &= \sum_{i=1}^{n+1} w_ix_i^2 - W_{n+1}\mu_{n+1}^2 - \brac{\sum_{i=1}^n w_ix_i^2 - W_n\mu_n^2}\\
+&=w_{n+1}x_{n+1}^2 - W_{n+1}\mu_{n+1}^2 + W_n\mu_n^2\\
+&=w_{n+1}x_{n+1}^2 - (W_{n} + w_{n+1})\mu_{n+1}^2 + W_n\mu_n^2\\
+&=w_{n+1}x_{n+1}^2 -  w_{n+1}\mu_{n+1}^2  + W_n\mu_n^2 - W_{n}\mu_{n+1}^2\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + W_n(\mu_n^2 - \mu_{n+1}^2)\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + W_n(\mu_n - \mu_{n+1})(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + W_n\brac{\frac{1}{W_n}\sum_{i=1}^n w_ix_i - \frac{1}{W_{n+1}}\sum_{i=1}^{n+1}w_ix_i}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + \brac{\sum_{i=1}^n w_ix_i - \frac{W_n}{W_{n+1}}\sum_{i=1}^{n+1}w_ix_i}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + \brac{\sum_{i=1}^n w_ix_i + w_{n+1}x_{n+1} - \frac{W_n}{W_{n+1}}\sum_{i=1}^{n+1}w_ix_i - w_{n+1}x_{n+1}}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + \brac{\sum_{i=1}^{n+1} w_ix_i - \frac{W_n}{W_{n+1}}\sum_{i=1}^{n+1}w_ix_i - w_{n+1}x_{n+1}}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + \brac{\brac{1-\frac{W_n}{W_{n+1}}}\sum_{i=1}^{n+1} w_ix_i - w_{n+1}x_{n+1}}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + \brac{w_{n+1}\underbrace{\brac{\frac{1}{W_{n+1}}}\sum_{i=1}^{n+1} w_ix_i}_{\mu_{n+1}} - w_{n+1}x_{n+1}}(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + (w_{n+1}\mu_{n+1} - w_{n+1}x_{n+1})(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2)  + w_{n+1}(\mu_{n+1} - x_{n+1})(\mu_n + \mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2  + (\mu_{n+1} - x_{n+1})(\mu_n + \mu_{n+1}))\\
+&=w_{n+1}(x_{n+1}^2 -  \mu_{n+1}^2  + \mu_{n+1}\mu_n + \mu_{n+1}^2 - x_{n+1}\mu_n - x_{n+1}\mu_{n+1})\\
+&=w_{n+1}(x_{n+1}^2 - x_{n+1}\mu_n - x_{n+1}\mu_{n+1} + \mu_{n+1}\mu_n)\\
+&=w_{n+1}(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)
+\end{align*}
+
+Now we can solve for the variance after our simplification:
+\begin{align*}
+S_{n+1} - S_n &=w_{n+1}(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+W_{n+1}\sigma_{n+1}^2 - W_n\sigma_n^2  &=w_{n+1}(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+W_{n+1}\sigma_{n+1}^2 &= W_n\sigma_n^2 + w_{n+1}(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)\\
+\sigma_{n+1}^2 &= \frac{W_n\sigma_n^2 + w_{n+1}(x_{n+1} - \mu_{n+1})(x_{n+1} - \mu_n)}{W_{n+1}}
+\end{align*}
+
+\subsection{Decremental Weighted Variance}
+The steps involved here are almost identical to the incremental weighted variance, where will take the difference of consecutive $S_n$:
+\begin{align*}
+S_n - S_{n-1} &= \sum_{i=1}^{n} w_ix_i^2 - W_n\mu_n^2 - \brac{\sum_{i=2}^n w_ix_i^2 - W_{n-1}\mu_{n-1}^2}\\
+&=w_1x_1^2 - W_n\mu_n^2 + W_{n-1}\mu_{n-1}^2\\
+&=w_1x_1^2 - W_n\mu_n^2 + (W_n - w_1)\mu_{n-1}^2\\
+&=w_1x_1^2 - W_n\mu_n^2 + (W_n - w_1)\mu_{n-1}^2\\
+&=w_1x_1^2 - W_n\mu_n^2 + W_n\mu_{n-1}^2 - w_1\mu_{n-1}^2\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + W_n(\mu_{n-1}^2 - \mu_n^2)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + W_n(\mu_{n-1} - \mu_n)(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + W_n\brac{\frac{1}{W_{n-1}}\sum_{i=2}^n w_ix_i - \frac{1}{W_n}\sum_{i=1}^nw_ix_i}(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + \brac{\frac{W_n}{W_{n-1}}\sum_{i=2}^n w_ix_i - \sum_{i=1}^nw_ix_i}(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + \brac{\frac{W_n}{W_{n-1}}\sum_{i=2}^n w_ix_i - \sum_{i=2}^nw_ix_i - w_1x_1}(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + \brac{\brac{\frac{W_n}{W_{n-1}}-1}\sum_{i=2}^n w_ix_i - w_1x_1}(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + \brac{w_1\underbrace{\brac{\frac{1}{W_{n-1}}}\sum_{i=2}^n w_ix_i}_{\mu_{n-1}} - w_1x_1}(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + (w_1\mu_{n-1} - w_1x_1)(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2) + w_1(\mu_{n-1} - x_1)(\mu_{n-1} + \mu_n)\\
+&=w_1(x_1^2 - \mu_{n-1}^2 + (\mu_{n-1} - x_1)(\mu_{n-1} + \mu_n))\\
+&=w_1(x_1^2 - \mu_{n-1}^2 + \mu_{n-1}^2 + \mu_n\mu_{n-1} -x_1\mu_{n-1} - x_1\mu_n)\\
+&=w_1(x_1^2 - x_1\mu_{n-1} - x_1\mu_n + \mu_n\mu_{n-1})\\
+&=w_1(x_1 - \mu_n)(x_1 - \mu_{n-1})
+\end{align*}
+
+After simplification we then isolate for $\sigma_{n-1}^2$:
+\begin{align*}
+S_{n} - S_{n-1} &= w_1(x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+W_{n}\sigma_{n}^2 - W_{n-1}\sigma_{n-1}^2 &= w_1(x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+W_{n-1}\sigma_{n-1}^2 &= W_{n}\sigma_{n}^2 - w_1(x_1 - \mu_n)(x_1 - \mu_{n-1})\\
+\sigma_{n-1}^2 &= \frac{W_{n}\sigma_{n}^2 - w_1(x_1 - \mu_n)(x_1 - \mu_{n-1})}{W_{n-1}}\\
+\end{align*}
+
+\subsection{Sliding Weighted Variance}
+Here we define some quantities for the sliding weighted variance:
+\begin{align*}
+W_n^\ast &= \sum_{i=2}^{n+1}w_i\\
+\mu_n^\ast &=\frac{1}{W_n^\ast}\sum_{i=2}^{n+1}w_ix_i\\
+{\sigma_n^\ast}^2 &= \frac{1}{W_n^\ast}\sum_{i=2}^{n+1}w_i(x_i - \mu_n^\ast)^2
+\end{align*}
+
+Next we take the difference of the old $S_n$ and the new $S_n^\ast$:
+\begin{align*}
+S_n - S_n^\ast &= \sum_{i=1}^n w_ix_i - W_n\mu_n^2 - \brac{\sum_{i=2}^{n+1}w_ix_i - W_n^\ast{\mu_n^\ast}^2}\\
+&= w_1x_1 - w_{n+1}x_{n+1} - W_n\mu_n^2 + W_n^\ast{\mu_n^\ast}^2
+\end{align*}
+
+With a little bit of rearranging we get our formula for the sliding weighted variance:
+\begin{align*}
+S_n - S_n^\ast &= w_1x_1 - w_{n+1}x_{n+1} - W_n\mu_n^2 + W_n^\ast{\mu_n^\ast}^2\\
+W_n\sigma_n^2 - W_n^\ast{\sigma_n^\ast}^2 &= w_1x_1 - w_{n+1}x_{n+1} - W_n\mu_n^2 + W_n^\ast{\mu_n^\ast}^2\\
+W_n\sigma_n^2 - W_n^\ast{\sigma_n^\ast}^2 &= w_1x_1 - w_{n+1}x_{n+1} - W_n\mu_n^2 + W_n^\ast{\mu_n^\ast}^2\\
+W_n^\ast{\sigma_n^\ast}^2 &= W_n\sigma_n^2 - w_1x_1 + w_{n+1}x_{n+1} + W_n\mu_n^2 - W_n^\ast{\mu_n^\ast}^2\\
+{\sigma_n^\ast}^2 &= \frac{W_n(\mu_n^2 + \sigma_n^2) - w_1x_1 + w_{n+1}x_{n+1}}{W_n^\ast} - {\mu_n^\ast}^2\\
+\end{align*}
+
+\section{Covariance}
+The population covariance for $k$ variables with $n$ samples each is the $k\times k$ matrix $q=\sqbrac{\sqbrac{q_{jk}}}$ with the entires:
+\[q_{jk} = \frac{1}{n}\sum_{i=1}^n(x_{ij}-\mu_j)(x_{ik} - \mu_k)\]
+which is covariance between variables $j$ and $k$.
+
+We would like to extend our current incremental formulae to include relationships for covariance.  The techniques will be similar first we will expand the quantity $q_{jk}$ and then take the difference of consecutive consecutive covariance terms, where each population is incremented by one value.
+
+\begin{align*}
+q_{jk} &= \frac{1}{n}\sum_{i=1}^n(x_{ij}-\mu_j)(x_{ik} - \mu_k)\\
+&= \frac{1}{n}\sum_{i=1}^nx_{ij}x_{ik} - x_{ij}\mu_k - \mu_jx_{ik}+\mu_j\mu_k\\
+&= \frac{1}{n}\sum_{i=1}^nx_{ij}x_{ik} - \frac{1}{n}\sum_{i=1}^nx_{ij}\mu_k - \frac{1}{n}\sum_{i=1}^n\mu_jx_{ik}+\frac{1}{n}\sum_{i=1}^n\mu_j\mu_k\\
+&= \frac{1}{n}\sum_{i=1}^nx_{ij}x_{ik} - \mu_k\underbrace{\frac{1}{n}\sum_{i=1}^nx_{ij}}_{\mu_j} - \mu_j\underbrace{\frac{1}{n}\sum_{i=1}^nx_{ik}}_{\mu_k}+\mu_j\mu_k\underbrace{\frac{1}{n}\sum_{i=1}^n1}_{1}\\
+&= \frac{1}{n}\sum_{i=1}^nx_{ij}x_{ik} - \mu_k\mu_j - \mu_j\mu_k+\mu_j\mu_k\\
+&= \frac{1}{n}\sum_{i=1}^nx_{ij}x_{ik} - \mu_j\mu_k
+\end{align*}
+
+Now we go
+
+\subsection{Incremental Covariance}
+\begin{align*}
+q_{jk}^\ast &= \frac{1}{n+1}\sum_{i=1}^{n+1}x_{ij}x_{ik} - \mu_j^\ast\mu_k^\ast
+\end{align*}
+
+
+\begin{align*}
+Q_{jk} &= n q_{jk} 
+= \sum_{i=1}^nx_{ij}x_{ik} - n\mu_j\mu_k
+\end{align*}
+
+\begin{align*}
+Q_{jk}^\ast - Q_{jk} &= \sum_{i=1}^{n+1}x_{ij}x_{ik} - (n+1)\mu_j^\ast\mu_k^\ast - \brac{\sum_{i=1}^nx_{ij}x_{ik} - n\mu_j\mu_k}\\
+&=x_{(n+1)j}x_{(n+1)k} - (n+1)\mu_j^\ast\mu_k^\ast + n\mu_j\mu_k
+\end{align*}
+
+\begin{align*}
+(n+1)q_{jk}^\ast - nq_{jk} &= x_{(n+1)j}x_{(n+1)k} - (n+1)\mu_j^\ast\mu_k^\ast + n\mu_j\mu_k\\
+(n+1)q_{jk}^\ast  &= x_{(n+1)j}x_{(n+1)k} - (n+1)\mu_j^\ast\mu_k^\ast + n\mu_j\mu_k + nq_{jk}\\
+q_{jk}^\ast  &= \frac{x_{(n+1)j}x_{(n+1)k} + n(\mu_j\mu_k + q_{jk})}{n+1} - \mu_j^\ast\mu_k^\ast
+\end{align*}
+
+\subsection{Decremental Covariance}
+\begin{align*}
+Q_{jk} - Q_{jk}^\ast &= \sum_{i=1}^{n}x_{ij}x_{ik} - n\mu_j\mu_k - \brac{\sum_{i=2}^nx_{ij}x_{ik} - (n-1)\mu_j^\ast\mu_k^\ast}\\
+&=x_{1j}x_{1k} - n\mu_j\mu_k + (n-1)\mu_j^\ast\mu_k^\ast
+\end{align*}
+
+\begin{align*}
+nq_{jk} - (n-1)q_{jk}^\ast &= x_{1j}x_{1k} - n\mu_j\mu_k + (n-1)\mu_j^\ast\mu_k^\ast\\
+(n-1)q_{jk}^\ast &= -x_{1j}x_{1k} + n\mu_j\mu_k - (n-1)\mu_j^\ast\mu_k^\ast + nq_{jk}\\
+q_{jk}^\ast &= \frac{-x_{1j}x_{1k} + n(\mu_j\mu_k + q_{jk})}{n-1} - \mu_j^\ast\mu_k^\ast
+\end{align*}
+
+\subsection{Sliding Covariance}
+\begin{align*}
+Q_{jk} - Q_{jk}^\ast &= \sum_{i=1}^{n}x_{ij}x_{ik} - n\mu_j\mu_k - \brac{\sum_{i=2}^{n+1}x_{ij}x_{ik} - n\mu_j^\ast\mu_k^\ast}\\
+&=x_{1j}x_{1k} - x_{(n+1)j}x_{(n+1)k} - n\mu_j\mu_k + n\mu_j^\ast\mu_k^\ast
+\end{align*}
+
+\begin{align*}
+nq_{jk} - nq_{jk}^\ast &= x_{1j}x_{1k} - x_{(n+1)j}x_{(n+1)k} - n\mu_j\mu_k + n\mu_j^\ast\mu_k^\ast\\
+nq_{jk}^\ast &= -x_{1j}x_{1k} + x_{(n+1)j}x_{(n+1)k} + n\mu_j\mu_k - n\mu_j^\ast\mu_k^\ast + nq_{jk}\\
+q_{jk}^\ast &= \frac{-x_{1j}x_{1k} + x_{(n+1)j}x_{(n+1)k}}{n} + \mu_j\mu_k - \mu_j^\ast\mu_k^\ast + q_{jk}
+\end{align*}
+
+\section{Weighted Covariance}
+
+
+\end{document}

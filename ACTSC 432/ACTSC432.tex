@@ -1,0 +1,2180 @@
+\documentclass[english,12pt]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fullpage}
+\usepackage[normalem]{ulem} %provides uline, uuline and uwave. also sout, xout, dashuline, dotuline. normalem for normal emphasis. otherwise em is underlined instead of italics
+\usepackage{enumitem} % Better enumerate. takes in agrs such as resume, [label=(\alph{*})], start=3
+\usepackage{mathtools} % needed for \mathclap (underbrace)
+
+%TitleSec to Deal with Paragraph's section break spacing
+\usepackage{titlesec}
+%\titleformat*{\paragraph}{\bfseries} %amsart paragraph bolding
+\titlespacing{\paragraph}
+{0pt}{0pt}{1ex}
+
+%Indentation
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\newcommand{\noparskip}{\vspace{-\medskipamount}}
+
+%Other packages
+\usepackage{arydshln, nicefrac} % dashed lines in tables, nicefrac
+\usepackage{comment} % Commenting: \begin{comment} \end{comment}
+\usepackage{cancel} % Math Cancelling: \cancel{whatever} \bcancel neg slope \xcangel both, draw x
+\usepackage{relsize} % Enables mathlarger for biggercap, etc: \mathlarger{whatever}
+\usepackage{hyperref}
+
+%Theorem environment definitions
+\makeatletter
+  %Theorems
+    \theoremstyle{plain}
+    \newtheorem*{theorem}{\protect\theoremname} 
+    \newtheorem*{corollary}{\protect\corollaryname}
+    \newtheorem*{lemma}{\protect\lemmaname}
+    \newtheorem*{proposition}{\protect\propositionname}
+    \newtheorem*{namedtheorem}{\namedtheoremname}
+      \newcommand{\namedtheoremname}{Theorem} %Doesn't Matter, will get renewed
+      \newenvironment{namedthm}[1]{
+      \renewcommand{\namedtheoremname}{#1}
+      \begin{namedtheorem}}
+      {\end{namedtheorem}}
+  %Definitions
+    \theoremstyle{definition}
+    \newtheorem*{definition}{\protect\definitionname}
+    \newtheorem*{example}{\protect\examplename}
+  %Remarks
+    \theoremstyle{definition} %should use remark according to ams.org
+    \newtheorem*{remark}{\protect\remarkname}
+    \newtheorem*{noteenv}{\protect\notename}
+    \newtheorem*{observation}{\protect\observationname}
+    \newtheorem*{notationenv}{\protect\notationname}
+    \newtheorem*{recallenv}{\protect\recallname}
+\makeatother
+
+%Theorem Command Definitions
+  \newcommand{\thm}[1]{\begin{theorem} #1 \end{theorem} }
+  \newcommand{\cor}[1]{\begin{corollary} #1 \end{corollary} }
+  \newcommand{\lem}[1]{\begin{lemma} #1 \end{lemma} }
+  \newcommand{\prop}[1]{\begin{proposition} #1 \end{proposition} }
+  \newcommand{\nmdthm}[2]{\begin{namedthm}{#1} #2 \end{thm} }
+  \newcommand{\defn}[1]{\begin{definition} #1 \end{definition} }
+  \newcommand{\eg}[1]{\begin{example} #1 \end{example} }
+  \newcommand{\rem}[1]{\begin{remark} #1 \end{remark} }
+  \newcommand{\note}[1]{\begin{noteenv} #1 \end{noteenv} }
+  \newcommand{\obsrv}[1]{\begin{observation} #1 \end{observation} }
+  \newcommand{\notation}[1]{\begin{notationenv} #1 \end{notationenv} }
+  \newcommand{\recall}[1]{\begin{recallenv} #1 \end{recallenv} }
+  \newcommand{\prf}[1]{\begin{proof} #1 \end{proof} }
+
+\usepackage{babel}
+  \providecommand{\theoremname}{Theorem}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+  \providecommand{\notename}{Note}
+  \providecommand{\observationname}{Observation}
+  \providecommand{\notationname}{Notation}
+  \providecommand{\recallname}{Recall}
+  \providecommand{\examplename}{Example}
+
+%ams.org
+%plain Theorem, Lemma, Corollary, Proposition, Conjecture, Criterion, Algorithm
+%definition Definition, Condition, Problem, Example
+%remark Remark, Note, Notation, Claim, Summary, Acknowledgment, Case, Conclusion
+
+% Enumerate
+  \newcommand{\enum}[1]{\begin{enumerate} #1 \end{enumerate}}
+  \newcommand{\enumresume}[1]{\begin{enumerate}[resume*] #1 \end{enumerate}} %resume enumerate after interuption
+  \newcommand{\enuma}[1]{\begin{enumerate}[label=(\alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumA}[1]{\begin{enumerate}[label=(\Alph{*})] #1 \end{enumerate}}
+  \newcommand{\enumi}[1]{\begin{enumerate}[label=(\roman{*})] #1 \end{enumerate}}
+  \newcommand{\enumI}[1]{\begin{enumerate}[label=(\Roman{*})] #1 \end{enumerate}}
+
+% Integrals
+\newcommand{\dt}{\mbox{ dt}}
+\newcommand{\dx}{\mbox{ dx}}
+\newcommand{\ds}{\mbox{ ds}}
+
+% Norms, underbrace, floor, ceiling, inner product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ubrace}[1]{\underbrace{#1}}
+\newcommand{\obrace}[1]{\overbrace{#1}}
+\newcommand{\oline}[1]{\overline{#1}}
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle} %Modified from Eeshan's preamble
+\newcommand{\clapubrace}[2]{\underbrace{#1}_{\mathclap{#2}}}
+\newcommand{\clapobrace}[2]{\overbrace{#1}^{\mathclap{#2}}}
+
+% Big operators and i sums, unions, intersections
+\newcommand{\inter}{\bigcap}
+\newcommand{\union}{\bigcup}
+\newcommand{\iinter}[3]{\bigcap_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\isum}[3]{\bigsum_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+\newcommand{\iuni}[3]{\bigcup_{i=#1}^{#2} #3} % Modified from Eeshan's preamble
+
+%Brackets
+\newcommand{\custbrac}[3]{\left#1#3\right#2} % Custom Brackets, . for no brac
+\newcommand{\brac}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqbrac}[1]{\left[#1\right]} % Square Brackets
+\newcommand{\curlybrac}[1]{\left\{#1\right\}} % Curly Brackets
+
+%Spaces
+\newcommand{\R}{\mathbb{R}} % Reals
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\N}{\mathbb{N}} % Naturals
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\T}{\mathbb{T}} % circle, 1 dimensional Torus
+\newcommand{\I}{\mathbb{I}} % Unit interval
+\newcommand{\bb}[1]{\mathbb{#1}} % For other Blackboard letters
+
+%Script
+\newcommand{\sP}{\mathcal{P}} % Partion P
+\newcommand{\sQ}{\mathcal{Q}} % Partion Q
+\newcommand{\sB}{\mathcal{B}} % Borel
+\newcommand{\sF}{\mathcal{F}} % Family of functions
+\newcommand{\sH}{\mathcal{H}} % Hilbert Space
+\newcommand{\scr}[1]{\mathcal{#1}} % For other Script fonts
+
+%Analysis Stuff
+\newcommand{\lms}{\lambda^{*}} % lambda star, outer measure
+\newcommand{\linfty}[1] {\lim _{#1 \to \infty}} %Modified from Eeshan's preamble
+
+
+%Tikz Decocations, graphics
+\usepackage{tikz, graphicx} % Note graphicx needed for includegraphics
+\usetikzlibrary{decorations.pathreplacing}
+
+\newcommand{\startbrace}[1]{\tikz[remember picture] \node[coordinate,yshift=0.5em] (#101) {};}
+\newcommand{\finishbrace}[2]{\tikz[remember picture] \node[coordinate] (#102) {};
+\begin{tikzpicture}[overlay,remember picture]
+      \path (#102) -| node[coordinate] (#103) {} (#101); %Creates a node3 vertically down from 1
+
+      \draw[thick,decorate,decoration={brace,amplitude=3pt}]
+            (#101) -- (#103) node[midway, right=4pt] {#2}; %2 is Text
+  \end{tikzpicture}} % Use: \startbrace{label}, \finishbrace{label}{text}
+
+% Othercommands
+\newcommand{\lect}[2]{\flushleft \emph{#1 \hfill #2}}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\x}{\times}
+\newcommand{\cd}{\cdot}
+
+% Probability commands
+\newcommand{\p}[1]{\mbox{P} \left( #1 \right)}
+\newcommand{\ex}[1]{\mbox{E} \left[ #1 \right]}
+\newcommand{\var}[1]{\mbox{Var} \left( #1 \right)}
+\newcommand{\cov}[1]{\mbox{Cov} \left( #1 \right)}
+\newcommand{\condp}[2]{\mbox{E} \left( \left. #1 \ \right\vert \left. #2 \right. \right)}
+\newcommand{\condex}[2]{\mbox{E} \left[ \left. #1 \ \right\vert \left. #2 \right. \right]}
+\newcommand{\condvar}[2]{\mbox{Var} \left( \left. #1 \ \right\lvert \left. #2 \right. \right)}
+
+
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\LARGE University of Waterloo}\\[1.5cm] % Name of your university/college
+\textsc{\Large ACTSC 432}\\[0.5cm] % Major heading such as course name
+\textsc{\large Loss Models 2}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Course Notes}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Shi} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Professor:} \\
+Dr. Jun \textsc{Cai} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\tableofcontents % Include a table of contents
+
+\newpage
+
+
+\section*{Lecture 1}
+\section{Statistical Concepts}
+Consider the conditional distribution function of two random variables $X$ and $Y$.  The joint probability function is denoted by:
+\[f_{X,Y}(x,y)=P(X=x,Y=y)\]
+
+If $X$ and $Y$ are continuous random variables we have the following property that:
+\[f_{X,Y}(x,y)=\frac{\partial^2}{\partial x\partial y}F_{X,Y}(x,y)\]
+
+If $X$ is discrete then the marginal probability function of $X$ is given by:
+\[f_X(x)=P(X=x)=\sum\limits_{\forall y}f_{X,Y}(x,y)\]
+If $X$ is continuous then the marginal probability distribution function of $X$ is given by:
+\[f_X(x)=\int_{\forall y}f_{X,Y}(x,y)dy\]
+
+The conditional probability function or probability distribution function is given by:
+\[f_{X\mid Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)}\]
+
+In particular in the discrete case we have:
+\[f_{X\mid Y}(x\mid y)=P(X=x\mid Y=y)\]
+
+The joint probability function or probability distribution function has the following relation to the conditional probability function or probability distribution function:
+\[f_{X,Y}(x,y)=f_{X\mid Y}(x\mid y)f_Y(y)=f_{Y\mid X}(y\mid x)f_X(x)\]
+
+If $X$ and $Y$ are independent random variables then we have the following nice relations:
+\begin{align*}
+f_{X,Y}(x,y)&=f_X(x)f_Y(y)\\
+f_{X\mid Y}(x\mid y)&=f_X(x)\\
+f_{Y\mid X}(y\mid x)&=f_Y(y)
+\end{align*}
+
+\begin{example}
+Let $X$ be the number of claims.  We know that $X\mid\Theta=\theta\sim \text{Poi}(\theta)$ and $\Theta\sim \text{Gam}(\alpha,\beta)$.  What is the distribution of $X$?
+
+\begin{align*}
+f_X(x)&=\int_{\forall\theta}f_{X,\Theta}(x,\theta)d\theta
+=\int_{\forall\theta}f_{X\mid\Theta}(x\mid\theta)f_{\Theta}(\theta)d\theta
+=\int_0^\infty\left(\frac{\theta^xe^{-\theta}}{x!}\right)\left(\frac{\theta^{\alpha-1}e^{-\frac{\theta}{\beta}}}{\Gamma(\alpha)\beta^\alpha}\right)\\
+&=\frac{\Gamma(x+\alpha)\left(\frac{\beta}{1+\beta}\right)^{x+\alpha}}{\Gamma(\alpha)\beta^\alpha}\int_0^\infty \frac{\theta^{x+\alpha-1}e^{-\frac{\theta}{\frac{\beta}{1+\beta}}}}{\Gamma(x+\alpha)\left(\frac{\beta}{1+\beta}\right)^{x+\alpha}}d\theta
+=\frac{\Gamma(\alpha+x)}{x!\Gamma(\alpha)}\left(\frac{1}{1+\beta}\right)^\alpha\left(\frac{\beta}{1+\beta}\right)^x
+\end{align*}
+Which is the distribution for a negative binomial.  Therefore $X\sim \text{NB}(\alpha,\beta)$.  Fun fact, if $\alpha=1$ then $X\sim \text{Geo}(\beta)$.  We will see other methods involving the moment generating function to validate the distributions of random variables.
+\end{example}
+
+\section*{Lecture 2}
+\subsection{Mixture Distribution Functions}
+Assume some random variable $\Theta$ that affects the loss random variable $X$ has probability distribution function or probability function $f_\Theta(\theta)$ and the conditional distribution function or probability function of $X\mid\Theta=\theta$ is given as $f_{X\mid\Theta}(x\mid\theta)$.
+
+The distribution function of $X$ can be found as follows:
+\begin{align*}
+F_X(x)&=P(X\le x)
+=\int P(X\le x\mid\Theta=\theta)f_\Theta(\theta)d\theta
+=\int F_{X\mid\Theta}(x\mid\theta)f_\Theta(\theta)d\theta\\
+f_X(x)&=\frac{\partial}{\partial x}F_X(x)
+=\frac{\partial}{\partial x}\int F_{X\mid\Theta}(x\mid\theta)f_\Theta(\theta)d\theta
+=\int f_{X\mid\Theta}(x\mid\theta)f_\Theta(\theta)d\theta
+\end{align*}
+
+We define an $n$-point mixture distribution function $F(x)=\alpha_1F_1(x)+\ldots+\alpha_nF_n(x)$, given a set of $n$ probability density functions or cumulative distributions functions, $F_1(x),F_2(x),\ldots, F_n(x)$ and corresponding weights $\alpha_1,\alpha_2,\ldots,\alpha_n$ such that $\alpha_i\ge 0$ and $\sum\limits_{i=1}^n\alpha_i=1$ for $i\in\mathbb{Z}, 0\le i\le n$.
+
+If $\Theta$ is a discrete random variable with $P(\Theta=\theta_i)=\alpha_i$ for $i\in\mathbb{Z}, 0\le i\le n$ and $F_i(x)=F_{X\mid\Theta}(x\mid\theta_i)$ then the $n$-point mixture distribution function is a special mixture distribution function.
+
+If we assume $F_i(x)$ is the distribution function of each $X_i$, $i=1,\ldots,n$ and $F_X(x)$ is the distribution function of $X$ then:
+\[\ex{X^k}=\alpha_1\ex{X_1^k}+\ldots+\alpha_n\ex{X_n^k}\]
+
+\subsection{Conditional Expectation}
+\begin{align*}
+\condex{X}{Y=y}&=\int_{\forall x}xf_{X\mid Y}(x\mid y)dx\\
+\condex{X}{Y}&=g(Y)\\
+\condvar{X}{Y}&=\condex{X^2}{Y}-(\condex{X}{Y})^2=h(Y)
+\end{align*}
+
+Note that unless the conditional random variable is specified the result will be a random variable, otherwise it results in a number.
+
+\begin{theorem}
+\[\ex{\condex{X}{Y}}=\ex{X}\]
+In general where $h$ is some function:
+\[\ex{\condex{h(X)}{Y}}=\ex{h(X)}\]
+\end{theorem}
+
+\begin{proof}
+Assume $X$, $Y$ and $X\mid Y$ are discrete random variables
+\begin{align*}
+\ex{\underbrace{\condex{h(X)}{Y}}_{g(Y)}}
+&=\sum\limits_{\forall y}g_Y(y)f_Y(y)
+=\sum\limits_{\forall y}\condex{h(X)}{Y=y}f_Y(y)
+=\sum\limits_{\forall y}\sum\limits_{\forall x}g(x)f_{X\mid Y}(x\mid y)f_Y(y)\\
+&=\sum\limits_{\forall x}h(x)\underbrace{\sum\limits_{\forall y}f_{X\mid Y}(x\mid y)f_Y(y)}_{F_X(x)}
+=\sum\limits_{\forall x}h(x)f_X(x)
+=\ex{h(X)}
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+\[\var{X}=\var{\condex{X}{Y}}+\ex{\condvar{X}{Y}}\]
+\end{theorem}
+
+\begin{proof}
+\begin{align*}
+\var{\condex{X}{Y}}+\ex{\condvar{X}{Y}}
+&=\ex{(\condex{X}{Y})^2}-\left(\ex{\condex{X}{Y}}\right)^2+\ex{\condex{X^2}{Y}-(\condex{X}{Y})^2}\\
+&=\ex{\condex{X^2}{Y}}-(\ex{\condex{X}{Y}})^2=\ex{X^2}-(\ex{X})^2
+=\var{X}
+\end{align*}
+\end{proof}
+
+A nice identity to relate the double expectation formula and the moment generating function is:
+\[M_X(t)=E\left[e^{tX}\right]=E\left[E\left[e^{tX}\mid\Theta\right]\right]\]
+
+\begin{example}
+$X\mid\Theta=\theta>0$ has a conditional exponential distribution function of $f_{X\mid\Theta}(x\mid\theta)=1-e^{-\theta x}$, $x>0$.  $\Theta\sim \text{Gam}\left(\alpha,\frac{1}{\lambda}\right)$ with distribution function $f_\Theta(\theta)=\frac{\lambda^\alpha\theta^{\alpha-1}e^{-\lambda\theta}}{\Gamma(\alpha)}$, $\theta>0$.  Find the expectation and variance of $X$.
+
+\begin{align*}
+\ex{X}&=\ex{\condex{X}{\Theta}}
+=\ex{\frac{1}{\Theta}}
+=\int_{\forall\theta}\frac{1}{\theta}\cdot\frac{\lambda^\alpha\theta^{\alpha-1}e^{-\lambda\theta}}{\Gamma(\alpha)}d\theta
+=\ldots
+=\frac{\lambda\Gamma(\alpha-1)}{\Gamma(\alpha)}
+=\frac{\lambda}{\alpha-1}\\
+\var{X}&=\var{\condex{X}{\Theta}}+\ex{\condvar{X}{\Theta}}
+=\var{\frac{1}{\Theta}}+\ex{\frac{1}{\Theta^2}}
+=\ldots
+=\frac{\alpha\lambda^2}{(\alpha-1)^2(\alpha-2)}
+\end{align*}
+\end{example}
+
+\section*{Lecture 3}
+Recall the double expectation formula:
+\[\ex{h(X)}=\ex{\condex{h(X)}{Y}}\]
+
+\begin{example}
+Given that $\Theta=\theta>0$, $X\mid\Theta=\theta\sim \text{Poi}(\theta)$ and $\Theta\sim \text{Gam}(\alpha,\beta)$.  Show that $X\sim \text{NB}(\alpha,\beta)$.
+\end{example}
+
+\begin{proof}
+The moment generating function uniquely determines each distribution, so we can use double expectation and the moment generating function to show $X$ follows a negative binomial.
+\begin{align*}
+M_X(t)&=\ex{e^{tX}}
+=\ex{\condex{e^{tX}}{\Theta}}
+=\ex{e^{\Theta(e^t-1)}}
+=M_\Theta(e^t-1)
+=\left(\frac{1}{1-\beta(e^t-1)}\right)^\alpha
+\end{align*}
+This is the moment generating function of a negative binomial with parameters $\alpha$ and $\beta$.  Therefore $X\sim \text{NB}(\alpha,\beta)$.
+\end{proof}
+
+\begin{example}
+Given $\Theta=\theta>0$, $X\mid\Theta=\theta\sim \text{Exp}\left(\frac{1}{\theta}\right)$ and $\Theta\sim \text{Gam}\left(\alpha,\frac{1}{\lambda}\right)$, what is the distribution function of $X$?
+
+In general the double expectation coupled with the moment generating function is the easiest way to find the distribution of a random variable.  However since $X$ follows a Pareto distribution which the moment generating function does not exist, so after applying this method the moment generating function will not be listed.  We'll do this by first principles.
+
+\begin{align*}
+f_X(x)&=\int_{\forall\theta}f_{X\mid\Theta}(x\mid\theta)f_\Theta(\theta)d\theta
+=\int_0^\infty \theta e^{-\theta x}\frac{\lambda^\alpha\theta^{\alpha-1}e^{-\lambda\theta}}{\Gamma(\alpha)}d\theta\\
+&=\frac{\Gamma(\alpha+1)\lambda^\alpha}{\Gamma(\alpha)(x+\lambda)^{\alpha+1}}\underbrace{\int_0^\infty\frac{(x+\lambda)^{\alpha+1}\theta^{\alpha+1-1}e^{-(x+\lambda)\theta}}{\Gamma(\alpha+1)}d\theta}_{=1}
+=\frac{\alpha\lambda^\alpha}{(x+\lambda)^{\alpha+1}}
+\end{align*}
+The is the probability density function of a Pareto, therefore $X\sim \text{Par}(\alpha,\lambda)$.
+\end{example}
+
+\begin{example}
+Given that $Y\mid X=x\sim \text{Bin}(x,p)$, $x\in\mathbb{N}$ and $X\sim \text{Poi}(\lambda)$ calculate/show the following:
+\enum{
+\item $\ex{Y}$
+\item $\var{Y}$
+\item $Y\sim \text{Poi}(\lambda p)$
+\item $\cov{X,Y}$
+}
+\enum{
+\item
+\begin{align*}
+\ex{Y}&=\ex{\condex{Y}{X}}
+=\ex{Xp}
+=p\ex{X}
+=p\lambda
+\end{align*}
+\item
+\begin{align*}
+\var{Y}&=\var{\condex{Y}{X}}+\ex{\condvar{Y}{X}}
+=\var{Xp}+\ex{Xp(1-p)}\\
+&=p^2\var{X}+p(1-p)\ex{X}
+=p^2\lambda+p(1-p)\lambda
+=p\lambda(p+1-p)
+=p\lambda
+\end{align*}
+\item
+Similarly we can use the probability generating function to prove the distribution of $Y$ follows Poisson with parameter $p\lambda$.
+\begin{align*}
+P_Y(z)&=\ex{z^Y}
+=\ex{\condex{z^Y}{X}}
+=\ex{(1+p(z-1))^X}
+=P_X(1+p(z-1))
+=e^{\lambda(1+p(z-1)-1)}\\
+&=e^{\lambda p(z-1)}
+\end{align*}
+which is the probability generating function of a Poisson with parameter $p\lambda$.  Therefore $Y\sim \text{Poi}(p\lambda)$.
+\item
+\begin{align*}
+\cov{X,Y}&=\ex{XY}-\ex{X}\ex{Y}
+=\ex{\condex{XY}{X}}-(\lambda)(p\lambda)
+=\ex{X\condex{Y}{X}}-p\lambda^2\\
+&=\ex{(X)(pX)}-p\lambda^2
+=p\ex{X^2}-p\lambda^2
+=p(\lambda+\lambda^2)-p\lambda^2
+=p\lambda
+\end{align*}
+}
+\end{example}
+
+We define a random sample of $X$ to be a sequence of random variables $X_1,\ldots,X_n$ such that all $X_i$, $i\in\mathbb{Z}$, $1\le i\le n$, are identically and independentally distributed, as well $X_i\sim X$.
+
+Let $\hat{\theta}=\hat{\theta}(X_1,\ldots,X_n)$ be an estimator of $\theta$ which is an unknown parameter or quantity associated with $X$, then:
+\begin{itemize}
+\item If $\ex{\hat\theta}=\theta$ we say $\hat\theta$ is unbiased for $\theta$
+\item If $\lim\limits_{n\to\infty} \ex{\hat\theta}=\theta$ we say $\hat\theta$ is asymptotically unbiased
+\item If $\lim\limits_{n\to\infty}P(|\hat\theta-\theta|>\delta)=0$ we say $\hat\theta$ is consistent for $\theta$
+\end{itemize}
+
+Consistency is hard to evaluate so we have a theorem which is equivalent
+
+\begin{theorem}
+If $\hat\theta$ is asymptotically unbiased and $\lim\limits_{n\to\infty}Var(\hat\theta)=0$, then $\hat\theta$ is consistent for $\theta$.
+\end{theorem}
+
+\begin{proof}
+In order to prove this we need Markov's Inequality which states that:
+\[P(|X|>\delta)\le \frac{\ex{|X|}}{\delta}\]
+
+We then proceed to bound the original quantity
+\begin{align*}
+P(|\hat\theta-\theta|>\delta)&=P((\hat\theta-\theta)^2>\delta^2)
+\le \frac{\left(\ex{\hat\theta-\theta}\right)^2}{\delta^2}
+=\frac{\var{\hat\theta}+\left(\ex{\hat\theta}-\theta\right)^2}{\delta^2}
+\end{align*}
+
+Taking limits on both sides and using the condition that $\hat\theta$ is asymptotically unbiased and $\lim\limits_{n\to\infty}\var{\hat\theta}=0$
+\begin{align*}
+\lim_{n\to\infty}P(|\hat\theta-\theta|>\delta)&\le\lim\limits_{n\to\infty} \frac{\var{\hat\theta}+\left(\ex{\hat\theta}-\theta\right)^2}{\delta^2}
+=\frac{0+\left(\theta-\theta\right)^2}{\delta^2}
+=0\\
+\rightarrow \lim_{n\to\infty}P(|\hat\theta-\theta|>\delta)&=0
+\end{align*}
+\end{proof}
+
+\section*{Lecture 4}
+Let $X_1,X_2,\ldots,X_n$ be a random sample of $X$.  Recall that $\hat\theta=\hat\theta(X_1,X_2,\ldots,X_n)$ is the estimator of $\theta$ which is some parameter/quantity associated with $X$.
+
+Some definitions to know are:
+\begin{itemize}
+\item Unbiased
+\[\ex{\hat\theta}=\theta\]
+\item Asymptotically Unbiased
+\[\lim\limits_{n\to\infty}\ex{\hat\theta}=\theta\]
+\item Consistent
+\[\lim\limits_{n\to\infty}P(|\hat\theta-\theta|>\delta)=0\]
+Or equivalently
+\begin{align*}
+\lim\limits_{n\to\infty}\ex{\hat\theta}&=\theta\\
+\lim\limits_{n\to\infty}\var{\hat\theta}&=0
+\end{align*}
+\end{itemize}
+
+\begin{theorem}
+If $X_1,\ldots,X_n$ are independent with a common mean $\mu=\ex{X_j}$ and common variance $\sigma^2=\var{X_j}$, $j\in\mathbb{Z}$ and $1\le j\le n$.  Then the sample mean and sample variance respectively are:
+\begin{align*}
+\bar{X}&=\frac{1}{n}\sum\limits_{i=1}^nX_i\\
+\hat{\sigma}^2&=s_n^2=\frac{1}{n-1}\sum\limits_{i=1}^n(X_j-\bar{X})^2
+\end{align*}
+These are unbiased estimators for $\mu$ and $\sigma^2$:
+\begin{align*}
+\ex{\bar{X}}&=\mu\\
+\ex{\hat{\sigma}^2}&=\sigma^2
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+\begin{align*}
+\ex{\bar{X}}&=\frac{1}{n}\sum\limits_{i=1}^n\ex{X_i}
+=\frac{1}{n}\sum\limits_{i=1}^n\mu
+=\frac{1}{n}(n\mu)
+=\mu\\
+\ex{\hat{\sigma}^2}&=\frac{1}{n-1}\sum\limits_{i=1}^n\ex{(X_j-\bar{X})^2}
+=\frac{1}{n-1}\sum\limits_{i=1}^n\ex{(X_j-\mu+\mu-\bar{X})^2}\\
+&=\frac{1}{n-1}\sum\limits_{i=1}^n\ex{(X_j-\mu)^2+(\mu-\bar{X})^2+2(X_j-\mu)(\mu-\bar{X})}\\
+&=\frac{1}{n-1}\left(\left(\sum\limits_{i=1}^n\ex{(X_j-\mu)^2}\right)+\ex{n(\mu-\bar{X})^2}+\ex{2(\mu-\bar{X})\underbrace{\sum\limits_{i=1}^nX_j-\mu}_{n(\bar{X}-\mu)}}\right)\\
+&=\frac{1}{n-1}\left(\sum\limits_{i=1}^n\ex{(X_j-\mu)^2}-n\ex{(\bar{X}-\mu)^2}\right)
+=\frac{1}{n-1}\left(\sum\limits_{i=1}^n\sigma^2-n\var{\bar{X}}\right)\\
+&=\frac{1}{n-1}\left(n\sigma^2-n\left(\frac{1}{n^2}\right)(n\sigma^2)\right)
+=\frac{1}{n-1}(n-1)\sigma^2
+=\sigma^2
+\end{align*}
+\end{proof}
+
+\begin{example}
+Let $X_1,\ldots,X_n$ be a sample from a Poisson distribution $X\sim \text{Poi}(\theta)$.  We can create a whole bunch of unbiased estimators for the parameter $\theta$
+\begin{align*}
+\hat\theta_1&=\bar{X}\\
+\hat\theta_2&=\frac{1}{n-1}\sum\limits_{i=1}^n(X_i-\bar{X})^2\\
+\hat\theta_3&=\alpha\hat\theta_1+(1-\alpha)\hat\theta_2, \text{ }\alpha\in\mathbb{R},\text{ }0\le\alpha\le 1 
+\end{align*}
+The first estimator has the lowest bariance of all of these.  However the sample mean is not necessarily the lowest variance estimator in general.
+\end{example}
+
+\subsection{Mean Square Error (MSE)}
+If $\hat\theta$ is an estimator of a parmeter $\theta$ we define the mean square error (MSE) to be:
+\[\text{MSE}_{\hat\theta}(\theta)=\ex{(\hat\theta-\theta)^2}=\var{\hat\theta}+\left(\ex{\hat\theta}-\theta\right)^2\]
+Where $\text{Bias}_{\hat\theta}(\theta)=\ex{\hat\theta}-\theta$ is the bias of $\hat\theta$.
+
+\begin{example}
+Let $X\sim \text{Uni}(0,\theta)$ be the loss random variable, and let $X_1,X_2,\ldots, X_n$ be a sample of $X$.  We can again find unbiased estimators for the parameter $\theta$.
+\begin{align*}
+\ex{\bar{X}}&=\frac{\theta}{2}\\
+\rightarrow\hat\theta_1&=2\bar{X}\\
+\ex{X_{(n)}}&=\int_{\forall x}\bar{F}_{X_{(n)}}(x)dx
+=\int_0^\theta 1-\left(\frac{x}{\theta}\right)^ndx
+=\left[x-\frac{1}{\theta^n(n+1)}x^{n+1}\right]_0^\theta
+=\theta-\frac{\theta}{n+1}
+=\frac{n}{n+1}\theta\\
+\rightarrow \hat\theta_2&=\frac{n+1}{n}X_{(n)}
+\end{align*}
+\end{example}
+
+\section*{Lecture 5}
+If $X\sim \text{Poi}(\theta)$ with probability function $P(X=x)=\frac{e^{-\theta}\theta^x}{x!}$,  $x\in\mathbb{Z}$, $x\ge 0$ and I draw a random sample $X_1,X_2,\ldots,X_n$ from $X$.  In this case a good unbiased estimator for the parameter $\theta$ is $\bar{X}$.
+
+\subsection{Bayesian Estimation}
+Suppose $\theta$ is a possible value of a random variable $\Theta$.  Assume given $\Theta=\theta$, the sample $X_1,\ldots,X_n$ are conditionally independent and have the same conditional probability distribution function or probability function $f_{X\mid\Theta}(x\mid\theta)$.
+\begin{itemize}
+\item The probability distribution function or probability function of $\Theta$ is called the prior distribution function, denoted by $\pi(\theta)$.
+\item Given $(X_1,\ldots,X_n)=(x_1,\ldots,x_n)$, the conditional probability distribution function or probability function of $\Theta$ is called the posterior distribution function, denoted by $\pi(\theta\mid x_1,\ldots,x_n)$.
+\item The joint probability distribution function or probability function of $(X_1,\ldots,X_n)$ and $\Theta$ is:
+\[f(x_1,x_1,\ldots,x_n,\theta)=f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)\]
+by conditional independence
+\item The marginal probability distribution function or probability function of $(X_1,\ldots,X_n)$ is:
+\[\int_{\forall\theta}f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)d\theta\]
+\item By Bayes theorem we have:
+\[\pi(\theta\mid x_1,\ldots,x_n)=\frac{f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)}{\int_{\forall\theta}f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)d\theta}\]
+\item Additionaly by definition we have the expected value of the conditional distribution of $\Theta$ is:
+\[\ex{\Theta\mid x_1,\ldots,x_n}=\int\theta\pi(\theta\mid x_1,\ldots,x_n)d\theta\]
+Which is called the Bayesian estimation for $\theta$ or posterior mean of $\Theta$
+\end{itemize}
+
+We denoted the Bayesian estimator of $\theta$ by
+\[\hat\theta_B=\hat\theta_B(X_1,\ldots,X_n)\]
+
+We can create a measure between the estimator and the actual distribution of $\Theta$ called the Bayes Risk which is defined as:
+\begin{align*}
+\ex{(\hat\theta_B-\Theta)^2}
+&=\ex{\condex{(\hat\theta_B-\Theta)^2}{\Theta}}
+=\int_{\forall\theta} \condex{(\hat\theta_B-\theta)^2}{\Theta=\theta}\pi(\theta)d\theta
+\end{align*}
+
+It can be shown that the Bayesian estimator $\hat\theta_B(X_1,\ldots,X_n)=\ex{\Theta\mid X_1,\ldots,X_n}$ will minimize the Bayes risk among all estimators.
+
+\begin{example}
+Let $X$ be the number of claims in one year given $\Theta=\theta$ with conditional probability distribution function $f(x\mid\theta)=\frac{e^{-\theta}\theta^x}{x!}$, $\Theta\sim \text{Gam}(\alpha,\beta)$ and $(x_1,x_2,\ldots,x_n)$ are the number of claims in the past $i$ years.
+
+Calculate the posterior distribution of $\Theta$ and the respective posterior mean.
+
+By Bayes theorem remember we have:
+\[\pi(\theta\mid x_1,\ldots,x_n)=\frac{f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)}{\int_{\forall\theta}f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)d\theta}\]
+However given $(x_1,\ldots,x_n)$ the marginal distribution of all $f(x_1,\ldots,x_n)=\int_{\forall\theta}f(x_1\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)d\theta$ is a constant.  Therefore when we calculate the posterior distribution as long as we preserve the terms which involve $\theta$ we can identify the distribution from the table and we do not have to worry about the remaining constants.
+
+\begin{align*}
+\pi(\theta\mid x_1,\ldots, x_n)
+&\propto f(x_1,\mid\theta)\ldots f(x_n\mid\theta)\pi(\theta)
+=\prod_{i=1}^n\frac{e^{-\theta}\theta^{x_i}}{x_i!}\cdot\frac{\theta^{\alpha-1}e^{-\frac{\theta}{\beta}}}{\Gamma(\alpha)\beta^{\alpha}}
+\propto e^{-\left(n+\frac{1}{\beta}\right)\theta}\theta^{n\bar{x}+\alpha-1}
+\end{align*}
+
+From the table we see that $\pi(\theta\mid x_1,\ldots,x_n)$ is $\text{Gam}\left(n\bar{x}+\alpha,\frac{1}{n+\frac{1}{\beta}}\right)$.
+
+Additionally the expectaion of a Gamma random variable with parameters $(\alpha,\beta)$ is $\alpha\beta$.  so the posterior expectation is:
+\[\condex{\Theta}{X_1,\ldots,X_n}=(n\bar{x}+\alpha)\frac{\beta}{n\beta+1}\]
+\end{example}
+
+\section*{Lecture 6}
+If $\Theta$ has prior distribution $\pi(\theta)$ and given $\Theta=\theta$, $X_1,\ldots,X_n$ are independent and have the same probability distribution function $f(x_j\mid\theta)$ remember we have the following results:
+
+The posterior distribution of $\Theta$ is:
+\[\pi(\theta\mid x_1,\ldots,x_n)=\frac{\prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)}{\int\prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)d\theta}\]
+
+$\hat\theta_B$ is the mean of $\Theta\mid X_1=x_1,\ldots X_n=x_n$.  Alternatively written as:
+\[\ex{\Theta\mid X_1=x_1,\ldots,X_n=x_n}\]
+
+The Bayes risk measure is defined as:
+\[\ex{\left(\hat\theta_B-\Theta\right)^2}=\int \condex{\left(\left(X_1,\ldots,X_n\right)-\theta\right)^2}{\Theta=\theta}\pi(\theta)d\theta\]
+
+\begin{example}
+The prior distribution is $\Theta\sim \text{Gam}(\alpha,\beta)$ and the conditional distribution $X\mid\Theta=\theta\sim \text{Poi}(\theta)$.
+
+Then the posterior distribution of $\Theta$ and the posterior mean are:
+\begin{align*}
+\Theta\mid X_1=x_1,\ldots,X_n=x_n&\sim \text{Gam}\left(n\bar{x}+\alpha,\frac{1}{n+\frac{1}{\beta}}\right)\\
+\hat\theta_b&=(n\bar{x}+\alpha)\frac{\beta}{n\beta+1}
+\end{align*}
+\end{example}
+
+\begin{example}
+Let the prior distribution be $\Theta\sim \text{N}(0,1)$ and the conditional distribution be $X\mid\Theta=\theta\sim \text{N}(\theta,1)$.  Each $X_j$, $j\in\mathbb{Z}$, $1\le j\le n$ are conditionally independent given $\Theta=\theta$ and have the same conditional probability distribution function.
+
+Find the posterior distribution of $\Theta$, the posterior mean $\hat\theta_B$ and the Bayes risk of $\hat\theta_B$.
+
+\begin{align*}
+\pi(\theta\mid x_1,\ldots, x_n)
+&\propto \prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)
+\propto \prod_{j=1}^ne^{-\frac{(x_j-\theta)^2}{2}}\cdot e^{-\frac{\theta^2}{2}}
+=e^{-\frac{1}{2}\left(\sum\limits_{j=1}^nx_j^2-\left(2n\bar{x}\theta-n\theta^2\right)\right)-\frac{\theta^2}{2}}
+\propto e^{-\frac{1}{2}\left(\left(n+1\right)\theta^2-2n\bar{x}\theta\right)}\\
+&\propto e^{-\frac{\left(\theta-\frac{n\bar{x}}{n+1}\right)^2}{2\cdot\frac{1}{n+1}}}
+\end{align*}
+
+We can then just look off the distribution table and see that the posterior distribution of $\Theta$ is a normal with parameters $\left(\frac{n\bar{x}}{n+1},\frac{1}{n+1}\right)$
+
+Then $\hat\theta_B$ is the mean of a $\text{N}\left(\frac{n\bar{x}}{n+1},\frac{1}{n+1}\right)$ which is:
+\begin{align*}
+\hat\theta_B
+&=\frac{n\bar{x}}{n+1}
+=\frac{1}{n+1}\sum\limits_{j=1}^nx_j
+\end{align*}
+
+We now go to calculate the Bayes risk of $\hat\theta_B$:
+\begin{align*}
+&\int_{\forall\theta} \ex{\left(\frac{n\bar{x}}{n+1}-\theta\right)^2\mid\Theta=\theta}\pi(\theta)d\theta\\
+&=\int_{\forall\theta}\left(\var{\frac{n\bar{x}}{n+1}\mid\Theta=\theta}+\left(\ex{\frac{n\bar{x}}{n+1}\mid\Theta=\theta}-\theta\right)^2\right)\pi(\theta) d\theta\\
+&=\int_{\forall\theta}\left(\left(\frac{1}{n}\cdot\frac{n^2}{(n+1)^2}\right)+\left(\frac{n}{n+1}\theta-\theta\right)^2\right)\pi(\theta)d\theta
+=\int_{\forall\theta}\frac{n+\theta^2}{(n+1)^2}\pi(\theta)d\theta\\
+&=\int_{\forall\theta}\frac{n}{(n+1)^2}\pi(\theta)d\theta+\int_{\forall\theta}\frac{\theta^2}{(n+1)^2}\pi(\theta)d\theta\\
+&=\frac{n}{(n+1)^2}\underbrace{\int_{\forall\theta}\pi(\theta)d\theta}_{=1}+\frac{1}{(n+1)^2}\underbrace{\int_{\forall\theta}\theta^2\pi(\theta)d\theta}_{=\ex{\Theta^2}}
+=\frac{n+\ex{\Theta^2}}{(n+1)^2}
+=\frac{1}{n+1}
+\end{align*}
+\end{example}
+
+\begin{example}
+If the prior distribution $\Theta\sim \text{Uni}(10,25)$,  the conditional distribution is $X_j\mid\Theta=\theta\sim \text{Uni}(0,\theta)$ and we have the following 10 observations $(x_1,\ldots,x_{10})=(3,4,9,10,8.5,7,8,6.5,11,10.5)$,
+
+then find the posterior distribution of $\Theta$ and the respective posterior mean.
+
+Since we have observations for $X_j$ we need to be careful of the domain of the random variables.  Based on the given information we have information on previous observations which could affect the bounds on our posterior distribution of $\Theta$.
+
+Given that $X_j\mid\Theta=\theta\sim \text{Uni}(0,\theta)$ that means we have the conditions:
+\[0<x_j<\theta\]
+Therefore the lower bound for $\theta$ must be the maximum value of $x_j$ which is $x_{(10)}=11$.  Therefore when we integrate our posterior we use the bounds of $11\le\theta\le 25$ instead of $10\le\theta\le 25$.
+
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_n)&\propto\prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)
+=\prod_{j=1}^{10}\frac{1}{\theta}\cdot\frac{1}{15}
+\propto \frac{1}{\theta^{10}}
+\end{align*}
+Therefore we can define the posterior distribution as:
+\[\pi(\theta\mid x_1,\ldots,x_{10})=\begin{cases}
+\frac{c}{\theta^{10}} & 11\le\theta\le 25\\
+0 & \text{ otherwise}
+\end{cases}\]
+
+Where $c$ is just some constant we can obtain by integrating the posterior distribution over it's domain.  We can then easily get the posterior mean by definition:
+
+\[\ex{\Theta\mid x_1,\ldots,x_{10}}=
+\hat\theta_B
+=\int_{11}^{25}\theta\pi(\theta\mid x_1,\ldots,x_{10})d\theta
+=12.37\]
+
+\end{example}
+
+\section*{Lecture 7}
+Let $\Theta$ have prior distribution $\pi(\theta)$, random variables $X_1,\ldots,X_n$ are conditionally independent given $\Theta=\theta$ and have the same conditional distribution function.
+
+We say that $\pi(\theta)$ is a conjugate prior distribution function if it's posterior distribution $\pi(\theta\mid x_1,\ldots,x_n)$ has the same type of distribution.
+
+We have a couple of important examples of conjugate prior distribution functions:
+\[\begin{tabular}{ccc}
+$\pi(\theta)$ & $f(x\mid\theta)$ & $\pi(\theta\mid x_1,x_2,\ldots, x_n)$\\
+Gamma$(\alpha,\beta)$ & Poisson$(\theta)$ & Gamma$(\alpha^\ast,\beta^\ast)$\\
+Normal & Normal & Normal\\
+Beta & Binomial & Beta\\
+Beta & Geometric & Beta
+\end{tabular}
+\]
+
+A random variable $X$ is of the linear exponential family if it's probability distribution function or probability function $f(x,\theta)$ can be written in the form
+\[f(x,\theta)=\frac{p(x)e^{xr(\theta)}}{q(\theta)}\]
+
+\begin{example}
+Consider the probability distribution function:
+\[f(x,\beta)=\frac{1}{\beta}e^{-\frac{x}{\beta}}\]
+We can easily determine the respective functions $p(x),q(\beta)$ and $r(\beta)$:
+\begin{align*}
+p(x)&=1\\
+q(\beta)&=\frac{1}{\beta}\\
+r(\beta)&=-\frac{1}{\beta}
+\end{align*}
+This is after all an exponential probability distribution function so it should fall in to the linear exponential family.  Now consider the probability function of the Poisson:
+\[f(x,\lambda)=\frac{\lambda^xe^{-\lambda}}{x!}=\frac{\left(\frac{1}{x!}\right)e^{x\log(\lambda)}}{e^\lambda}\]
+The functions $p(x),q(\lambda)$ and $r(\lambda)$ are:
+\begin{align*}
+p(x)&=\frac{1}{x!}\\
+q(\lambda)&=e^\lambda\\
+r(\lambda)&=\log(\lambda)
+\end{align*}
+\end{example}
+
+\begin{theorem}
+If the prior distribution of $\Theta$ is of the form:
+\[\pi(\theta)=\left(q(\theta)\right)^{-k}\frac{e^{\mu kr(\theta)}r'(\theta)}{c(\mu,k)}\]
+and given $\Theta=\theta$, $X_1,\ldots,X_n$ are conditionally independent and have the same probability distribution function:
+\[f(x_j\mid\theta)=\frac{p(x_j)e^{x_jr(\theta)}}{q(\theta)}\text{ }j=1,2,\ldots,n\]
+then the prior distribution $\pi(\theta)$ has the same type of distribution as $\pi(\theta\mid x_1,\ldots,x_n)$, $\Theta$ is conjugate prior.
+\end{theorem}
+
+\begin{proof}
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_n)&
+\propto\prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)
+=\frac{e^{r(\theta)n\bar{x}}}{(q(\theta))^n}(q(\theta))^{-k}e^{\mu kr(\theta)}r'(\theta)
+\propto (q(\theta))^{-(n+k)}e^{(n\bar{x}+\mu k)r(\theta)}r'(\theta)
+\end{align*}
+$\pi(\theta)$ and $\pi(\theta\mid x_1,\ldots,x_n)$ have the same type of distribution.
+\end{proof}
+
+\section{Credibility Theory}
+Let $X_1,\ldots,X_n$ be the losses in the past $n$ years or for the past $n$ policyholders.  In general it is just the $n$ observed exposure units.
+
+We now make the following assumptions:
+\begin{align*}
+\ex{X_j}&=\xi\\
+\var{X_j}&=\sigma^2\\
+\var{\bar{X}}&=\frac{\sigma^2}{n}
+\end{align*}
+for $j=1,\ldots,n$ and $\bar{X}=\frac{1}{n}\sum\limits_{j=1}^nX_j$.
+
+Under the principle for classical credibility, if $\bar{X}$ is ``credible'', we would assign a full credibility to $\bar{X}$, or use $\bar{X}$ to estimate the loss for exposure unit $n+1$.
+
+In order to assign credibility to $\bar{X}$ we must first define relative error.  If for a probability $p$, $p\in\mathbb{R}$, $0\le p\le 1$ and for some small level of error $\varepsilon$ the following holds:
+\[P\left(\left|\frac{\bar{X}-\xi}{\xi}\right|\le\varepsilon\right)\ge p\]
+We say $\bar{X}$ is credible for $\xi$.
+
+\section*{Lecture 8}
+Recall the principle for full credibility is:
+\[P\left(\left|\frac{\bar{X}-\xi}{\xi}\right|\le\varepsilon\right)\ge p\text{ } (1)\]
+
+Without any assumptions of the distribution of $X_j$ this is as far as we can go, however as $n\to\infty$, $\bar{X}$ can be approximated as a normal by the central limit theorem.
+\[\bar{X}\sim \text{N}\left(\xi,\frac{\sigma^2}{n}\right)\to\frac{\bar{X}-\xi}{\frac{\sigma}{\sqrt{n}}}\sim \text{N}(0,1)\]
+
+Given the assumption for large $n$ we can now derive some equivalent conditions for full credibility.
+\[P\left(\left|\frac{\bar{X}-\xi}{\xi}\right|\le\varepsilon\right)\ge p\text{ } (1)\iff P\left(\left|\frac{\bar{X}-\xi}{\frac{\sigma}{\sqrt{n}}}\right|\le \frac{\varepsilon\xi\sqrt{n}}{\sigma}\right)\ge p\text{ } (2)\]
+
+We now use the fact that:
+\[\frac{\bar{X}-\xi}{\frac{\sigma}{\sqrt{n}}}\sim \text{N}(0,1)\]
+to simplify the arithmetic we let:
+\[Y=\frac{\bar{X}-\xi}{\frac{\sigma}{\sqrt{n}}}\sim \text{N}(0,1)\]
+and we derive the following equivalent condition:
+\[P\left(\left|\frac{\bar{X}-\xi}{\frac{\sigma}{\sqrt{n}}}\right|\le \frac{\varepsilon\xi\sqrt{n}}{\sigma}\right)\ge p\text{ } (2)\iff P(|Y|\le y_p)=p\text{ }(3)\]
+Equations $(1)$ and $(2)$ will hold if: 
+\[\frac{\varepsilon\xi\sqrt{n}}{\sigma}\ge y_p\text{ }(4)\]
+Based on this inequality of the bounds we can derive even more relations:
+\begin{align*}
+\frac{\varepsilon\xi\sqrt{n}}{\sigma}\ge y_p\text{ }(4)
+&\iff \frac{\sigma}{\xi}\le\frac{\varepsilon\sqrt{n}}{y_p}=\sqrt{\frac{n}{\lambda_0}}
+\iff \frac{\sigma^2}{n}\le\frac{\xi^2}{\lambda_0}\text{ }(5)
+\iff \var{\bar{X}}\le\frac{\xi^2}{\lambda_0}\text{ }(6)\\
+&\iff n\ge\lambda_0\left(\frac{\sigma}{\xi}\right)^2\text{ }(7)
+\end{align*}
+Where $\lambda_0=\left(\frac{y_p}{\varepsilon}\right)^2$ and $\frac{\sigma}{\xi}$ is the coefficient of variation of $X_j$.
+
+Also recall some notation that $\Phi$ denotes the cumulative distribution function of a $\text{N}(0,1)$ and $\phi$ denotes the probability distribution function of $\text{N}(0,1)$.  With this we can calculate $y_p$.
+
+\begin{align*}
+P(|Y|\le y_p)=p\text{ }(3)&
+\iff \Phi(y_p)-\Phi(-y_p)=p
+\iff 2\Phi(y_p)-1=p
+\iff \Phi(y_p)=\frac{1+p}{2}\\
+&\iff y_p=\Phi^{-1}\left(\frac{1+p}{2}\right)
+\end{align*}
+So $y_p$ is the $100\left(\frac{1+p}{2}\right)\%$ percentile of a $\text{N}(0,1)$.
+
+\subsection{Limited Fluctuation Credibility}
+\begin{example}
+Suppose that one has past data $N_1,\ldots,N_n$ on the number of claims in $n$ portfolios.  $N_j$'s are independent Poisson random variables with mean $\lambda$.  Determine the condition for full credibility in terms of the expected total number of claims using classical credibility given $p=0.9$ and $\varepsilon=0.05$.
+
+In this case
+\[\ex{N_j}=\xi=\var{N_j}=\sigma^2=\lambda\]
+We can now substitute this quantites in to our credibility relations:
+\[n\ge \lambda_0\left(\frac{\sigma}{\xi}\right)^2 (7)
+\iff n\ge\frac{\lambda_0}{\lambda}\]
+
+The total expected number of claims in the past data is:
+\[\sum\limits_{i=1}^n\ex{N_i}=n\ex{N_1}=n\lambda\]
+
+Therefore we need to modify the relation in terms of $n\lambda$.
+\[n\lambda\ge\lambda_0=1082.41\]
+
+If this condition holds we can assign a full credibility to $\bar{N}$, that is the estimator of the number of claims for the next policyholder.
+\end{example}
+
+\begin{example} 
+Suppose that one has past data $N_1,\ldots,N_n$ on the number of claims in $n$ portfolios.  $N_j$'s are independent Binomial random variables with parameters $(50,p)$.  Determine the condition for full credibility in terms of the expected total number of claims using classical credibility given $p=0.9$ and $\varepsilon=0.05$.
+
+This is essentially the same example as before except for the distribution, hence we follow a similar strategy.
+\begin{align*}
+\ex{N_j}&=\xi=50p\\
+\var{N_j}&=\sigma^2=50p(1-p)\\
+n\ge\lambda_0\left(\frac{\sigma}{\xi}\right)^2\text{ }(7)&=\frac{\lambda_0}{5}\cdot\frac{1-p}{p}
+\end{align*}
+
+We go to find the total expected number of claims of the past data:
+\[\sum\limits_{i=1}^n\ex{N_i}=n\ex{N_1}=n50p\]
+
+Finally we rearrange to get the credibility criteria in terms of $n50p$
+\[n50p\ge\lambda_0(1-p)=(1-p)1082.41\]
+\end{example}
+
+\section*{Lecture 9}
+Let $X$ be a compound random variable where:
+\[X=Y_1+Y_2+\ldots+Y_N=\sum\limits_{i=1}^NY_i\]
+Where $N$ is the number of claims and $Y_j$ is the amount of claim $j$.  We usually make the assumption that $N,Y_,\ldots,Y_n$ are independent and $Y_j$'s have the same probability distribution function. This way we can use the conditional formulas to calculate $\xi$ and $\sigma^2$ in terms of $N$ and $Y_j$.
+
+\begin{align*}
+\ex{X}
+&=\ex{\sum\limits_{i=1}^NY_i}
+=\ex{\condex{\sum\limits_{i=1}^NY_j}{N}}
+=\ex{N\ex{Y_i}}
+=\ex{N}\ex{Y_j}
+=\xi\\
+\var{X}
+&=\var{\condex{\sum\limits_{i=1}^NY_i}{N}}+\ex{\condvar{\sum\limits_{i=1}^NY_i}{N}}
+=\var{N\ex{Y_i}}+\ex{N\var{Y_i)}}\\
+&=(\ex{Y_i})^2\var{N}+\var{Y_i}\ex{N}=\sigma^2
+\end{align*}
+
+\begin{example}
+Past losses $X_1,\ldots,X_n$ are independent Poisson random variables with Poisson parameter $\lambda$ and claim size distribution $Y_j$ with mean $\theta_Y$ and variance $\sigma_Y^2$.
+
+\begin{align*}
+\xi&=\ex{X_j}=\lambda\theta_y\\
+\sigma^2&=\var{X_j}=\lambda(\sigma_Y^2+\theta_Y^2)\\
+n\ge\lambda_0\left(\frac{\sigma}{\xi}\right)^2\text{ }(7)
+&=\lambda_0\frac{\lambda(\theta_Y^2+\sigma_Y^2)}{(\lambda\theta_Y)^2}
+=\frac{\lambda_0}{\lambda}\left(1+\left(\frac{\sigma_Y}{\theta_Y}\right)^2\right)
+\end{align*}
+
+Full credibility conditions in terms of the expected total number of claims in the past is:
+\[n\lambda\ge\lambda_0\left(1+\left(\frac{\sigma_Y}{\theta_Y}\right)^2\right)\]
+
+In terms of the expected total amount of claims in the past:
+\[n\lambda\theta_Y\ge\lambda_0\left(\theta_Y+\frac{\sigma_Y^2}{\theta_Y}\right)\]
+\end{example}
+
+\subsection{Partial Credibility}
+If full credibility conditions do not hold we assign partial credibility to the claims.  We define partial credibility as:
+\[P_c=Z\bar{X}+(1-Z)M\]
+
+It is just the weighted average of the average claim size $\bar{X}$ and the manual premium $M$ which is determined by market data to estimate the loss for exposure unit $n+1$.  We have the conditions $0\le Z\le 1$ and $M>0$.
+
+How do we determine the credibility factor $Z$?  How about we choose $Z$ such that is minimizes the variance of the partial credibility random variables:
+\[\var{P_c}=Z^2\var{\bar{X}}=Z^2\frac{\sigma^2}{n}\]
+
+In full credibility we have the equivalent condition that:
+\[\var{\bar{X}}=\frac{\sigma^2}{n}\le\frac{\xi^2}{\lambda_0}\]
+
+We can set
+\[\var{P_c}=\frac{\xi^2}{\lambda_0}=Z^2\frac{\sigma^2}{n}\]
+
+Isolating for $Z$ we arrive at:
+\[Z=\frac{\xi}{\sigma}\sqrt{\frac{n}{\lambda_0}}\]
+
+We only use this particular calculation of $Z$ if $Z\le 1$, otherwise we would assign more than full credibility to the claims.  So we use the condition that:
+\[Z=\min\left\{\frac{\xi}{\sigma}\sqrt{\frac{n}{\lambda_0}},1\right\}\]
+
+\begin{example}
+Past data $X_1,\ldots,X_n$ are identically and independentally distributed and are compound Poisson with exponential claim sizes.  If the credibility factor based on claim numbers is $0.8$.  Determine the credibility factor based on total claims given $\lambda_0=1082.41$
+
+We can summarize the information given to us, so we know $X_j=\sum\limits_{j=1}^NY_j$ is a compound random variables with claim size $Y_j\sim \text{Exp}(?)$ and claim number $N\sim \text{Poi}(\lambda)$.  So based on the claim number we have that:
+\begin{align*}
+\xi&=\ex{N}=\lambda\\
+\sigma^2&=\var{N}=\lambda\\
+Z&=\frac{\xi}{\sigma}\sqrt{\frac{n}{\lambda_0}}=0.8
+\end{align*}
+
+Based on the total total claims our quantites are:
+\begin{align*}
+\xi&=\ex{X_j}=\lambda\theta_Y\\
+\sigma^2&=\var{X_j}=\lambda(\theta_Y^2+\sigma_Y^2)\\
+Z&=\frac{\xi}{\sigma}\sqrt{\frac{n}{\lambda_0}}=0.566
+\end{align*}
+\end{example}
+
+\section*{Lecture 10}
+Recall that if $X_j=\sum\limits_{j=1}^NY_j$ is a compound random variable, when evaluating the credibility factor $Z$ we have two different critera.
+
+For credibility on number of claims we have:
+\begin{align*}
+\xi&=\ex{N}\\
+\sigma^2&=\var{N}
+\end{align*}
+
+For credibility on amount of claims we have:
+\begin{align*}
+\xi&=\ex{X_j}\\
+\sigma^2&=\var{X_j}
+\end{align*}
+
+\subsection{Greatest Accuracy Credibility}
+We define the Bayesian premium to the losses in past/observed $\underbrace{\text{exposure units}}_{\text{years/policyholders}}$ $X_1,\ldots,X_n$.  We are interested in the loss of the next exposure unit $X_{n+1}$.  We assume that given $\Theta=\theta$ that $X+1,\ldots,X_n,X_{n+1}$ are conditionally independent and have the same probability distribution function $f(x\mid\theta)$.  $\Theta$ has prior distribution $\pi(\theta)$.
+
+Given these assumptions we have some formulas for these important quantities:
+\enuma{
+\item The posterior of $\Theta$ is given as $X_1=x_1,\ldots,X_n=x_n$ is:
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_n)&=\frac{\left(\prod\limits_{i=1}^nf(x_i\mid\theta)\right)\pi(\theta)}{\int_{\forall\theta}\left(\prod\limits_{i=1}^nf(x_i\mid\theta)\right)\pi(\theta)d\theta}
+\propto \left(\prod_{i=1}^nf(x_i\mid\theta)\right)\pi(\theta)
+\end{align*}
+
+\item The conditional probability distribution function or probability function of $X_{n+1}$ given $X_1=x_1,\ldots,X_n=x_n$ is:
+\begin{align*}
+f(x_{n+1}\mid x_1,\ldots,x_n)&=\frac{\int_{\forall\theta}\left(\prod\limits_{i=1}^{n+1}f(x_i\mid\theta)\right)\pi(\theta)d\theta}{\int_{\forall\theta}\left(\prod\limits_{i=1}^nf(x_i\mid\theta)\right)\pi(\theta)d\theta}
+=\int_{\forall\theta}f(x_{n+1}\mid\theta)\pi(\theta\mid x_1,\ldots,x_n)d\theta
+\end{align*}
+This is known as the predictive distribution function of $X_{n+1}$ given $X_1=x_1,\ldots,X_n=x_n$
+
+\item The hypothetical mean or individual premium for exposure unit $n+1$ is:
+\[\mu_{n+1}(\theta)=\ex{X_{n+1}\mid\Theta=\theta}\]
+\item The pure premium or collective premium for unit $n+1$ is:
+\[\mu_{n+1}=\ex{X_{n+1}}=\ex{\condex{X_{n+1}}{\Theta}}=\ex{\mu_{n+1}(\Theta)}\]
+
+\item The Bayesian premium for unit $n+1$ is:
+\begin{align*}
+\ex{X_{n+1}\mid x_1,\ldots,x_n}
+&=\int_{\forall x_{n+1}}x_{n+1}f(x_{n+1}\mid x_1,\ldots,x_n)dx_{n+1}\\
+&=\int_{\forall x_{n+1}}x_{n+1}\int_{\forall\theta}f(x_{n+1}\mid\theta)\pi(\theta\mid x_1,\ldots,x_n)d\theta dx_{n+1}\\
+&=\int_{\forall\theta}\left(\int_{\forall x_{n+1}}x_{n+1}f(x_{n+1}\mid\theta)dx_{n+1}\right)\pi(\theta\mid x_1,\ldots,x_n)d\theta\\
+&=\int_{\forall\theta}\mu_{n+1}(\theta)\pi(\theta\mid x_1,\ldots,x_n)d\theta
+\end{align*}
+}
+
+\begin{example}
+The number of claims for a policyholder in year $j$ is $X_j$, $j=1,2$.  Given $\Theta=\theta$, $X_j$ are independent and have the same probability function:
+\begin{align*}
+P(X=1\mid\Theta=\theta)&=1-\theta\\
+P(X=2\mid\Theta=\theta)&=\theta
+\end{align*}
+the prior distribution $\Theta\sim \text{Beta}(2,3)$, $0<\theta<1$, what is the distribution function of $X_2\mid X_1=2$?
+
+\begin{align*}
+P(X_2=2\mid X_1=2)
+&=\frac{P(X_1=2,X_2=2)}{P(X_1=2)}
+=\frac{\int_0^1P(X_1=2\mid\theta)P(X_2=2\mid\theta)\pi(\theta)d\theta}{\int_0^1P(X_1=2\mid\theta)\pi(\theta)d\theta}
+=\frac{E\left[\Theta^2\right]}{E\left[\Theta\right]}
+=\frac{1}{2}
+\end{align*}
+
+There is only one other value that $X_2$ can take on, therefore we have the distribution function:
+\[P(X_2=x\mid X_1=2)=\begin{cases}
+\frac{1}{2} & x=2\\
+1-\frac{1}{2}=\frac{1}{2} & x=1
+\end{cases}\]
+
+We can now calculate the Bayesian premium:
+\[\condex{X_2}{X_1=2}=1\cdot\frac{1}{2}+2\cdot\frac{1}{2}=\frac{3}{2}\]
+\end{example}
+
+\section*{Lecture 11}
+\begin{example}
+Let $X_j$ be the loss in year $j$, $X_j\mid\Theta=\theta\sim \text{Uni}(20,20+\theta)$ for $j=1,\ldots,11$, $\Theta\sim \text{Uni}(15,25)$ and we observed $x_1,\ldots,x_{10}$ with $x_{(1)}=21$ and $x_{(10)}=40$.  Find the Bayesian premium for year $11$.
+
+\begin{align*}
+\condex{X_{11}}{x_1,\ldots,x_{10}}
+&=\int_{\forall\theta}\mu_{11}(\theta)\pi(\theta\mid x_1,\ldots,x_{10})d\theta
+\end{align*}
+
+So we need to find the posterior distribution of $\Theta$ and the hypothetical mean or individual premium, let's start with the posterior:
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_{10})&\propto\left(\prod_{i=1}^{10}f(x_i\mid\theta)\right)\pi(\theta)
+=\left(\prod_{i=1}^{10}\frac{1}{\theta}\right)\frac{1}{10}
+\propto \frac{1}{\theta^{10}}
+\end{align*}
+
+We have to be careful with our constraints though.  Given that our largest value for the data $x_{(10)}=40$, this means our minimum bound on $\theta=20$ so that $x_j\in(20,20+\theta)$.  So we arrive at the posterior:
+\[\pi(\theta\mid x_1,\ldots, x_{10})=\begin{cases}
+c\cdot\frac{1}{\theta^{10}} & 20\le\theta\le 25\\
+0 & \text{otherwise}
+\end{cases}\]
+
+It's pretty easy to find the constant $c$, integrating over the range of the probability distribution function will equal $1$ and you can solve.  we will now go to find the hypothetical mean or individual preium for year $11$.
+
+\begin{align*}
+\mu_{11}(\theta)
+&=\ex{X_{11}\mid\Theta=\theta}
+=\frac{40+\theta}{2}
+\end{align*}
+
+With all this we can finally go back to our formula for the Bayesian premium:
+
+\begin{align*}
+\ex{[X_{11}\mid x_1,\ldots,x_{10}}
+&=\int_{\forall\theta}\mu_{11}(\theta)\pi(\theta\mid x_1,\ldots,x_{10})d\theta
+=\int_{20}^{25}\left(\frac{40+\theta}{2}\right)\frac{c}{\theta^{10}}d\theta
+=\ldots
+=30.81
+\end{align*}
+\end{example}
+
+\subsection{Die And Spinner Model}
+Let's say you have a pair of standard dice $D_1,D_2$ and each side of the dice will be marked or unmarked.  Additionally you have a pair of spinners $S_1,S_2$ which have $5$ equal sections with amounts labelled on each section.
+
+If a marked side of the die is rolled then it represents an insurance claim, otherwise no claim.  The spinners represent the claim amounts.
+
+\begin{tabular}{cccc}
+$P_{D_1}(d)=\begin{cases}
+\frac{2}{3} & d=0\\
+\frac{1}{3} & d=1
+\end{cases}$&
+$P_{D_2}(d)=\begin{cases}
+\frac{1}{2} & d=0\\
+\frac{1}{2} & d=1
+\end{cases}$&
+$P_{S_1}(s)=\begin{cases}
+\frac{3}{5} & s=5\\
+\frac{2}{5} & s=10
+\end{cases}$&
+$P_{S_2}(s)=\begin{cases}
+\frac{1}{5} & s=5\\
+\frac{4}{5} & s=10
+\end{cases}$
+\end{tabular}
+
+Let $X_j$ be the total amount of claims in year $j$, $j=1,2$.
+
+Let $\Theta$ be all possible combinations of dice and spinners.  More specifically we can define the the set:
+\[\Theta=\left\{\underbrace{(D_1,S_1)}_{\theta_{11}},\{\underbrace{(D_1,S_2)}_{\theta_{12}},\{\underbrace{(D_2,S_1)}_{\theta_{21}},\{\underbrace{(D_2,S_2)}_{\theta_{22}}\right\}\]
+
+Even though these distributions are discrete we can still similarly calculate all the quantites associated with continuous random variables.
+
+\enum{
+\item The probability function of $\Theta$ is:
+\[P(\Theta=\theta_{ij})=\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}\text{ }i,j=1,2,\]
+Since each die and spinner is equally likely to be chosen.
+
+\item The conditional probability function of $X_j$ given $\Theta=\theta$ is $f(x\mid\theta)=P(X_j=x\mid\Theta=\theta)$ where $x=\left\{0,5,15\right\}$ and $\theta=\left\{\theta_{11},\theta_{12},\theta_{21},\theta_{22}\right\}$.  There's an awful lot of these probabilities so we will only calculate a couple:
+\begin{align*}
+f(0\mid\theta_{11})
+&=P(X_j=0\mid\Theta=\theta_{11})
+=\frac{4}{6}\\
+f(5\mid\theta_{11})
+&=\frac{1}{3}\cdot\frac{3}{5}
+=\frac{1}{5}\\
+f(10\mid\theta_{11})
+&=\frac{1}{3}\cdot\frac{2}{5}
+=\frac{2}{15}
+\end{align*}
+
+\item How about the unconditional distribution of $X_j$?  We just go by definition:
+\begin{align*}
+P(X_1=5)
+&=\sum\limits_{i,j=1,2}P(X_1=5\mid\Theta=\theta_{ij})P(\Theta=\theta_{ij})\\
+&=\frac{1}{4}(f(5\mid\theta_{11})+f(5\mid\theta_{12})+f(5\mid\theta_{21})+f(5\mid\theta_{22}))\\
+&=\frac{1}{4}\left(\frac{3}{15}+\frac{1}{15}+\frac{3}{10}+\frac{1}{10}\right)
+=\frac{1}{6}
+\end{align*}
+
+\item With this information we can even go to find the posterior distribution of $\Theta$ given $X_1=5$:
+\begin{align*}
+\pi(\theta_{11}\mid 5)
+&=\frac{f(5\mid\theta_{11})\pi(\theta_{11})}{f_{X_1}(5)}
+=\frac{\frac{3}{15}\cdot\frac{1}{4}}{\frac{2}{12}}
+=\frac{6}{20}
+\end{align*}
+Similarly we have:
+\begin{align*}
+\pi(\theta_{12}\mid 5)&=\frac{2}{20}\\
+\pi(\theta_{21}\mid 5)&=\frac{9}{20}\\
+\pi(\theta_{22}\mid 5)&=\frac{3}{20}
+\end{align*}
+
+\item  We can find the individual premium for year $2$.
+\begin{align*}
+\mu_2(\theta_{11})&=\condex{X_2}{\Theta=\theta_{11}}
+=\sum\limits_{\forall x_2}x_2f(x_2\mid\theta_{11})
+=0\cdot\frac{4}{6}+5\cdot\frac{2}{6}\cdot\frac{3}{5}+10\cdot\frac{2}{6}\cdot\frac{2}{5}
+=\frac{7}{3}
+\end{align*}
+
+Similarly we have:
+\begin{align*}
+\mu_2(\theta_{12})&=3\\
+\mu_2(\theta_{21})&=\frac{7}{2}\\
+\mu_2(\theta_{22})&=\frac{9}{2}
+\end{align*}
+
+\item The pure premium for year $2$ is:
+\begin{align*}
+\mu_2
+&=\ex{X_2}
+=\ex{\mu_2(\Theta)}
+=\sum\limits_{i,j=1,2}\mu_2(\theta_{ij})\pi(\theta_{ij})
+=\frac{1}{4}\left(\frac{7}{3}+3+\frac{7}{2}+\frac{9}{2}\right)
+=\frac{10}{3}
+\end{align*}
+
+\item The Bayesian premium for year $2$ given $X_1=5$ is:
+\begin{align*}
+\condex{X_2}{X_1=5}
+&=\sum\limits_{i,j}\mu_2(\theta_{ij})\pi(\theta_{ij}\mid 5)
+=\frac{7}{3}\cdot\frac{6}{20}+3\cdot\frac{2}{20}+\frac{7}{2}\cdot\frac{9}{20}+\frac{9}{2}\cdot\frac{3}{20}
+=\frac{13}{4}
+\end{align*}
+
+Alternatively in the discrete case we can calculate this directly from definition since the conditional probability function is easy to calculate
+
+\begin{align*}
+\sum\limits_{\forall x_2}x_2f(x_2\mid 5)
+&=0\cdot f(0\mid 5)+5\cdot f(5\mid 5)+10\cdot f(10\mid 5)
+=\frac{13}{4}\\
+\end{align*}
+}
+
+\section*{Lecture 12}
+\begin{example}
+Let $N_j$ be the total number of claims in year $j$ for a group policyholder that has $m_j$ members in year $j$, $j=1,\ldots,n,n+1$.
+
+$N_j\mid\Theta=\theta\sim \text{Poi}(m_j\theta)$ and are conditionally independent, $\Theta\sim \text{Gam}(\alpha,\beta)$.
+
+Then $X_j=\frac{N_j}{m_j}$ is the average number of claims per year.
+
+Given $X_1=x_1,\ldots,X_n=x_n$, use the Bayesian premium to estimate the expected number of claims per member in year $n+1$.
+
+\begin{align*}
+f_j(x_j\mid\theta)&=P(X_j=x_j\mid\Theta=\theta)
+=P(Nj=x_jm_j\mid\Theta=\theta)
+=\frac{e^{-m_j\theta}(m_j\theta)^{m_jx_j}}{(m_jx_j)!}
+\end{align*}
+
+$X_j$ can take possible values $X_j=\frac{N_j}{m_j}\in\left\{\frac{0}{m_j},\frac{1}{m_j},\frac{2}{m_j},\ldots\right\}$ so $X-j$ is discrete but not necessarily a Poisson.
+
+Now we find the posterior distribution:
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_n)&\propto\left(\prod_{i=1}^nf(x_i\mid\theta)\right)\pi(\theta)
+\propto\left(\prod_{i=1}^ne^{-m_i\theta}(m_i\theta)^{m_ix_i}\right)\left(e{\alpha-1}e^{-\frac{\theta}{\beta}}\right)
+\propto e^{-\theta\left(\frac{1}{\beta}+\sum\limits_{i=1}^nm_i\right)\theta^{\alpha-1+\sum\limits_{i=1}^nm_ix_i}}
+\end{align*}
+
+So we just recognize the posterior distribution follows a Gamma:
+\[\Theta\mid X_1=x_1,\ldots,X_n=x_n\sim \text{Gam}\left(\alpha+\sum\limits_{i=1}^nm_jx_j,\frac{1}{\beta^{-1}+\sum\limits_{i=1}^nm_j}\right)\]
+
+We now go to find the hypothetical mean or individual premium:
+\begin{align*}
+\mu_{m+1}(\theta)
+&=\condex{X_{n+1}}{\Theta=\theta}
+=\frac{1}{m_{n+1}}\condex{N_{n+1}}{\Theta=\theta}
+=\theta
+\end{align*}
+
+Now to find the Bayesian premium, however since the hypothetical mean is just $\theta$ this just becomes the expected value of the posterior distribution:
+\begin{align*}
+\condex{X_{n+1}}{x_1,\ldots,x_n}
+=\int_{\forall\theta}\theta\pi(\theta\mid x_1,\ldots,x_n)d\theta
+=\left(\alpha+\sum\limits_{i=1}^nm_jx_j\right)\frac{1}{\beta^{-1}+\sum\limits_{i=1}^nm_j}
+\end{align*}
+
+This expected value is pretty messy so we will introduce some other variables to clean it up a little bit:
+\begin{align*}
+m&=\sum\limits_{i=1}^nm_i\\
+\bar{X}^\ast&=\sum\limits_{j=1}^n\frac{m_j}{m}X_j\\
+Z&=\frac{m}{m+\beta^{-1}}
+\end{align*}
+
+The Bayesian premium then becomes:
+\[\condex{X_{n+1}}{x_1,\ldots,x_n}=\alpha\beta(1-Z)+Z\bar{X}^\ast\]
+
+The $\alpha\beta$ term comes from the following result:
+\begin{align*}
+\ex{\Theta}
+&=\ex{\mu_{n+1}(\Theta)}
+=\alpha\beta
+=\ex{X_{n+1}}
+\end{align*}
+\end{example}
+
+\subsection{Credibility Premium}
+Another method to estimate $X_{n+1}$ is we can use a linear combination of past observations $\alpha_0+\alpha_1X_1+\ldots+\alpha_nX_n$.  To fit it we can minimize the mean square error between our model and the estimate.
+\[Q=Q(\alpha_0,\alpha_1,\ldots,\alpha_n)=E\left[\left(X_{n+1}-(\alpha_0+\alpha_1X_1+\ldots+\alpha_nX_n)\right)^2\right]\]
+
+We need to find estimates $\hat{\alpha}_0,\hat{\alpha}_1,\ldots,\hat{\alpha}_n$ such that:
+\[Q(\hat{\alpha}_0,\hat{\alpha}_1,\ldots,\hat{\alpha}_n)=\min_{\forall\alpha_i, i=0,\ldots,n}Q(\alpha_0,\alpha_1,\ldots,\alpha_n)\]
+
+We can take $n+1$ partial derivatives to optimize this measure.  This is not as bad as it sounds as most of these derivatives we will see have the same type of form and give us a more simplistic condition.
+
+For $i=0$ we have:
+\begin{align*}
+\frac{\partial}{\partial\alpha_0}Q
+&=\ex{2(X_{n+1}-\alpha_0-\alpha_1X_1\ldots-\alpha_nX_n)(-1)}=0\\
+\rightarrow \ex{X_{n+1}}&=\alpha_0+\alpha_1\ex{X_1}+\ldots+\alpha_n\ex{X_n}
+=\alpha_0+\sum\limits_{i=j}^n\alpha_i\ex{X_j}\text{ }(1)
+\end{align*}
+
+For $i=1,\ldots,n$ we have:
+\begin{align*}
+\frac{\partial}{\partial\alpha_i}&=\ex{2(X_{n+1}-\alpha_0-\alpha_1X_1-\ldots-\alpha_nX_n)(-X_i)}=0\\
+\rightarrow \ex{X_{n+1}X_i}&=\alpha_0\ex{X_i}+\alpha_1\ex{X_1X_2}+\ldots+\alpha_i\ex{X_i^2}+\ldots+\alpha_n\ex{X_nX_i}\\
+&=\alpha_0\ex{X_i}+\sum\limits_{i=1}^n\alpha_i\ex{X_iX_j}\text{ }(2)
+\end{align*}
+
+Now if we take $(2)-(1)\cdot \ex{X_i}$ we get:
+\[\rightarrow \cov{X_{n+1},X_i}=\sum\limits_{j=1}^n\alpha_j\cov{X_i,X_j}\text{ }(3)\]
+
+Equations $(1)$ and $(3)$ are called the ``normal equations''.  The solutions $\hat{\alpha}_0,\hat{\alpha}_0,\ldots,\hat{\alpha}_0$ and $\hat{\alpha}_0+\sum\limits_{j=1}^n\hat{\alpha}_jX_j$ are called the premium for unit $n+1$.
+
+Note that the credibility premium $\hat{\alpha}_0+\sum\limits_{j=1}^n\hat{\alpha}_jX_j$ is also the best linear estimation for $\condex{X_{n+1}}{X_1,\ldots X_n}$ and $\mu_{n+1}(\Theta)$.
+
+\section*{Lecture 13}
+Recall that our credibility premium is a linear combination of of past claims:
+\[\alpha_0+\alpha_1X_1+\ldots+\alpha_nX_n\]
+
+We want to minimize the difference between our estimate and the model:
+\[\ex{\brac{X_{n+1}-\brac{\alpha_0+\alpha_1X_1+\ldots+\alpha_nX_n}}^2}\]
+
+$\tilde{\alpha}_0, \tilde{\alpha}_1,\ldots, \tilde{\alpha}_n$ are the solutions that minimize the model error, and it can be shown with some simplification that they have to satisfy the following normal equations:
+\begin{align}
+\ex{X_{n+1}}&=\alpha_0+\sum_{j=1}^n\alpha_j\ex{X_j}\\
+\cov{X_{n+1},X_i}&=\sum_{j=1}^n\alpha_j\cov{X_i,X_j}\text{ }i=1,2,\ldots,n
+\end{align}
+
+\begin{theorem}
+If $X_j\mid\Theta$, $j=1,2,\ldots, n, n+1$ are independent and $\ex{X_j}=\mu$, $\var{X_j}=\sigma^2$ and $\cov{X_i,X_j}=\rho\sigma^2$, $i\ne j$ and $-1<\rho<1$.
+
+Then the credibility premium for period $n+1$ is:
+\[Z\bar{X}+(1-Z)\mu \text{ with } Z=\frac{n\rho}{1-\rho+\rho}\]
+\end{theorem}
+
+\section*{Lecture 14}
+\begin{itemize}
+\item Bayesian premium
+\[\condex{X_{n+1}}{X_1=x_1,\ldots,X_nx_n}\]
+\item Credibility premium
+\[\tilde{\alpha}_0+\sum_{j=1}^n\tilde{\alpha}_jX_j\]
+\item B\"{u}hlmann Model
+
+Given $\Theta$, $X_1,\ldots, X_{n+1}$ are independent, then:
+\begin{align*}
+\condex{X_j}{\Theta}&=\mu(\Theta)\\
+\condvar{X_j}{\Theta}&=v(\Theta)\text{ }\forall j
+\end{align*}
+
+\begin{center}
+\begin{tabular}{lll}
+$\mu=\ex{\mu(\Theta)}$&$v=\ex{v(\Theta)}$&$a=\var{\mu(\Theta)}$\\
+$\mu=\ex{X_j}$&$\var{X_j}=v+a$&$\cov{X_i,X_j}=a\text{ for } i\ne j$
+\end{tabular}
+\end{center}
+
+The B\"{u}hlmann credibility premium is:
+\[Z\bar{X}+(1-Z)\mu\]
+where and $k=\frac{v}{a}$ and $Z=\frac{n}{n+k}$.
+\end{itemize}
+
+\begin{example}
+Given $\Theta$, $X_j\mid\Theta=\theta\sim\text{Bin}(1,\theta)$ and $\Theta\sim\text{Beta}(\alpha,\beta)$.
+\enum{
+\item We can calculate the B\"{u}hlmann premium:
+\begin{align*}
+\mu&=\ex{\mu(\Theta)}
+=\ex{\condex{X_j}{\Theta}}
+=\ex{\Theta}
+=\alpha\beta\\
+v&=\ex{v(\Theta)}
+=\ex{\condvar{X_j}{\Theta}}
+=\ex{\Theta(1-\Theta)}
+=\ex{\Theta}-\ex{\Theta^2}
+=\ex{\Theta}-\var{\Theta}+(\ex{\Theta})^2
+=\ldots\\
+&=\frac{\alpha\beta}{(\alpha+\beta)(1+\alpha+\beta)}\\
+a&=\var{\mu(\Theta)}
+=\var{\condex{X_j}{\Theta}}
+=\var{\Theta}
+=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}\\
+k&=\frac{v}{a}
+=\alpha+\beta\\
+Z&=\frac{n}{n+k}
+=\frac{n}{n+\alpha+\beta}\\
+\end{align*}
+From calculating all the values $\mu, v, a$ we can now get the B\"{u}hlmann premium:
+\[\text{B\"{u}hlmann Premium}
+=Z\bar{X}+(1-Z)\mu
+=\frac{n}{n+\alpha+\beta}\bar{X}+\left(1-\frac{n}{n+\alpha+\beta}\right)\frac{\alpha}{\alpha+\beta}\]
+
+\item How about we find the Bayesian premium:
+\begin{align*}
+\pi(\theta\mid x_1,\ldots,x_n)
+&\propto\prod_{j=1}^nf(x_j\mid\theta)\pi(\theta)
+=\prod_{j=1}^n\theta^{x_j}(1-\theta)^{1-x_j}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\
+&=\theta^{\alpha-1\sum\limits_{j=1}^nx_j}(1-\theta)^{\beta-1+\sum\limits_{j=1}^n1-x_j}
+\end{align*}
+
+Therefore the posterior distribution is Beta$\left(\alpha+\sum\limits_{j=1}^nx_j,\beta+n-\sum\limits_{j=1}^nx_j\right)$.  Knowing this we can continue to calculate the Bayesian premium:
+\begin{align*}
+\mu_{n+1}(\theta)&=\condex{X_{n+1}}{\Theta=\theta}=\theta\\
+\condex{X_{n+1}}{X_1=x_1,\ldots,X_n=x_n}&=\int_0^1\theta\pi(\theta\mid x_1,\ldots,x_n)d\theta
+=\condex{\Theta}{X_1=x_1,\ldots,X_n=x_n}\\
+&=\frac{\alpha^\ast}{\alpha^\ast+\beta^\ast}
+=\frac{n\bar{x}+\alpha}{\alpha+\beta+n}
+\end{align*}
+}
+We say this is an exact credibility since:
+\[\text{B\"{u}hlmann premium}=\text{Bayesian premium}\]
+\end{example}
+
+\begin{example}
+Let's say we have $3$ spinners having $6$ equal sections and their respective probability functions are:
+
+\begin{tabular}{ccc}
+$P_{S_1}(s)=\begin{cases}
+\frac{1}{3} & s=0\\
+\frac{1}{3} & s=12\\
+\frac{1}{3} & s=48\\
+\end{cases}$&
+$P_{S_2}(s)=\begin{cases}
+\frac{1}{2} & s=0\\
+\frac{1}{3} & s=12\\
+\frac{1}{6} & s=48\\
+\end{cases}$&
+$P_{S_3}(s)=\begin{cases}
+\frac{2}{3} & s=0\\
+\frac{1}{6} & s=12\\
+\frac{1}{6} & s=48\\
+\end{cases}$
+\end{tabular}
+A spinner is selected at random and a $0$ is obtained on the first spin.
+\enuma{
+\item Determine the B\"{u}hlmann estimate of the expected value of the second spin using the same spinner
+\item Determine the Bayesian estimate of the second spin using the same spinner
+}
+
+Let $X_j$ be the value of the $j$th spin given $X_1=0$.  Let $\Theta$ be a random variable with $\Theta=\left\{\theta_1,\theta_2,\theta_3\right\}$ where $\theta_j$ is the event that $S_j$ is selected.
+\enuma{
+\item 
+\begin{align*}
+\mu(\theta_1)&=\condex{X_j}{\Theta=\theta_1}
+=\frac{1}{3}\cdot 12+\frac{1}{3}\cdot 48
+=20\\
+\mu(\theta_2)&=\condex{X_j}{\Theta=\theta_2}
+=\frac{1}{3}\cdot 12+\frac{1}{6}\cdot 48
+=12\\
+\mu(\theta_3)&=\condex{X_j}{\Theta=\theta_3}
+=\frac{1}{6}\cdot 12+\frac{1}{6}\cdot 48
+=10\\
+\mu&=\ex{\mu(\Theta)}
+=\ex{\condex{X_j}{\Theta}}
+=\sum_{i=1}^3\condex{X_j}{\Theta=\theta_i}\p{\Theta=\theta_i}
+=\frac{1}{3}\sum_{i=1}^3\mu(\theta_i)
+=\frac{1}{3}(20+12+10)\\
+&=14\\
+v(\theta_1)&=\condvar{X_j}{\Theta=\theta_1}
+=\condex{X_j^2}{\Theta=\theta_1}-(\condex{X_j}{\Theta=\theta_1})^2
+=\frac{1}{3}\cdot 12^2+\frac{1}{3}\cdot 48^2-20^2
+=416\\
+v(\theta_2)&=\condvar{X_j}{\Theta=\theta_2}
+=\condex{X_j^2}{\Theta=\theta_2}-(\condex{X_j}{\Theta=\theta_2})^2
+=\frac{1}{3}\cdot 12^2+\frac{1}{6}\cdot 48^2-12^2
+=288\\
+v(\theta_3)&=\condvar{X_j}{\Theta=\theta_3}
+=\condex{X_j^2}{\Theta=\theta_3}-(\condex{X_j}{\Theta=\theta_3})^2
+=\frac{1}{6}\cdot 12^2+\frac{1}{6}\cdot 48^2-10^2
+=308\\
+v&=\ex{v(\Theta)}
+=\sum_{i=1}^3\condvar{X_j}{\Theta=\theta_i}\p{\Theta=\theta_i}
+=\frac{1}{3}\sum_{i=1}^3v(\theta_i)
+=\frac{1}{3}\brac{416+288+308}
+=\frac{1012}{3}\\
+a&=\var{\mu(\Theta)}
+=\var{\condex{X_j}{\Theta}}
+=\ex{\condex{X_j^2}{\Theta}}-\ex{\brac{\condex{X_j}{\Theta}}^2}\\
+&=\frac{1}{3}\brac{20^2+12^2+10^2}-14^2
+=\frac{56}{3}\\
+k&=\frac{v}{a}
+=\frac{253}{14}\\
+Z&=\frac{n}{n+k}
+=\frac{1}{1+\frac{253}{14}}
+\end{align*}
+The average of our past experiences is $\bar{X}=0$, since the previous spinner trial was zero, and we only had one previous trial $n=1$.
+\[\text{B\"{u}hlmann premium}=Z\bar{X}+(1-Z)\mu=13.27\]
+
+\item
+\begin{align*}
+\condex{X_2}{X_1=0}&=\sum_{i=1}^3\mu(\theta_i)\pi(\theta_i\mid X_1=0)\\
+\pi(\theta_1\mid X_1=0)&=P(\Theta=\theta_1\mid X_1=0)
+=\frac{P(\Theta=\theta_1,X_1=0)}{P(X_1=0)}=\frac{2}{9}\\
+\pi(\theta_2\mid X_1=0)&=P(\Theta=\theta_1\mid X_1=0)
+=\frac{P(\Theta=\theta_2,X_1=0)}{P(X_1=0)}=\frac{3}{9}\\
+\pi(\theta_3\mid X_1=0)&=P(\Theta=\theta_1\mid X_1=0)
+=\frac{P(\Theta=\theta_3,X_1=0)}{P(X_1=0)}=\frac{4}{9}\\
+\condex{X_2}{X_1=0}&=20\cdot\frac{2}{9}+12\cdot\frac{3}{9}+10\cdot\frac{4}{9}
+=12.89
+\end{align*}
+}
+
+We can see that $13.27\ne 12.89$.  The B\"{u}hlmann premium is not equal to the Bayes premium, therefore this is not an exact credibility measure.
+\end{example}
+
+\section*{Lecture 15}
+For the Bayesian estimate to work, we need to make assumptions for the distributions of $X_j\mid\Theta$ and $\Theta$.  In our calculations of the credibility premium ew now relax these assumptions to find an estimate from a linear combination of past experiences, $\tilde{\alpha}_0+\tilde{\alpha}_1X_1+\ldots+\tilde{\alpha}_nX_n$.
+
+\begin{theorem}
+B\"{u}hlmann model is just a special case of the credibility premium with the following quantities:
+\begin{align*}
+\condex{X_j}{\Theta}&=\mu(\Theta)\\
+\condvar{X_j}{\Theta}&=v(\Theta)\text{ }\forall j
+\end{align*}
+
+\begin{center}
+\begin{tabular}{lll}
+$\mu=\ex{\mu(\Theta)}$&$v=\ex{v(\Theta)}$&$a=\var{\mu(\Theta)}$\\
+$\mu=\ex{X_j}$&$\var{X_j}=v+a$&$\cov{X_i,X_j}=a\text{ for } i\ne j$
+\end{tabular}
+\end{center}
+
+The B\"{u}hlmann credibility premium is:
+\[Z\bar{X}+(1-Z)\mu\]
+where and $k=\frac{v}{a}$ and $Z=\frac{n}{n+k}$.
+\end{theorem}
+
+We will now introduce a new credibility premium model, the B\"{u}hlmann-Straub model.  This has some additional assumptions versus just the B\"{u}hlmann model.  Given $\Theta$, $X_,1,\ldots,X_n,X_{n+1}$ are independent then for $j=1,2,\ldots,n,n+1$:
+\begin{center}
+\begin{tabular}{cc}
+$\condex{X_j}{\Theta}=\mu(\Theta)$&$\condvar{X_j}{\Theta}=\frac{v(\Theta)}{m_j}$
+\end{tabular}
+\end{center}
+We then denote the following quantities:
+\begin{center}
+\begin{tabular}{cc}
+$\mu=\ex{\mu(\Theta)}$&$a=\var{\mu(\Theta)}$\\
+$v=\ex{v(\Theta)}$&$k=\frac{v}{a}$
+\end{tabular}
+\end{center}
+In the B\"{u}hlmann-Straub model we can prove that these are the associated quantities for the credibility premium:
+\begin{align*}
+\ex{X_j}&=\ex{\condex{X_j}{\Theta}}
+=\mu\\
+\text{For }i\ne j\text{ }\cov{X_i,X_j}&=\ex{X_iX_j}-\ex{X_i}\ex{X_j}
+=\ex{\condex{X_iX_j}{\Theta}}-\mu^2
+=\ex{\condex{X_i}{\Theta}\condex{X_j}{\Theta}}-\mu^2
+=\ex{(\mu(\Theta))^2-\mu^2}\\
+&=\var{\mu(\Theta)}
+=a\\
+\var{X_j}&=\var{\condex{X_j}{\Theta}}+\ex{\condvar{X_j}{\Theta}}
+=\var{\mu(\Theta)}+\ex{\frac{v(\Theta)}{m_j}}
+=\frac{v}{m_j}+a
+\end{align*}
+
+Alternatively we can derive these from the normal equations.  Recall that:
+\begin{align*}
+\ex{X_{n+1}}&=\alpha_0+\sum_{j=1}^n\alpha_j\ex{X_j}\\
+\cov{X_i,X_{n+1}}&=\sum_{j=1}^n\alpha_j\cov{X_i,X_j}
+\end{align*}
+To simplify the arithmetic let:
+\[\sum\limits_{j=1}^nm_j=m\]
+\begin{align*}
+\mu&=\alpha_0+\sum_{j=1}^n\alpha_j\mu\\
+\rightarrow\sum_{j=1}^n\alpha_j&=1-\frac{\alpha_0}{\mu}\text{ }(1)\\
+a&=\sum_{j=1}^n\alpha_ja-\alpha_ia+\alpha_i\brac{\frac{v}{m_i}+a}
+=\sum_{j=1}^n\alpha_ja+\frac{v\alpha_i}{m_i}\text{ }i=1,2,\ldots,n\\
+\rightarrow \alpha_i&=\frac{am_i}{v}\brac{1-\sum_{j=1}^n\alpha_j}
+\underbrace{=}_{(1)}\frac{am_i}{v}\cdot\frac{\alpha_0}{\mu}
+=\frac{\alpha_0m_i}{k\mu}\text{ }(2)\\
+\rightarrow \sum_{i=1}^n\alpha_i&=\sum_{i=1}^n\frac{\alpha_0m_i}{k\mu}
+=\frac{\alpha_0}{k\mu}\sum_{i=1}^nm_i
+=\frac{\alpha_0m}{k\mu}\\
+\rightarrow \frac{\alpha_0m}{k\mu}&\underbrace{=}_{(1)}1-\frac{\alpha_0}{\mu}\\
+\rightarrow \alpha&=\frac{k}{m+k}\mu\text{ }(3)\\
+\rightarrow \alpha_i &\underbrace{=}_{(2)\&(3)}\frac{m_i}{m+k}\text{ }i=,1,\ldots,n
+\end{align*}
+
+Recall that the credibility premium is: 
+\[\alpha_0+\sum_{j=1}^n\alpha_jX_j\]
+
+We can now substitute the quantities we have calculated:
+\[\alpha_0+\sum_{j=1}^n\alpha_jX_j=\frac{k}{m+k}\cdot\mu+\sum_{j=1}^n\frac{m_j}{m+k}\cdot X_j\]
+
+We can see this better if we let the respective weights of the credibility be:
+\[Z=\frac{m}{m+k}\]
+
+We now get the credibility premium is:
+\[(1-Z)\mu+Z\bar{X}\]
+
+Where in this case $\bar{X}=\sum\limits_{j=1}^n\frac{m_jX_j}{m}$
+
+\subsection{B\"{u}hlmann-Straub Credibility Premium}
+\begin{example}
+Let $N_j$ be the number of claims in year $J$, there are $m_j$ members in the year $j$.  Given $\Theta=\theta$, $N_j\mid\Theta=\theta\sim\text{Poi}(m_j\theta)$ and $\Theta\sim\text{Gam}(\alpha,\beta)$.
+
+Determine the B\"{u}hlmann-Straub credibility premium for the average number of claims in the year $n+1$ per member.
+
+We need to use the relation that $X_j=\frac{N_j}{m_j}$:
+\begin{align*}
+\mu(\Theta)
+&=\condex{X_j}{\Theta}
+=\frac{1}{m_j}\condex{X_j}{\Theta}
+=\frac{1}{m_j}\cdot m_j\Theta
+=\Theta\\
+v(\Theta)&=\condvar{X_j}{\Theta}
+=\frac{1}{m_j^2}\condvar{N_j}{\Theta}
+=\frac{\Theta}{m_j}\\
+\mu&=\ex{\mu(\Theta)}
+=\ex{\Theta}
+=\alpha\beta\\
+v&=m_j\ex{v(\Theta)}
+=m_j\ex{\frac{\Theta}{m_j}}
+=\alpha\beta\\\
+a&=\var{\mu(\Theta)}
+=\var{\Theta}
+=\alpha\beta^2\\
+k&=\frac{v}{a}
+=\frac{1}{\beta}\\
+Z&=\frac{m}{m+k}
+=\frac{m\beta}{m\beta+1}\\
+\text{B\"{u}hlmann-Straub premium}&=\frac{m\beta}{m\beta+1}\bar{X}+\frac{1}{m\beta+1}\cdot\alpha\beta
+\end{align*}
+
+This happens to be an exact credibility, we can infer this since the Poisson distribution is part of the linear exponential family.
+\end{example}
+
+
+\section*{Lecture 16}
+\subsection{Exact Credibility}
+If the Bayesian premium is equal to another credibility criteria, we say that the premiums give an exact premium.  Recall the premiums are:
+\begin{align*}
+&\condex{X_{n+1}}{X_1,\ldots,X_n}\\
+&\tilde{\alpha}_0=\sum_{i=1}^n\tilde{\alpha}_iX_i
+\end{align*}
+
+There are a couple situations where it will always generate an exact credibility, we'll take a look at those right now.
+\enum{
+\item The credibility premium minimizes the following:
+\begin{align*}
+Q_1&=\ex{\brac{X_{n+1}-\alpha_0-\sum_{i=1}^nX_i}^2}\\
+Q_2&=\ex{\brac{\condex{X_{n+1}}{X_1,\ldots,X_n}-\alpha_0-\sum_{i=1}^n\alpha_iX_i}^2}
+\end{align*}
+If the Bayesian premium is a linear function of $X_1,\ldots,X_n$ then the Bayesian premium will be equal to the credibility premium.  Therefore it will be an exact credibility.
+
+\item  Suppose that $X_j\mid\Theta$ are independent $j=1,\ldots,n,n+1$ with the same probability distribution function or probability function $F(x_j\mid\theta)=\frac{p(x_j)e^{-\theta x_j}}{q(\theta)}$.  If the prior distribution is $\pi(\theta)=\frac{(q(\theta))^{-k}e^{-\mu k\theta}}{c(\mu,k)}$.
+
+Then $\condex{X_{n+1}}{X_1,\ldots,X_n}$ is a linear function of $X_1,\ldots,X_n$ and is equal to $Z\bar{X}+(1-Z)\mu$, $Z=\frac{n}{n+k}$, $\mu=\ex{X_{n+1}}$.
+
+Recall this is the linear exponential family, we can make a table of such distributions where the Bayesian premium generates exact premiums:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$f(x_j\mid\theta)$&$\pi(\theta)$&$\pi(\theta\mid x_1,\ldots,x_n)$&$f(x_{n+1})$&$\condex{X_{n+1}}{X_1,\ldots,X_n}$\\
+\hline
+Poisson & Gamma & Gamma & Negative Binomial & $Z\bar{X}+(1-Z)\mu$\\
+Exponential & Gamma & Gamma & Pareto & $Z\bar{X}+(1-Z)\mu$\\
+Normal & Normal & Normal & Normal & $Z\bar{X}+(1-Z)\mu$\\
+Bernoulli & Beta & Beta & Bernoulli & $Z\bar{X}+(1-Z)\mu$
+\end{tabular}
+\end{center}
+}
+
+\begin{example}
+Let's saw we have two urns, and each urn contains $10$ balls marked either $0$ or $1$.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+&Number of $0$ balls & Number of $1$ balls\\
+\hline
+Urn $1$ & $6$ & $4$\\
+Urn $2$ & $8$ & $2$
+\end{tabular}
+\end{center}
+
+An urn is selected at random and then three balls are selected at random with replacement from that urn.  The total of the marked numbers on the balls turns out to be $2$.
+
+We can calculate the B\"{u}hlmann premium for the number on the next ball selected from the same urn.  Let's define some random variables to make our job easier.
+
+Let $\Theta=\theta_i$ be the event that urn $i$ is selected.
+Let $Y_j=y_j$ be the event that the number on the $j$th trial has number $y_j$.
+
+\begin{center}
+\begin{tabular}{cc}
+$P(Y_i=0\mid\Theta=\theta_1)=0.6$ & $Y_i\mid\theta=\theta_1\sim \text{Bin}(1,0.4)$\\
+$P(Y_i=1\mid\Theta=\theta_1)=0.4$ & $Y_i\mid\Theta=\theta_2\sim\text{Bin}(1,0.2)$
+\end{tabular}
+\end{center}
+
+\begin{align*}
+\mu&=\ex{\mu(\Theta)}
+=\sum_{i=1}^2\mu(\theta_i)\pi(\theta_i)
+=\frac{1}{2}(0.4+0.2)
+=0.3\\
+v&=\ex{v(\Theta)}
+=\ex{(\mu(\Theta))^2}-\mu^2
+=\sum_{i=1}^n(\mu(\theta_i))^2\pi(\theta_i)-0.3^2\\
+&=\frac{1}{2}(0.4^2+0.2^2)-0.3^2=0.01\\
+k&=\frac{v}{a}
+=20\\
+Z&=\frac{n}{n+k}
+=\frac{3}{3+20}
+=\frac{3}{23}\\
+\text{B\"{u}hlmann premium}&=Z\bar{Y}+(1-Z)\mu
+=\frac{3}{23}\cdot\frac{2}{3}+\frac{20}{23}\cdot 0.3
+=0.348
+\end{align*}
+\end{example}
+
+\section*{Lecture 17}
+Recall the assumptions of our three crediblity models:
+\begin{itemize}
+\item Basyesian Model: $X_j\mid\Theta$ are independent, $j=1,\ldots,n,n+1$, $f_{X_j\mid\Theta}(x_j\mid\theta)$ and $\pi(\theta)$.  The credibility premium is:
+\[\condex{X_{n+1}}{X_1,\ldots,X_n}\]
+
+\item B\"{u}hlmann Model: 
+
+\begin{center}
+\begin{tabular}{ccc}
+$\condex{X_j}{\Theta=\theta}=\mu(\theta)$ & &$\condvar{X_j}{\Theta=\theta}=v(\theta)$\\
+$\mu=\ex{\mu(\Theta)}$ & $v=\ex{v(\Theta)}$ & $a=\var{\mu(\Theta)}$\\
+$k=\frac{v}{a}$ && $Z=\frac{n}{n+k}$\\
+\end{tabular}
+\end{center}
+
+From the following assumptions the  B\"{u}hlmann crediblity premium is:
+\[Z\bar{X}+(1-Z)\mu\]
+
+\item B\"{u}hlmann-Straub Model
+
+\begin{center}
+\begin{tabular}{ccc}
+$\condex{X_j}{\Theta=\theta}=\mu(\theta)$ & &$m_j\condvar{X_j}{\Theta=\theta}=v(\theta)$\\
+$\mu=\ex{\mu(\Theta)}$ & $v=\ex{v(\Theta)}$ & $a=\var{\mu(\Theta)}$\\
+$k=\frac{v}{a}$ && $Z=\frac{m}{m+k}$\\
+\end{tabular}
+\end{center}
+
+From the following assumptions the  B\"{u}hlmann-Straub crediblity premium is:
+\[Z\bar{X}+(1-Z)\mu\]
+\end{itemize}
+
+\section{Empirical Bayes Parameter Estimations For Credibility}
+When we relax the assumptions of the distribution the claims follow this is the method we go to.  We need some data and we will define it's structure.
+
+There are $r$ (group) policyholders.  For policyholder $i$ there are $n_i$ years of claim experience/observed exposure units.
+
+Let $X_{ij}$ be the average number of losses/claims for policyholder $i$ in year $j$, and $m_{ij}$ be the number of members for policyholder $i$ in year $j$.  It might be easier if we just illustrate how the data is layed out in a mock table.
+
+\begin{center}
+\begin{tabular}{c|c|ccccc}
+Observed Risk & (Group) Policyholder & $1$ & $\ldots$ & $i$ & $\ldots$ & $r$\\
+\hline
+(Year) Unit &  & & & & &\\
+$1$ & & $x_{11}$ & & $x_{i1}$ & & $x_{r1}$\\
+$2$ & & $x_{12}$ & & $x_{i2}$ & & $x_{r2}$\\
+$\vdots$ & & &  & $\ddots$ & &\\ 
+$n_i$ & & $x_{1n_i}$ & & $x_{in_i}$ & & $x_{rn_i}$
+\end{tabular}
+\end{center}
+
+Similarly sometimes the table flips the policyholder and unit sides, these are equivalent tables:
+
+\begin{center}
+\begin{tabular}{c|c|ccccc}
+Observed Risk & Unit (Year) & $1$ & $\ldots$ & $i$ & $\ldots$ & $j$\\
+\hline
+Policyholder (Group) & & & & & &\\
+$1$ & & $x_{11}$ & & $\ldots$ & & $x_{1j}$\\
+$\vdots$ & & & & & &\\
+$i$ & & $x_{i1}$ & & $\ddots$ & & $x_{ij}$\\ 
+$\vdots$ & & & & & &\\
+$r$ & & $x_{r1}$ & & $\ldots$ & & $x_{rj}$
+\end{tabular}
+\end{center}
+
+We need some more notation to make the calculations in the table a little cleaner.  Let the claim vector for average number of losses/claims for policyholder $i$ over all years be:
+\[\underline{X_i}=(x_{i1},\ldots,X_{in_i})\]
+
+The vector for the number of members for policyholder $i$ in all years be:
+\[\underline{m_i}=(m_{i1},\ldots,m_{in_i})\]
+
+We then have the following relations:
+\begin{align*}
+m_i&=\sum_{j=1}^{n_i}m_{ij}\\
+m&=\sum_{i=1}^rm_i
+=\sum_{i=1}^r\sum_{j=1}^{n_i}m_{ij}\\
+\bar{X}_i&=\frac{1}{m_i}\sum_{j=1}^{n_i}m_{ij}X_{ij}\\
+\bar{X}&=\frac{1}{m}\sum_{i=1}^r\bar{X}_i
+=\frac{1}{m}\sum_{i=1}^r\sum_{j=1}^{n_i}m_{ij}X_{ij}
+\end{align*}
+
+We assume that $X_1,\ldots, X_r$ are independent, this is reasonable to think that different groups claims will be independent of each other.  For each $i$, given $\Theta_i$, $X_{i1},\ldots, X_{in_i}$ are independent.  $\Theta_i$ are independentally and identically distributed, $i=1,2,\ldots,r$.  Similary to the previous credibility premiums we can define the ``structure parameters'' $\mu, v$ and $a$.
+
+\section*{Lecture 18}
+Our goal is to estimate the parameters $\mu, v$ and $a$ in the B\"{u}hlmann and B\"{u}hlmann-Straub models given the data.
+
+\subsection{Structure parameters}
+From our sample $(Y_1,\ldots,Y_n)$ we get the following observed values $(y_1,\ldots,y_n)$.  From this we can construct our estimator $\hat{\theta}(Y_1,\ldots,Y_n)$ from our estimate values $\hat{\theta}(y_1,\ldots,y_n)$, such that $\hat\theta$ is unbiased.  If we make some additional assumptions about $Y_i$, $i=1,\ldots,n$ then we can get some additional results:
+\enuma{
+\item If $Y_1,\ldots,Y_n$ are independent and have the same mean $\mu=\ex{Y_j}$ and the same variance $\sigma^2=\var{Y_j}$ for $j=1,2,\ldots,n$, then:
+\begin{align*}
+\ex{\bar{Y}}&=\mu\\
+\ex{\frac{1}{n-1}\sum_{j=1}^n(y_j-\bar{Y})^2}&=\sigma^2
+\end{align*}
+
+\item If, given $\Theta$, $Y_1,\ldots,Y_n$ are independent and have the same conditional mean $\condex{Y_j}{\Theta}=\mu(\Theta)$ and the same conditional variance $\condvar{Y_j}{\Theta}=\sigma^2(\Theta)$.  Then the conditional mean and variance of $\bar{Y}$ are:
+\begin{align*}
+\condex{\bar{Y}}{\Theta}&=\mu(\Theta)\\
+\condex{\frac{1}{n-1}\sum_{j=1}^n(y_j-\bar{Y})^2}{\Theta}&=\sigma^2(\Theta)
+\end{align*}
+}
+
+\subsection{Non-Parametric Estimation For The B\"{u}hlmann Model}
+\begin{itemize}
+\item Assume $m_{ij}=1$, $n_i=n>1$, $i=1,\ldots,r$, $m=nr$.  Then we have the following:
+\begin{align*}
+\bar{X}_i&=\frac{1}{n}\sum_{j=1}^nx_{ij}\\
+\bar{X}&=\frac{1}{rn}\sum_{i=1}^r\sum_{j=1}^nX_{ij}
+\end{align*}
+
+\item Given $\Theta_i$, $X_{i1},\ldots,X_{in}$ are independent, $i=1,\ldots,n$, however $\underline{X_1},\ldots,\underline{X_r}$ are unconditionally independent.  Where $\underline{X_i}=(X_{i1},\ldots,X_{in})$
+
+\item Since $\Theta_1, \Theta_2,\ldots, \Theta_r$ are indepenedentely and identically distributed.
+\begin{align*}
+\mu(\Theta_i)&=\condex{X_{ij}}{\Theta_i}\\
+v(\Theta_i)&=\condvar{X_{ij}}{\Theta_i}\\
+\mu&=\ex{\mu(\Theta_i)}\\
+v&=\ex{v(\Theta_i)}\\
+a_i&=\var{\mu(\Theta_i)}\text{ }i=1,2,\ldots,r
+\end{align*}
+
+\item We can get unbiased estimators for our parameters $\mu,v$ and $a$.
+\enum{
+\item $\hat\mu=\bar{X}$ is unbiased for $\mu$
+\begin{align*}
+\ex{\hat\mu}&=\frac{1}{nr}\sum_{i=1}^r\sum_{j=1}^n\ex{\underbrace{\condex{X_{ij}}{\Theta_i}}_{\mu(\Theta_i)}}
+=\frac{1}{nr}\sum_{i=1}^r\sum_{j=1}^n\mu
+=\mu
+\end{align*}
+Note that $\bar{X}_i$ is also unbiased for $\mu$
+
+\item Given $i$ and $\Theta_i$, $X_{i1},\ldots, X_{in}$ are independent with the same conditional mean $\mu(\Theta_i)$ and conditional variance $v(\Theta_i)$
+\begin{align*}
+\hat{v}_i&=\frac{1}{n-1}\sum_{j=1}^n(X_{ij}-\bar{X}_i)^2\\
+\condex{\hat{v}_i}{\Theta_i}&=v(\Theta_i)\\
+\rightarrow \ex{\hat{v}_i}&=\ex{v(\Theta_i)}
+=v
+\end{align*}
+Then $\hat{v}_i$ is unbiased for $v$, $i=1,2,\ldots, r$.  Note that:
+\[\hat{v}=\frac{1}{r}\sum_{i=1}^r\hat{v}_i\]
+is unbiased for $v$.
+}
+\end{itemize}
+\section*{Lecture 19}
+Recall for the non-parametric estimation for the B\"{u}hlmann model we have that:
+\enum{
+\item $\hat\mu=\bar{X}$
+\item $\hat{v}=\frac{1}{r}\sum\limits_{i=1}^r\hat{v}_i$, where $\hat{v}_i=\frac{1}{n-1}\sum_{j=1}^n(X_{ij}-\bar{X}_i)^2$
+\item 
+\begin{align*}
+\condex{\bar{X}_i}{\Theta_i}&=\frac{1}{n}\sum-{j=1}^n\condex{X_{ij}}{\Theta_i}
+=\frac{1}{n}\sum_{j=1}^k\mu(\Theta_i)\\
+\rightarrow \ex{\bar{X}_i}&=\frac{1}{n}\sum_{j=1}^n\ex{\mu(\Theta_i)}
+=\mu\\
+\var{\bar{X}_i}&=\var{\condex{\bar{X}_i}{\Theta}}+\ex{\condvar{\bar{X}_i}{\Theta}}
+=\var{\mu(\Theta_i)}+\ex{\frac{v(\Theta_i)}{n}}
+=a+\frac{v}{n}
+\end{align*}
+
+\item IF we view $Y_1=\bar{X}_1,\ldots,Y_r=\bar{X}_r$, we know losses between groups are independent by our assumptions, therefore $\bar{X}_1,\ldots,\bar{X}_r$ are independent.
+
+We want an unbiased estimator for $a$, so we will do some noodling around to get one.  Recall that previously we showed that $\frac{1}{r-1}\sum_{i=1}^r(\bar{X}_i-\bar{X})^2$ is showed to be unbiased for $\var{\bar{X}_i}=a+\frac{v}{n}$.  So we currently have:
+\[\ex{\frac{1}{r-1}\sum_{i=1}^r(\bar{X}_i-\bar{X})^2}=a+\frac{v}{n}\]
+
+by subtracting $\frac{v}{n}$ from both sides we get that an unbiased estimator for $a$ is:
+\[\hat{a}=\frac{1}{r-1}\sum_{i=1}^r(\bar{X}_i-\bar{X})^2-\frac{\hat{v}}{n}\]
+}
+
+Recall the B\"{u}hlmann premium for policy holder $i$:
+\[Z\bar{X}_i+(1-Z)\mu\]
+Where $Z=\frac{n}{n+k}$ and $k=\frac{v}{a}$.
+
+Now the estimatee B\"{u}hlmann premium for policy holder $i$ is:
+\[\hat{Z}\bar{X}_i+(1-\hat{Z})\hat{\mu}\]
+Where $\hat{Z}=\frac{n}{n+\hat{k}}$ and $\hat{k}=\frac{\hat{v}}{\hat{a}}$.  We just substitute the estimate parameters from the data.  Note that $\hat{k}$ is not usually unbiased for $k$, similarly $\hat{Z}$ is not usually unbiased for $Z$.
+
+Sometimes $\hat{a}\le 0$ which makes the interpretation of the partial credibility silly.  We can't have negative weights, therefore $\hat{Z}=0$ when this occurs.
+
+\begin{example}
+In a B\"{u}hlmann model, $2$ policy holders with $3$ years of experience have the following recorded losses:
+
+\begin{center}
+\begin{tabular}{c|c|cc}
+Observed Risk & (Group) Policyholder & $1$ & $2$\\
+\hline
+(Year) Unit &  & &\\
+$1$ && $3$ & $6$\\
+$2$ && $5$ & $12$\\
+$3$ && $7$ & $9$\\ 
+$\bar{X}_i$ && $5$ & $9$
+\end{tabular}
+\end{center}
+
+We have that $r=2$ and $n=3$, we can just jump straight into calculating the associated values:
+\begin{align*}
+\bar{X}_1&=5\\
+\bar{X}_2&=9\\
+\hat{\mu}&=\bar{X}
+=\frac{5+9}{2}
+=7\\
+\hat{v}_1&=\frac{1}{3-1}\brac{(3-5)^2+(5-5)^2+(7-5)^2}
+=4\\
+\hat{v}_2&=\frac{1}{3-1}\brac{(6-9)^2+(12-9)^2+(9-9)^2}
+=9\\
+\hat{v}&=\frac{4+9}{2}
+=\frac{13}{2}\\
+\hat{a}&=\frac{1}{r-1}\sum_{i=1}^r(\bar{X}_i-\bar{X})^2-\frac{\hat{v}}{n}
+=\frac{1}{2-1}\sum_{i=1}^2(\bar{X}_i-7)^2-\frac{\frac{13}{2}}{3}
+=(5-7)^2+(19-7)^2-\frac{13}{6}
+=\frac{35}{36}\\
+\hat{k}&=\frac{\hat{v}}{\hat{a}}
+=\frac{\frac{13}{2}}{\frac{35}{36}}
+=\frac{39}{35}\\
+\hat{Z}&=\frac{n}{n+\hat{k}}
+=\frac{3}{3+\frac{39}{35}}
+=\frac{35}{48}
+\end{align*}
+
+The estimated B\"{u}hlmann premium for policyholder $1$ in year $4$ is:
+\[\hat{Z}\bar{X}_1+(1-\hat{Z})\hat{\mu}=\frac{133}{24}\]
+
+The estimated B\"{u}hlmann premium for policyholder $2$ in year $4$ is:
+\[\hat{Z}\bar{X}_2+(1-\hat{Z})\hat{\mu}=\frac{203}{24}\]
+\end{example}
+
+\subsection{Estimate For The B\"{u}hlmann-Straub Model}
+We are interested in the same non-parametric approach to estimating parameters in this model.  Of course we need to start off with the assumptions of the model.  We have our claims $X_{ij}$, $i=1,\ldots,r$ and $j=1,\ldots,n_i>1$.  With our associated conditional expectation and variances:
+\begin{align*}
+\condex{X_{ij}}{\Theta_i}&=\mu(\Theta_i)\\
+m_{ij}\condvar{X_{ij}}{\Theta_i}&=v(\Theta_i)
+\end{align*}
+
+We can derive unbiased estimators for the parameters like before.  An unbiased estimator for $\mu$ is $\hat{\mu}_i$:
+\begin{align*}
+\hat{\mu}&=\bar{X}
+=\frac{1}{m}\sum_{i=1}^r\sum_{j=1}^{n_i}m_{ij}X_{ij}
+=\frac{1}{m}\sum_{i=1}^rm_i\bar{X}_i
+\end{align*}
+
+An unbiased estimator for $v$ is $\hat{v}$:
+\begin{align*}
+\hat{v}&=\frac{1}{\sum_{i=1}^r(n_i-1)}\sum_{i=1}^r(n_i-1)\hat{v}_i\\
+\hat{v}_i&=\frac{1}{n_i-1}\sum_{j=1}^{n_i}m_{ij}(X_{ij}-\bar{X}_i)^2
+\end{align*}
+
+\section*{Lecture 20}
+\recall{
+In the B\"{u}hlmann-Straub model we have the following assumptions and quantities:
+
+$X_{ij}$ is the claim amount with, $i=1,\ldots,r$ groups and $j=1,\ldots,n_i$ years of experience.  There are $m_{ij}$ units within each $i$th group and $j$th year.
+
+\begin{align*}
+m_i&=\sum_{j=1}^{n_i}m_{ij}\\
+m&=\sum_{i=1}^rm_i
+=\sum_{i=1}^r\sum_{j=1}^{n_i}m_{ij}\\
+\bar{X}_i&=\frac{1}{m_{ij}}\sum_{j=1}^{n_i}m_{ij}X_{ij}\\
+\bar{X}&=\frac{1}{m}\sum_{i=1}^rm_i\bar{X}_i
+=\frac{1}{m}\sum_{i=1}^r\sum_{j=1}^{n_i}m_{ij}X_{ij}
+\end{align*}
+
+$X_{i1}\mid\Theta_i,\ldots,X_{in_i}\mid\Theta_i$ are independent.  $\underline{X_1},\ldots,\underline{X_n}$ are independent as well.  $\Theta_1,\ldots,\Theta_r$ are identically and inpendently distributed.
+
+\begin{align*}
+\mu(\Theta_i)&=\condex{X_{ij}}{\Theta_i}\\
+v(\Theta_i)&=m_{ij}\condvar{X_{ij}}{\Theta_i}\\
+\mu&=\ex{\mu(\Theta_i)}\\
+v&=\ex{v(\Theta_i)}\\
+a&=\var{\mu(\Theta_i)}
+\end{align*}
+
+We also have the following estimators for the parameters in the model:
+\begin{itemize}
+\item $\hat\mu=\bar X$ is the unbiased estimator for $\mu$.
+
+\item
+\begin{align*}
+\hat{v}_i&=\frac{\sum_{j=1}^{n_i}m_{ij}(X_{ij}-\bar{X}_i)^2}{n_i-1}\\
+\hat{v}&=\frac{1}{\sum\limits_{i=1}^r(n_i-1)}\sum\limits_{i=1}^r(n_i-1)\hat{v}_i
+\end{align*}
+In this case $\hat{v}$ is the unbiased estimator for $v$.
+
+\item 
+\[\hat{a}=\frac{1}{m-\frac{\sum\limits_{i=1}^r m_i^2}{m}}\brac{\sum\limits_{i=1}^rm_i(\bar{X}_i-\bar{X})^2-(r-1)\hat{v}}\]
+$\hat{a}$ is unbiased for $a$.
+\end{itemize}
+}
+
+\prf{
+\begin{align*}
+\condvar{\bar{X}_i}{\Theta_i}
+&=\sum\limits_{j=1}^{n_i}\brac{\frac{m_{ij}}{m_i}}^2\condvar{X_{ij}}{\Theta_i}
+=\sum\limits_{j=1}^{n_i}\brac{\frac{m_{ij}}{m_i}}^2\frac{v(\Theta_i)}{m_{ij}}
+=\frac{v(\Theta_i)}{m_i}\\
+\rightarrow \var{\bar{X}_i}&=\var{\condex{\bar{X}_i}{\Theta_i}}+\ex{\condvar{\bar{X}_i}{\Theta_i}}
+=\var{\mu(\Theta_i)}+\ex{\frac{v(\Theta_i)}{m_i}}
+=a+\frac{v}{m_i}
+\end{align*}
+We have that:
+\begin{align*}
+\sum\limits_{i=1}^r m_i(\bar{X}_i-\bar{X})^2
+&=\sum\limits_{i=1}^r m_i(\bar{X}_i-\bar{X}-\mu+\mu)^2
+=\ldots
+=\sum\limits_{i=1}^rm_i(\bar{X}_i-\mu)^2-m(\bar{X}-\mu)^2\\
+\rightarrow \ex{\sum\limits_{i=1}^r m_i(\bar{X}_i-\bar{X})^2}
+&=\sum\limits_{i=1}^r m_i\ex{(\bar{X}_i-\mu)^2}-m\ex{(\bar{X}-\mu)^2}
+=\sum\limits_{i=1}^r m_i\var{\bar{X}_i}-m\var{\bar{X}}
+=\sum\limits_{i=1}^r m_i\brac{a+\frac{v}{m_i}}-m\cdot\frac{1}{m^2}\sum\limits_{i=1}^r m_i^2\brac{a+\frac{v}{m_i}}
+=\sum\limits_{i=1}^r m_ia+rv-\frac{1}{m}\sum\limits_{i=1}^rm_i^2a+m_iv
+=ma+rv-\frac{1}{m}\brac{a\sum\limits_{i=1}^rm_i^2+mv}
+=a\brac{m-\frac{1}{m}\sum\limits_{i=1}^rm_i^2}+v(r-1)\text{ }(1)
+\end{align*}
+
+Be rearranging $(1)$ we get that:
+\[\hat{a}=\frac{1}{m=\frac{\sum\limits_{i=1}^rm_i^2}{m}}\sum\limits_{i=1}^rm_i(\bar{X}_i\bar{X})^2-(r-1)\hat{v}\]
+is unbiased for $a$.
+}
+
+\begin{itemize}
+\item For a policyholder $i$ we have:
+\begin{align*}
+\hat{k}&=\frac{\hat{v}}{\hat{a}}\\
+\hat{Z}_i&=\frac{m_i}{m_i+\hat{k}}
+\end{align*}
+The premium for each member of the policy is:
+\[\hat{Z}_i\bar{X}_i+(1-\hat{Z}_i)\hat{\mu}\]
+The premium for policyholder $i$ is:
+\[m_{in+1}\brac{\hat{Z}_i\bar{X}_i+(1-\hat{Z}_i)\hat{\mu}}\]
+
+\item If $\hat{a}\le 0$, we set $\hat{Z}_i=0$.
+\end{itemize}
+
+Total loss (TL) of all policy holders in observed units is:
+\[\text{TL}=\sum\limits_{i=1}^rm_i\bar{X}_i\]
+
+Total premium (TP) for all policyholders in year $n+1$ is:
+\[\text{TP}=\sum\limits_{i=1}^rm_i\brac{\hat{Z}_i\bar{X}_i+(1-\hat{Z}_i)\hat{\mu}}\]
+
+In the B\"{u}hlmann-Straub model we can now derive a new estimator for $\mu$ with these associated quantities.
+
+\begin{align*}
+\text{TP}&=\sum\limits_{i=1}^rm_i\brac{\hat{Z}_i\bar{X}_i+(1-\hat{Z}_i)\hat{\mu}}
+=\sum\limits_{i=1}^rm_i(1-\hat{Z}_i)(\hat{\mu}-\bar{X}_i)+\underbrace{\sum\limits_{i=1}^rm_i\bar{X}_i}_{\text{TL}}
+\end{align*}
+
+If we assume a net premium of $0$, so TL$=$TP, then we have:
+\begin{align*}
+\sum\limits_{i=1}^r\hat{Z}_i(\hat{\mu}-\bar{X}_i)&=0\\
+\rightarrow\hat{\mu}&=\frac{\sum\limits_{i=1}^r\hat{Z}_i\bar{X}_i}{\sum\limits_{i=1}^r\hat{Z}_i}
+\end{align*}
+
+This is usually not unbiased, however in some cases it is useful in practice.
+
+\section*{Lecture 21}
+\eg{
+Past claims data on two group policyholders is given as:
+
+\begin{center}
+\begin{tabular}{c|c|cccc}
+Policyholder & Year & $1$ & $2$ & $3$ & $4$\\
+\hline
+Total Claims In Group 1 & & & 750 & 600 & \\
+Number In Group & & & 3 & 2 & 4\\
+\hline
+Total Claims In Group 2 & & 975 & 1200 & 900 &\\
+Number in Group & & 5 & 6 & 4 & 5
+\end{tabular}
+\end{center}
+\enum{
+\item Calculate the unbiased estimates for $\mu$, $v$ and $a$ in the B\"{u}hlmann-Straub model.
+\begin{align*}
+\bar{X}_1&=\frac{750+600}{3+2}
+=270\\
+\bar{X}_2&=\frac{975+1200+900}{5+6+4}
+=205\\
+\bar{X}&=\frac{5}{20}\bar{X}_1+\frac{15}{20}
+=221.25\\
+\hat{\mu}&=\bar{X}
+=221.25\\
+\hat{v}_1&=\frac{3\brac{\frac{750}{3}-270}^2+2\brac{\frac{600}{2}-270}^2}{2-1}
+=3000\\
+\hat{v}_2&=\frac{5\brac{\frac{975}{5}-205}^2+6\brac{\frac{1200}{6}-205}^2+4\brac{\frac{900}{4}-205}^2}{3-1}
+=1125\\
+\hat{v}&=\frac{1}{\sum_{i=1}^r(n_i-1)}\sum_{i=1}^r(n_i-1)\hat{v}_i
+=\frac{(2-1)(3000)+(3-1)(1125)}{(2-1)+(3-1)}
+=1750\\
+\hat{a}&=\frac{1}{m-\frac{\sum_{i=1}^rm_i^2}{m}}\brac{\sum_{i=1}^rm_i(\bar{X}_i-\bar{X})^2-(r-1)\hat{v}}
+=\frac{1}{(5+15)-\frac{5^2+15^2}{20}}\brac{5(270-221.25)^2+15(205-221.25)^2-(2-1)(1750)}
+=1879.1\overline{6}
+\end{align*}
+
+\item Determine the B\"{u}hlmann-Straub premium for each policyholder in year $4$.
+
+\begin{align*}
+\hat{k}&=\frac{\hat{v}}{\hat{a}}
+=0.931263858\ldots\\
+\hat{Z}_1&=\frac{m_1}{m_1+\hat{k}}
+=\frac{5}{5+0.9312\ldots}
+=0.843\\
+\hat{Z}_2&=\frac{m_2}{m_2+\hat{k}}
+=0.9415
+\end{align*}
+
+The premium for policy holder $1$ in year $4$ is:
+\[4(\hat{Z}_1\bar{X}_1+(1-\hat{Z})\hat{\mu})=1049.38\]
+
+The premium for policy holder $2$ in year $4$ is:
+\[5(\hat{Z}_2\bar{X}_2+(1-\hat{Z})\hat{\mu})=1029.75\]
+
+\item Redo part $(2)$ if $\mu$ is estimated by credibility weighted average.
+
+In this case:
+\[\hat{\mu}=\frac{0.843\cdot 270+0.9415\cdot 205}{0.843+0.9415}=235.7061\]
+
+The premium for group $1$ in year $4$ is:
+\[4(0.843\cdot 270+0.157\cdot 235.7061)=1058.44\]
+}
+}
+
+\section{Semiparametric Estimation For B\"{u}hlmann-Straub Model}
+Assume that $f_{X_{ij}\mid\Theta_i}(x_{ij}\mid\theta_i)$ is given, but the distribution of $\Theta_i$ is unknown.  We assume $n_i=1$ for $i=1,2,\ldots,r$ and the only data available is $X_{i1}$, $i=1,\ldots, r$.  Essentially we only have one year of experience for all groups.
+
+\subsection{Poisson Parametric Model}
+$X_{i1}$ is the average number of claims for group (policyholder) $i$ in the last year and $m_{i1}X_{i1}\mid\Theta_{i}\sim\text{Poi}(m_{i1}\Theta_i)$.
+
+We can derive the parameters and their respective estimators under these assumptions:
+\begin{align*}
+\mu(\Theta_i)&=\condex{X_{i1}}{\Theta_i}
+=\frac{m_{i1}\Theta_i}{m_{i1}}
+=\Theta_i\\
+v(\Theta_i)&=\frac{1}{m_{i1}}\condvar{X_{i1}}{\Theta_i}
+=\Theta_i\\
+\rightarrow \mu&=v =\ex{\Theta_i}
+\end{align*}
+Therefore $\bar{X}$ is unbiased for $\mu$ and $v$.
+
+\begin{align*}
+\var{X_{i1}}&=\ex{\condvar{X_{i1}}{\Theta_i}}+\var{\condex{X_{i1}}{\Theta_i}}
+=a+v
+=a+\mu
+\end{align*}
+
+In the B\"{u}hlmann-Straub model $X_{11},\ldots X_{r1}$ are independent.  So:
+\[\frac{1}{r-1}\sum_{i=1}^r(X_{i1}-\bar{X})^2\]
+is unbiased for $a+v$.
+
+This means that:
+\[\hat{a}=\frac{1}{r-1}\sum_{i=1}^r(X_{i1}-\bar{X})^2-\hat{\mu}\]
+is unbiased for $a$.
+
+
+\section*{Lecture 22}
+\subsection{Semiparametric Estimation for The B\"{u}hlmann-Straub Model}
+Given the conditional distribution $f_{X_{ij}\mid\Theta_i}(x_{ij}\mid\theta_i)$, however we do not know the unconditional distribution of $\Theta_i$.  We also have that $\underline{X}_1,\underline{X}_2,\ldots, \underline{X}_r,$ are independent.
+
+Recall the assumptions for the Poisson Parametric Model, if $n_i=1, m_{i1}=1$:
+\begin{align*}
+m_{ij}X_{ij}\mid\Theta_i&\sim\text{Poi}(m_{ij}\Theta_i)\\
+\mu&=v\\
+\var{X_{i1}}&=a+v\\
+\bighat{a+v}&=\frac{1}{r-1}\sum_{i=1}^r(X_{i1}-\bar{X})^2
+\hat{a}&=\frac{1}{r-1}\sum_{i=1}^r(X_{i1}-\bar{X})^2-\bar{X}
+\end{align*}
+
+\eg{
+In the past year, the distribution function of automobile insurance policyholders log of the number of claims is given by:
+\begin{center}
+\begin{tabular}{c|c}
+Number of Claims & Number of Policyholders/Insureds\\
+\hline
+0 & 1563\\
+1 & 271\\
+2 & 32\\
+3 & 7\\
+4 & 2\\
+\hline
+Total & 1875
+\end{tabular}
+\end{center}
+
+For each policyholder obtain a credibility estimate for the number of claims next year.  Assume a conditional Poisson distribution function of the number of claims for each policyholders.
+
+So for this group we have the following quantities
+\[r=1875\qquad i=1,\ldots,1875\qquad n_i=1 \qquad m_{i1}=1\qquad X_{i1}\mid\Theta_i\sim\text{Poi}(\Theta_i)\]
+
+We can now calculate our estimators for the credibility parameters:
+\begin{align*}
+\hat{\mu}&=\bar{X}
+=\frac{1}{r}\sum_{i=1}^rX_{i1}
+=\frac{0\cdot 1563+1\cdot 271+2\cdot 32+3\cdot 7+4\cdot 2}{1875}
+=0.194\\
+\hat{a}&=\frac{1}{1875-1}\cdot((0-0.194)^2\cdot 1563+(1-0.194)^2\cdot 271+(2-0.194)^2\cdot 32 + (3-0.194)^2\cdot 7+(4-0.194)^2\cdot 2)
+=0.032\\
+\hat{k}&=\frac{\hat{v}}{\hat{a}}
+=\frac{0.194}{0.032}
+=6.06\\
+\hat{Z}&=\frac{n}{n+\hat{k}}
+=\frac{1}{1+6.06}
+=0.14
+\end{align*}
+
+Estimated credibility premium for the number of claims in the next year for policyholder $i$ is:
+\[\hat{Z}X_{i1}+(1-\hat{Z})\hat{\mu}=0.14X_{i1}+0.86\cdot 0.194\qquad i=1,2,\ldots,1875\]
+
+If $X_{i1}=0$ then the premium is 0.16684.
+If $X_{i1}=1$ then the premium is 0.30684.
+If $X_{i1}=2$ then the premium is 0.44684.
+If $X_{i1}=3$ then the premium is 0.58684.
+If $X_{i1}=4$ then the premium is 0.72684.
+}
+
+\subsection{Binomial Parametric Model}
+\begin{align*}
+m_{ij}X_{ij}\mid\Theta_i=\theta_i&\sim\text{Bin}(m_{ij},\theta_i)\\
+\mu(\theta_i)&=\condex{X_{ij}}{\Theta_i=\theta_i}
+=\frac{m_{ij}\theta_i}{m_{ij}}
+=\theta_i\\
+v(\theta_i)&=m_{ij}\condvar{X_{ij}}{\Theta_i=\theta_i}
+=m_{ij}\cdot\frac{m_{ij} \theta_i(1-\theta_i)}{m_{ij}^2}
+=\theta_i(1-\theta_i)
+\end{align*}
+\section*{Lecture 23}
+\section*{Lecture 24}
+\section*{Lecture 25}
+\section*{Lecture 26}
+\section*{Lecture 27}
+\section*{Lecture 28}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
